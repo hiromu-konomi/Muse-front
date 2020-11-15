@@ -1,4 +1,6 @@
 <template>
+
+<!-- SlackとGitHubが連携できてるか確認 -->
   <v-app>
     <v-app-bar
       app
