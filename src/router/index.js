@@ -1,11 +1,17 @@
-import Vue from "vue";
-import VueRouter from "vue-router";
-import Main from "../views/Main.vue";
-import Signup from "../views/Signup.vue";
-import Signin from "../views/Signin.vue";
-import Admin from "../views/Admin.vue";
-import Inquiry from "../components/admin/Inquiry.vue";
-import Report from "../components/admin/Report.vue";
+
+import Vue from 'vue'
+import VueRouter from 'vue-router'
+import Main from '../views/Main.vue'
+import Signup from '../views/Signup.vue'
+import Signin from "../views/Signin.vue"
+import Admin from '../views/Admin.vue'
+import Home from "../components/main/Home.vue"
+import Notification from "../components/main/Notification.vue"
+import Ranking from "../components/main/Ranking.vue"
+import Group from "../components/main/Group.vue"
+import Mypage from "../components/main/Mypage.vue"
+import Explore from "../components/main/Explore.vue"
+import Support from "../components/main/Support.vue"
 
 Vue.use(VueRouter);
 
@@ -16,11 +22,45 @@ const routes = [
     component: Main,
   },
   {
-    path: "/admin",
-    name: "Admin",
-    component: Admin,
+    path: '/admin',
+    name: 'Admin',
+    component: Admin
   },
   {
+    path: "/home",
+    name: "home",
+    component: Home
+  },
+  {
+    path: "/notification",
+    name: "notification",
+    component: Notification
+  },
+  {
+    path: "/ranking",
+    name: "ranking",
+    component: Ranking
+  },
+  {
+    path: "/group",
+    name: "group",
+    component: Group
+  },
+  {
+    path: "/mypage",
+    name: "mypage",
+    component: Mypage
+  },
+  {
+    path: "/explore",
+    name: "explore",
+    component: Explore
+  },
+  {
+    path: "/support",
+    name: "support",
+    component: Support
+  },
     path: "/inquiry",
     name: "Inquiry",
     component: Inquiry,
