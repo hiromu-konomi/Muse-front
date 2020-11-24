@@ -12,6 +12,8 @@ import Group from "../components/main/Group.vue"
 import Mypage from "../components/main/Mypage.vue"
 import Explore from "../components/main/Explore.vue"
 import Support from "../components/main/Support.vue"
+import Inquiry from "../components/admin/Inquiry.vue"
+import Report from "../components/admin/Report.vue"
 
 Vue.use(VueRouter);
 
@@ -61,6 +63,7 @@ const routes = [
     name: "support",
     component: Support
   },
+  {
     path: "/inquiry",
     name: "Inquiry",
     component: Inquiry,
