@@ -1,3 +1,4 @@
+
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Main from '../views/Main.vue'
@@ -12,23 +13,13 @@ import Mypage from "../components/main/Mypage.vue"
 import Explore from "../components/main/Explore.vue"
 import Support from "../components/main/Support.vue"
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
 const routes = [
   {
-    path: '/',
-    name: 'Main',
-    component: Main
-  },
-  {
-    path: '/signup',
-    name: 'Signup',
-    component: Signup
-  },
-  {
-    path: '/signin',
-    name: 'Signin',
-    component: Signin
+    path: "/",
+    name: "Main",
+    component: Main,
   },
   {
     path: '/admin',
@@ -70,12 +61,31 @@ const routes = [
     name: "support",
     component: Support
   },
-]
+    path: "/inquiry",
+    name: "Inquiry",
+    component: Inquiry,
+  },
+  {
+    path: "/report",
+    name: "Report",
+    component: Report,
+  },
+  {
+    path: "/signup",
+    name: "Signup",
+    component: Signup,
+  },
+  {
+    path: "/signin",
+    name: "Signin",
+    component: Signin,
+  },
+];
 
 const router = new VueRouter({
-  mode: 'history',
+  mode: "history",
   base: process.env.BASE_URL,
-  routes
-})
+  routes,
+});
 
-export default router
+export default router;

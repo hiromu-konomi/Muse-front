@@ -1,14 +1,31 @@
-import Vue from 'vue'
-import App from './App.vue'
-import router from './router'
-import store from './store'
-import vuetify from './plugins/vuetify';
+import Vue from "vue";
+import App from "./App.vue";
+import router from "./router";
+import vuetify from "./plugins/vuetify";
+import firebase from "firebase";
+import store from "./store";
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+var firebaseConfig = {
+  apiKey: "AIzaSyD_Ni-GZi8H6JFCKIDAdZFXvK3ibAcYjN4",
+  authDomain: "music-app-56cdc.firebaseapp.com",
+  databaseURL: "https://music-app-56cdc.firebaseio.com",
+  projectId: "music-app-56cdc",
+  storageBucket: "music-app-56cdc.appspot.com",
+  messagingSenderId: "791958197943",
+  appId: "1:791958197943:web:66a3a8e94145374aac1f32",
+  measurementId: "G-633CLDG4HQ",
+};
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+firebase.analytics();
 
 new Vue({
   router,
   store,
   vuetify,
-  render: h => h(App)
-}).$mount('#app')
+  render: (h) => h(App),
+}).$mount("#app");
