@@ -1,8 +1,8 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Main from "../views/Main.vue";
-import SignUp from "../views/SignUp.vue";
-import SignIn from "../views/SignIn.vue";
+import Signup from "../views/Signup.vue";
+import Signin from "../views/Signin.vue";
 import Admin from "../views/Admin.vue";
 
 Vue.use(VueRouter);
@@ -20,13 +20,13 @@ const routes = [
   },
   {
     path: "/signup",
-    name: "SignUp",
-    component: SignUp,
+    name: "Signup",
+    component: Signup,
   },
   {
     path: "/signin",
-    name: "SignIn",
-    component: SignIn,
+    name: "Signin",
+    component: Signin,
   },
 ];
 
