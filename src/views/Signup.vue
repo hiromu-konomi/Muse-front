@@ -3,11 +3,11 @@
     <v-layout row wrap justify-center>
       <v-flex xs5 mt-5>
         <v-card class="elevation-12">
-          <v-toolbar-title> ユーザー登録 </v-toolbar-title>
+          <v-toolbar-title>ユーザー登録</v-toolbar-title>
           <v-card-text>
             <v-form>
               <v-text-field
-                　type="email"
+                type="email"
                 prepend-icon="mdi-email"
                 label="メールアドレス"
                 v-model="email"
