@@ -30,13 +30,13 @@
     data () {
       return {
         items: [
-          { title: 'Home', icon: 'mdi-home', link: 'name: "Home"' },
-          { title: 'Notification', icon: 'mdi-bell', link: 'name: "Notification"' },
-          { title: 'Ranking', icon: 'mdi-crown', link: 'name: "Ranking"' },
-          { title: 'Group', icon: 'mdi-human-greeting', link: 'name: "Group"' },
-          { title: 'Mypage', icon: 'mdi-emoticon', link: 'name: "Mypage"' },
-          { title: 'Explore', icon: 'mdi-magnify', link: 'name: "Explore"' },
-          { title: 'Support', icon: 'mdi-feather', link: 'name: "Support"' },
+          { title: 'Home', icon: 'mdi-home', link: {name: "home"}},
+          { title: 'Notification', icon: 'mdi-bell', link: {name: "notification"}},
+          { title: 'Ranking', icon: 'mdi-crown', link: {name: "ranking"}},
+          { title: 'Group', icon: 'mdi-human-greeting', link: {name: "group"} },
+          { title: 'Mypage', icon: 'mdi-emoticon', link: {name: "mypage"} },
+          { title: 'Explore', icon: 'mdi-magnify', link: {name: "explore"} },
+          { title: 'Support', icon: 'mdi-feather', link: {name: "support"} },
         ],
         right: null,
       }
