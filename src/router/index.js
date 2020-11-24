@@ -4,6 +4,8 @@ import Main from "../views/Main.vue";
 import Signup from "../views/Signup.vue";
 import Signin from "../views/Signin.vue";
 import Admin from "../views/Admin.vue";
+import Inquiry from "../components/admin/Inquiry.vue";
+import Report from "../components/admin/Report.vue";
 
 Vue.use(VueRouter);
 
@@ -17,6 +19,16 @@ const routes = [
     path: "/admin",
     name: "Admin",
     component: Admin,
+  },
+  {
+    path: "/inquiry",
+    name: "Inquiry",
+    component: Inquiry,
+  },
+  {
+    path: "/report",
+    name: "Report",
+    component: Report,
   },
   {
     path: "/signup",
