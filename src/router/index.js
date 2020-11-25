@@ -24,9 +24,18 @@ const routes = [
     component: Main,
   },
   {
-    path: '/admin',
-    name: 'Admin',
-    component: Admin
+    path: "/admin",
+    name: "Admin",
+    component: Admin,
+    children: [{
+      path: "inquiry",
+      name: "Inquiry",
+      component: Inquiry,
+    },{
+      path: "report",
+      name: "Report",
+      component: Report,
+    }]
   },
   {
     path: "/home",
@@ -64,16 +73,6 @@ const routes = [
     component: Support
   },
   {
-    path: "/inquiry",
-    name: "Inquiry",
-    component: Inquiry,
-  },
-  {
-    path: "/report",
-    name: "Report",
-    component: Report,
-  },
-  {
     path: "/signup",
     name: "Signup",
     component: Signup,
@@ -92,3 +91,4 @@ const router = new VueRouter({
 });
 
 export default router;
+
