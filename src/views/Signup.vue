@@ -18,7 +18,6 @@
                 label="パスワード"
                 v-model="password"
               ></v-text-field>
-              <div calss="text-danger">{{ error }}</div>
               <div class="text-center">
                 <v-card-actions>
                   <v-btn @click="onSubmit">登録</v-btn>
@@ -39,7 +38,6 @@ export default {
     return {
       email: "",
       password: "",
-      error: "",
     };
   },
   methods: {
@@ -47,20 +45,40 @@ export default {
       firebase
         .auth()
         .createUserWithEmailAndPassword(this.email, this.password)
-        .then(() => this.sendEmail(this.email))
-        .catch((e) => (this.error = e.message));
+        .then((res) => {
+          let user = res.user;
+          console.log(user);
+          firebase
+            .firestore()
+            .collection("users")
+            .add({
+              userId: user.uid,
+              email: user.email,
+            })
+            .then(() => {
+              this.$store.dispatch("sendEmail");
+            })
+            .catch((e) => console.log(e.message));
+        });
     },
-    sendEmail() {
-      const actionCodeSettings = {
-        url: "http://" + location.host + "/signin",
-      };
-      firebase.auth().languageCode = "ja";
-      const user = firebase.auth().currentUser;
-      user
-        .sendEmailVerification(actionCodeSettings)
-        .then(() => alert("認証メールを送りました"))
-        .catch((e) => console.log(e));
-    },
+    //   onSubmit() {
+    //     firebase
+    //       .auth()
+    //       .createUserWithEmailAndPassword(this.email, this.password)
+    //       .then(() => this.sendEmail(this.email))
+    //       .catch((e) => console.log(e.message));
+    //   },
+    //   sendEmail() {
+    //     const actionCodeSettings = {
+    //       url: "http://" + location.host + "/signin",
+    //     };
+    //     firebase.auth().languageCode = "ja";
+    //     const user = firebase.auth().currentUser;
+    //     user
+    //       .sendEmailVerification(actionCodeSettings)
+    //       .then(() => alert("認証メールを送りました"))
+    //       .catch((e) => console.log(e));
+    //   },
   },
 };
 </script>
