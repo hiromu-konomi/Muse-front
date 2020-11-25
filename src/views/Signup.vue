@@ -2,7 +2,7 @@
   <v-container>
     <v-layout row wrap justify-center>
       <v-flex xs5 mt-5>
-        <v-card class="text-center">
+        <v-card class="text-center" id="registerUser">
           <v-toolbar-title>ユーザー登録</v-toolbar-title>
           <v-card-text>
             <v-form>
@@ -11,18 +11,20 @@
                 prepend-icon="mdi-email"
                 label="メールアドレス"
                 v-model="email"
+                outlined
               ></v-text-field>
               <v-text-field
-                type="password"
+                :append-icon="toggle.icon"
+                :type="toggle.type"
+                outlined
                 prepend-icon="mdi-lock"
                 label="パスワード"
                 v-model="password"
+                @click:append="show = !show"
               ></v-text-field>
-              <div class="text-center">
-                <v-card-actions>
-                  <v-btn @click="onSubmit">登録</v-btn>
-                </v-card-actions>
-              </div>
+              <v-card-actions class="registerBtn">
+                <v-btn @click="onSubmit">登録</v-btn>
+              </v-card-actions>
             </v-form>
           </v-card-text>
         </v-card>
@@ -38,7 +40,15 @@ export default {
     return {
       email: "",
       password: "",
+      show: false,
     };
+  },
+  computed: {
+    toggle() {
+      const icon = this.show ? "mdi-eye" : "mdi-eye-off";
+      const type = this.show ? "text" : "password";
+      return { icon, type };
+    },
   },
   methods: {
     onSubmit() {
@@ -61,6 +71,7 @@ export default {
             .catch((e) => console.log(e.message));
         });
     },
+
     //   onSubmit() {
     //     firebase
     //       .auth()
@@ -82,3 +93,12 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+#registerUser {
+  margin-top: 100px;
+}
+.registerBtn {
+  margin-left: 180px;
+}
+</style>
