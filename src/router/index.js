@@ -22,6 +22,35 @@ const routes = [
     path: "/",
     name: "Main",
     component: Main,
+    children: [{
+    path: "/home",
+    name: "home",
+    component: Home,
+    },{
+    path: "/notification",
+    name: "notification",
+    component: Notification
+    },{
+    path: "/ranking",
+    name: "ranking",
+    component: Ranking
+    },{
+      path: "/group",
+      name: "group",
+      component: Group
+    },{
+      path: "/mypage",
+      name: "mypage",
+      component: Mypage
+    },{
+      path: "/explore",
+      name: "explore",
+      component: Explore
+    },{
+    path: "/support",
+    name: "support",
+    component: Support
+  }]
   },
   {
     path: "/admin",
@@ -36,41 +65,6 @@ const routes = [
       name: "Report",
       component: Report,
     }]
-  },
-  {
-    path: "/home",
-    name: "home",
-    component: Home
-  },
-  {
-    path: "/notification",
-    name: "notification",
-    component: Notification
-  },
-  {
-    path: "/ranking",
-    name: "ranking",
-    component: Ranking
-  },
-  {
-    path: "/group",
-    name: "group",
-    component: Group
-  },
-  {
-    path: "/mypage",
-    name: "mypage",
-    component: Mypage
-  },
-  {
-    path: "/explore",
-    name: "explore",
-    component: Explore
-  },
-  {
-    path: "/support",
-    name: "support",
-    component: Support
   },
   {
     path: "/signup",
