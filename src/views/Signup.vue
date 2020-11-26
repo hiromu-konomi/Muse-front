@@ -56,21 +56,37 @@ export default {
         .auth()
         .createUserWithEmailAndPassword(this.email, this.password)
         .then((res) => {
-          let user = res.user;
-          console.log(user);
-          firebase
-            .firestore()
-            .collection("users")
-            .add({
-              userId: user.uid,
-              email: user.email,
-            })
-            .then(() => {
-              this.$store.dispatch("sendEmail");
-            })
-            .catch((e) => console.log(e.message));
-        });
+          console.log(res.user);
+
+          firebase.firestore().collection("users").add({
+            userId: res.user.uid,
+            email: res.user.email,
+          });
+
+          res.user.sendEmailVerification({
+            url: "http://" + window.location.host + "/signin",
+          });
+        })
+        .then(() => {
+          alert("認証メールを送信しました");
+        })
+        .catch((e) => console.log(e.message));
     },
+    // sendEmail() {
+    //   const actionCodeSettings = {
+    //     url: "http://" + window.location.host + "/signin",
+    //   };
+    //   firebase.auth().languageCode = "ja";
+    //   const user = firebase.auth().currentUser;
+    //   user
+    //     .sendEmailVerification(actionCodeSettings)
+    //     .then(function () {
+    //       alert("認証メールを送信しました");
+    //     })
+    //     .catch(function (error) {
+    //       console.log(error);
+    //     });
+    // },
 
     //   onSubmit() {
     //     firebase
