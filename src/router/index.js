@@ -14,6 +14,8 @@ import Explore from "../components/main/Explore.vue"
 import Support from "../components/main/Support.vue"
 import Inquiry from "../components/admin/Inquiry.vue"
 import Report from "../components/admin/Report.vue"
+import Postform from "../views/PostForm.vue"
+import Searchsong from "../views/SearchSong"
 
 Vue.use(VueRouter);
 
@@ -75,6 +77,16 @@ const routes = [
     path: "/signin",
     name: "Signin",
     component: Signin,
+  },
+  {
+    path: "/postform",
+    name: "Postform",
+    component: Postform,
+  },
+  {
+    path: "/searchsong",
+    name: "Searchsong",
+    component: Searchsong,
   },
 ];
 
