@@ -21,7 +21,17 @@
         </v-list-item>
       </v-list>
 
-    <v-btn color="green" block type="submit" to="/postform">+Add Music</v-btn>
+      <v-layout row wrap justify-center>
+        <v-flex class="text-center" xs8 mt-5>
+          <v-row class="sideBtn">
+            <v-btn color="green" block type="submit" to="/postform">+Add Music</v-btn>
+          </v-row>
+          <v-row class="sideBtn">
+            <v-btn color="yellow" block type="submit" to="/addGroup">+Add Group</v-btn>
+          </v-row>
+        </v-flex>
+      </v-layout>
+
     </v-navigation-drawer>
     </v-content>
     </v-app>
@@ -45,3 +55,9 @@
     },
   }
 </script>
+
+<style scoped>
+.sideBtn {
+  margin-top: 20px;
+}
+</style>

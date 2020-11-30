@@ -1,4 +1,3 @@
-
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Main from '../views/Main.vue'
@@ -16,7 +15,8 @@ import Inquiry from "../components/admin/Inquiry.vue"
 import Report from "../components/admin/Report.vue"
 import Postform from "../views/PostForm.vue"
 import Searchsong from "../views/SearchSong"
-import RegisterUserDetail from "../views/RegisterUserDetail";
+import RegisterUserDetail from "../views/RegisterUserDetail"
+import AddGroup from "../views/AddGroup.vue"
 
 Vue.use(VueRouter);
 
@@ -104,6 +104,11 @@ const routes = [
     path: "/userDetail",
     name: "userDetail",
     component: RegisterUserDetail,
+  },
+  {
+    path: "/addGroup",
+    name: "addGroup",
+    component: AddGroup,
   },
 ];
 
