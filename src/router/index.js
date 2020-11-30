@@ -16,6 +16,7 @@ import Inquiry from "../components/admin/Inquiry.vue"
 import Report from "../components/admin/Report.vue"
 import Postform from "../views/PostForm.vue"
 import Searchsong from "../views/SearchSong"
+import RegisterUserDetail from "../views/RegisterUserDetail";
 
 Vue.use(VueRouter);
 
@@ -24,49 +25,60 @@ const routes = [
     path: "/",
     name: "Main",
     component: Main,
-    children: [{
-    path: "/home",
-    name: "home",
-    component: Home,
-    },{
-    path: "/notification",
-    name: "notification",
-    component: Notification
-    },{
-    path: "/ranking",
-    name: "ranking",
-    component: Ranking
-    },{
-      path: "/group",
-      name: "group",
-      component: Group
-    },{
-      path: "/mypage",
-      name: "mypage",
-      component: Mypage
-    },{
-      path: "/explore",
-      name: "explore",
-      component: Explore
-    },{
-    path: "/support",
-    name: "support",
-    component: Support
-  }]
+    children: [
+      {
+        path: "/home",
+        name: "home",
+        component: Home,
+      },
+      {
+        path: "/notification",
+        name: "notification",
+        component: Notification,
+      },
+      {
+        path: "/ranking",
+        name: "ranking",
+        component: Ranking,
+      },
+      {
+        path: "/group",
+        name: "group",
+        component: Group,
+      },
+      {
+        path: "/mypage",
+        name: "mypage",
+        component: Mypage,
+      },
+      {
+        path: "/explore",
+        name: "explore",
+        component: Explore,
+      },
+      {
+        path: "/support",
+        name: "support",
+        component: Support,
+      },
+    ],
   },
   {
     path: "/admin",
     name: "Admin",
     component: Admin,
-    children: [{
-      path: "inquiry",
-      name: "Inquiry",
-      component: Inquiry,
-    },{
-      path: "report",
-      name: "Report",
-      component: Report,
-    }]
+    children: [
+      {
+        path: "inquiry",
+        name: "Inquiry",
+        component: Inquiry,
+      },
+      {
+        path: "report",
+        name: "Report",
+        component: Report,
+      },
+    ],
   },
   {
     path: "/signup",
@@ -88,6 +100,11 @@ const routes = [
     name: "Searchsong",
     component: Searchsong,
   },
+  {
+    path: "/userDetail",
+    name: "userDetail",
+    component: RegisterUserDetail,
+  },
 ];
 
 const router = new VueRouter({
@@ -97,4 +114,3 @@ const router = new VueRouter({
 });
 
 export default router;
-

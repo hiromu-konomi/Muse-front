@@ -1,10 +1,11 @@
+
 import Vue from 'vue'
 import Vuex from 'vuex'
 import { UPDATE_CURRENT } from "@/mutation-types";
-
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 export default new Vuex.Store({
+
   state: {
     music_data: [],
     current: null,
