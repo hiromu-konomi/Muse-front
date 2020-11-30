@@ -5,12 +5,13 @@
         <v-card class="text-center" id="registerUser">
           <v-toolbar-title>ユーザー登録</v-toolbar-title>
           <v-card-text>
-            <v-form>
+            <v-form ref="form">
               <v-text-field
                 type="email"
                 prepend-icon="mdi-email"
                 label="メールアドレス"
                 v-model="email"
+                :rules="[emailRules]"
                 outlined
               ></v-text-field>
               <v-text-field
@@ -20,11 +21,12 @@
                 prepend-icon="mdi-lock"
                 label="パスワード"
                 v-model="password"
+                :rules="[passwordRules, passwordLimit]"
                 @click:append="show = !show"
               ></v-text-field>
-              <v-card-actions class="registerBtn">
+              <div class="test-center">
                 <v-btn @click="onSubmit">登録</v-btn>
-              </v-card-actions>
+              </div>
             </v-form>
           </v-card-text>
         </v-card>
@@ -40,7 +42,13 @@ export default {
     return {
       email: "",
       password: "",
+
       show: false,
+      emailRules: (value) => !!value || "メールアドレスを入力してください",
+      passwordRules: (value) => !!value || "パスワードを入力してください",
+      passwordLimit: (value) =>
+        /^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?\d)[a-zA-Z\d]{8,15}$/.test(value) ||
+        "8文字以上15文字以下で入力してください。ただし半角英小文字大文字数字を含んでください",
     };
   },
   computed: {
@@ -52,60 +60,28 @@ export default {
   },
   methods: {
     onSubmit() {
-      firebase
-        .auth()
-        .createUserWithEmailAndPassword(this.email, this.password)
-        .then((res) => {
-          console.log(res.user);
+      if (this.$refs.form.validate()) {
+        firebase
+          .auth()
+          .createUserWithEmailAndPassword(this.email, this.password)
+          .then(async (res) => {
+            console.log(res.user);
+            firebase.auth().languageCode = "ja";
+            await firebase.firestore().collection("users").add({
+              userId: res.user.uid,
+              email: res.user.email,
+            });
 
-          firebase.firestore().collection("users").add({
-            userId: res.user.uid,
-            email: res.user.email,
-          });
-
-          res.user.sendEmailVerification({
-            url: "http://" + window.location.host + "/signin",
-          });
-        })
-        .then(() => {
-          alert("認証メールを送信しました");
-        })
-        .catch((e) => console.log(e.message));
+            await res.user.sendEmailVerification({
+              url: "http://" + window.location.host + "/signin",
+            });
+          })
+          .then(() => {
+            alert("認証メールを送信しました");
+          })
+          .catch((e) => console.log(e.message));
+      }
     },
-    // sendEmail() {
-    //   const actionCodeSettings = {
-    //     url: "http://" + window.location.host + "/signin",
-    //   };
-    //   firebase.auth().languageCode = "ja";
-    //   const user = firebase.auth().currentUser;
-    //   user
-    //     .sendEmailVerification(actionCodeSettings)
-    //     .then(function () {
-    //       alert("認証メールを送信しました");
-    //     })
-    //     .catch(function (error) {
-    //       console.log(error);
-    //     });
-    // },
-
-    //   onSubmit() {
-    //     firebase
-    //       .auth()
-    //       .createUserWithEmailAndPassword(this.email, this.password)
-    //       .then(() => this.sendEmail(this.email))
-    //       .catch((e) => console.log(e.message));
-    //   },
-    //   sendEmail() {
-    //     const actionCodeSettings = {
-    //       url: "http://" + location.host + "/signin",
-    //     };
-    //     firebase.auth().languageCode = "ja";
-    //     const user = firebase.auth().currentUser;
-    //     user
-    //       .sendEmailVerification(actionCodeSettings)
-    //       .then(() => alert("認証メールを送りました"))
-    //       .catch((e) => console.log(e));
-    //   },
   },
 };
 </script>
