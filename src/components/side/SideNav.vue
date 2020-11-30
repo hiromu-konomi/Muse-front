@@ -1,8 +1,7 @@
 <template>
-  
+  <v-app>
+    <v-content>
     <v-navigation-drawer permanent absolute>
-     
-
       <v-list
         dense
         nav
@@ -21,8 +20,11 @@
           </v-list-item-content>
         </v-list-item>
       </v-list>
-    </v-navigation-drawer>
 
+    <v-btn color="green" block type="submit" to="/postform">+Add Music</v-btn>
+    </v-navigation-drawer>
+    </v-content>
+    </v-app>
 </template>
 
 <script>
