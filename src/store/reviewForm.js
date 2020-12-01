@@ -2,7 +2,7 @@ import { UPDATE_CURRENT } from "@/mutation-types";
 
 const reviewForm = {
   state: {
-    usic_data: [],
+    music_data: [],
     current: null,
   },
   getters: {
