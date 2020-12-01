@@ -37,6 +37,7 @@
 
 <script>
 import firebase from "firebase";
+import { mapGetters } from "vuex";
 export default {
   data() {
     return {
@@ -64,15 +65,18 @@ export default {
         firebase
           .auth()
           .createUserWithEmailAndPassword(this.email, this.password)
-          .then(async (res) => {
+          .then((res) => {
             console.log(res.user);
             firebase.auth().languageCode = "ja";
-            await firebase.firestore().collection("users").add({
-              userId: res.user.uid,
-              email: res.user.email,
-            });
+            // await firebase
+            //   .firestore()
+            //   .collection(`users/${this.uid}/userDetail`)
+            //   .add({
+            //     userId: res.user.uid,
+            //     email: res.user.email,
+            //   });
 
-            await res.user.sendEmailVerification({
+            res.user.sendEmailVerification({
               url: "http://" + window.location.host + "/signin",
             });
           })
@@ -82,6 +86,7 @@ export default {
           .catch((e) => console.log(e.message));
       }
     },
+    ...mapGetters(["uid"]),
   },
 };
 </script>
