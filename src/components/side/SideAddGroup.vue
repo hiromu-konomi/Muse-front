@@ -55,9 +55,6 @@ export default {
         addGroup: async function() {
             if (this.$refs.form.validate()) {
                 await axios.post('http://localhost:8080/createGroup', this.group)
-                await alert("成功！")
-            } else {
-                await alert("失敗！")
             }
         }
     }
