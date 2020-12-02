@@ -1,7 +1,5 @@
 <template>
-  <v-app>
-    <v-content>
-    <v-navigation-drawer permanent absolute>
+    <v-navigation-drawer permanent absolute app>
       <v-list
         dense
         nav
@@ -33,8 +31,6 @@
       </v-layout>
 
     </v-navigation-drawer>
-    </v-content>
-    </v-app>
 </template>
 
 <script>
