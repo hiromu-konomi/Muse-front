@@ -4,6 +4,7 @@
     parmanent
     right
     width="500"
+    app
     >
         <v-form>
             <v-container>
