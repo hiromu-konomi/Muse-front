@@ -10,6 +10,7 @@
         <v-container center fill-height>
     <v-form ref="form" label-width="120px" class="user-name">
         <h3>ユーザー名</h3>
+        <!-- {{ userName }} -->
     </v-form>
         </v-container>
 
@@ -49,6 +50,7 @@
 <script>
 import MusicInfo from "../components/Info/MusicInfo"
 import { mapGetters } from "vuex";
+// import axios from 'axios'
 
  
 export default {
@@ -61,6 +63,7 @@ export default {
         return {
             music: {},
             value: '',
+            userName: '',
 
             selectedGenre: '', 
             janre: [ 
@@ -78,12 +81,22 @@ export default {
     computed: {
     ...mapGetters(["current"]),
   },
-  created() {
-    if (!this.current) {
+  created: async function () {
+    //   await this.refresh();
+
+      if (!this.current) {
       this.$router.push("/postform");
     }
     this.music = Object.assign({}, this.current);
-  },
+    },
+
+    //  methods: {
+    //   refresh: async function () {
+    //     const res = await axios.get('http://localhost:8080/postform')
+    //     this.userName = res.data.userName
+    //     console.info(this.userName)
+    //   }
+    // }
 }
 
 </script>
