@@ -1,5 +1,5 @@
 <template>
-    <v-navigation-drawer permanent absolute app>
+    <v-navigation-drawer permanent app>
       <v-list
         dense
         nav
