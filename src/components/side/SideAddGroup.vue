@@ -1,22 +1,22 @@
 <template>
-    <v-navigation-drawer permanent absolute :width="350" app>
+    <v-navigation-drawer permanent :width="350" fixed app>
         <v-card style="height: 100%;">
             <v-card-title style="height: 10%;">
-                <v-btn class="bg" icon :to="{name: 'home'}">
-                    <v-icon large>mdi-close</v-icon>
-                </v-btn>
                 <span>グループを作成</span>
+                <v-btn class="bg" icon :to="{name: 'home'}" absolute right>
+                    <v-icon large color="white">mdi-close</v-icon>
+                </v-btn>
             </v-card-title>
 
             <v-divider></v-divider>
 
             <v-card-text style="height: 80%;">
-                <v-form ref="form">
+                <v-form>
                     <v-text-field
                         type="text"
                         label="グループ名"
                         v-model="group.groupName"
-                        :rules="[textRules]"
+                        
                         outlined
                     ></v-text-field>
                     <v-text-field
@@ -47,16 +47,16 @@ export default {
                 groupName: "",
             },
 
-            textRules: (value) => !!value || "グループ名を入力してください",
+            // textRules: (value) => !!value || "グループ名を入力してください",
         }
     },
 
     methods: {
         addGroup: async function() {
-            if (this.$refs.form.validate()) {
-                // await axios.post('http://localhost:8080/createGroup', this.group)
-                this.$router.push("/groupInfo")
-            }
+            // if (this.$refs.form.validate()) {
+            //     // await axios.post('http://localhost:8080/createGroup', this.group)
+            // }
+            this.$router.push("/groupInfo")
         }
     }
 }
@@ -64,6 +64,6 @@ export default {
 
 <style scoped>
 .bg {
-    background-color: #DDDDDD;
+    background-color: #FFABCE;
 }
 </style>
