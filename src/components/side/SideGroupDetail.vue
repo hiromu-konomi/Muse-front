@@ -2,8 +2,8 @@
     <v-navigation-drawer permanent :width="350" app>
         <v-card style="height: 100%;">
             <v-card-title style="height: 10%;">
-                <span >グループ</span>
-                <v-btn class="bg" icon :to="{name: 'home'}" absolute right>
+                <span class="font-weight-bold">グループ</span>
+                <v-btn class="purple accent-1" icon :to="{name: 'home'}" absolute right>
                     <v-icon color="white">mdi-home</v-icon>
                 </v-btn>
             </v-card-title>
@@ -27,8 +27,8 @@
 
                 <v-layout wrap justify-center>
                     <v-flex class="text-center" xs8 mt-5>
-                        <v-btn color="yellow" block type="submit" to="/addGroup" class="sideBtn">
-                            +Add Group
+                        <v-btn color="yellow accent-2" block type="submit" to="/addGroup" class="sideBtn">
+                            <span class="font-weight-bold">＋ 新しいグループを作成</span>
                         </v-btn>
                     </v-flex>
                 </v-layout>
@@ -68,8 +68,8 @@ export default {
 </script>
 
 <style scoped>
-.bg {
-    background-color: #D0B0FF;
+span {
+    font-family: 'メイリア';
 }
 .tfma {
     margin-top: 20px;

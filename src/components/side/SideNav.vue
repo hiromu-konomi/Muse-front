@@ -22,10 +22,14 @@
       <v-layout row wrap justify-center>
         <v-flex class="text-center" xs8 mt-5>
           <v-row class="sideBtn">
-            <v-btn color="green" block type="submit" to="/postform">+Add Music</v-btn>
+            <v-btn color="pink accent-3" block type="submit" to="/postform">
+              <span class="white--text font-weight-bold">+Add Music</span>
+            </v-btn>
           </v-row>
           <v-row class="sideBtn">
-            <v-btn color="yellow" block type="submit" to="/addGroup">+Add Group</v-btn>
+            <v-btn color="yellow accent-2" block type="submit" to="/addGroup">
+              <span class="font-weight-bold">+Add Group</span>
+            </v-btn>
           </v-row>
         </v-flex>
       </v-layout>

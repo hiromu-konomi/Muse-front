@@ -2,8 +2,8 @@
     <v-navigation-drawer permanent :width="350" fixed app>
         <v-card style="height: 100%;">
             <v-card-title style="height: 10%;">
-                <span>グループを作成</span>
-                <v-btn class="bg" icon :to="{name: 'home'}" absolute right>
+                <span class="font-weight-bold">グループを作成</span>
+                <v-btn class="pink accent-1" icon :to="{name: 'home'}" absolute right>
                     <v-icon large color="white">mdi-close</v-icon>
                 </v-btn>
             </v-card-title>
@@ -30,7 +30,9 @@
 
             <v-card-actions style="height: 10%;">
                 <v-layout justify-center>
-                    <v-btn color="info" :width="250" @click="addGroup">作成</v-btn>
+                    <v-btn color="blue accent-3" :width="250" @click="addGroup">
+                        <span class="white--text font-weight-bold">作成</span>
+                    </v-btn>
                 </v-layout>
             </v-card-actions>
         </v-card>
@@ -65,5 +67,8 @@ export default {
 <style scoped>
 .bg {
     background-color: #FFABCE;
+}
+span {
+    font-family: 'メイリオ';
 }
 </style>
