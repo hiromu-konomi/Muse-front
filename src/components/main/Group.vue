@@ -1,16 +1,20 @@
-<template>
-    <v-container text-xs-center justify-center>
-        <v-layout justify-center>
-            <v-flex xs9 mt-5>
-                <v-card color="#385F73" dark>
-                    <v-card-text>グループ名lllllllllllllllllllllllllll</v-card-text>
-                </v-card>
-            </v-flex>
-        </v-layout>
-    </v-container>
+<template>   
+    <v-card color="deep-purple accent-4" dark tile>
+        <v-card-text>
+            <v-layout wrap justify-center>
+                <h1 class="white--text">Group</h1>
+            </v-layout>
+        </v-card-text>
+    </v-card>
 </template>
 
 <script>
 export default {
 }
 </script>
+
+<style scoped>
+h1 {
+    font-family: 'メイリオ';
+}
+</style>
