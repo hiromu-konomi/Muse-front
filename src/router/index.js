@@ -17,6 +17,10 @@ import Postform from "../views/PostForm.vue"
 import Searchsong from "../views/SearchSong"
 import RegisterUserDetail from "../views/RegisterUserDetail"
 import AddGroup from "../views/AddGroup.vue"
+import GroupDetail from "../views/GroupDetail.vue"
+import GroupInfo from "../components/group/GroupInfo.vue"
+import GroupChat from "../components/group/GroupChat.vue"
+import GroupMember from "../components/group/GroupMember.vue"
 
 Vue.use(VueRouter);
 
@@ -107,8 +111,30 @@ const routes = [
   },
   {
     path: "/addGroup",
-    name: "addGroup",
+    name: "AddGroup",
     component: AddGroup,
+  },
+  {
+    path: "/groupDetail",
+    name: "GroupDetail",
+    component: GroupDetail,
+    children: [
+      {
+        path: "/groupInfo",
+        name: "GroupInfo",
+        component: GroupInfo,
+      },
+      {
+        path: "/groupChat",
+        name: "GroupChat",
+        component: GroupChat,
+      },
+      {
+        path: "/groupMember",
+        name: "GroupMember",
+        component: GroupMember,
+      },
+    ],
   },
 ];
 
