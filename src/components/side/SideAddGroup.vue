@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+// import axios from 'axios'
 
 export default {
     data() {
@@ -54,7 +54,8 @@ export default {
     methods: {
         addGroup: async function() {
             if (this.$refs.form.validate()) {
-                await axios.post('http://localhost:8080/createGroup', this.group)
+                // await axios.post('http://localhost:8080/createGroup', this.group)
+                this.$router.push("/groupInfo")
             }
         }
     }
