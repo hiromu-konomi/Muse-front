@@ -12,11 +12,11 @@ const userDetail = {
     },
   },
   actions: {
-    async findByUserId({ commit }, userId) {
+    async findByUserId({ commit }, userNum) {
       await axios
         .get("http://localhost:8080/users", {
           params: {
-            userId: userId,
+            userNum: userNum,
           },
         })
         .then((response) => {

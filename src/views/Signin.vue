@@ -69,11 +69,11 @@ export default {
 
               console.log("ログインユーザー" + this.$store.state.login_user);
               await this.setUserId(user.uid);
-              this.userId = await this.$store.state.userId;
+              // this.userNum = await this.$store.state.userNum;
 
-              console.log("userId = " + this.$store.state.userId);
+              console.log("userId = " + this.$store.state.userNum);
 
-              await this.findByUserId(this.$store.state.userId);
+              await this.findByUserId(this.$store.state.userNum);
 
               console.log(this.$store.state.uDetail.userInformation);
 
