@@ -111,9 +111,9 @@ export default {
     // },
 
     async onSubmit() {
-      console.log(Object.assign({}, this.form, this.$store.state.userId));
+      console.log(Object.assign({}, this.form, this.$store.state.userNum));
       await this.addUserDetail(
-        Object.assign({}, this.form, this.$store.state.userId)
+        Object.assign({}, this.form, this.$store.state.userNum)
       );
       this.$router.push("/home");
       this.form = {};
