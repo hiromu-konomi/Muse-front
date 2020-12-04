@@ -1,16 +1,16 @@
 <template>
 <div id="form">
     <div class="text-center">
-        <v-container center fill-height>
+        <v-container center fill-height :linkable="false">
         <h3>お気に入りの曲を選択</h3>
         <MusicInfo :music="music" class="music"></MusicInfo>
         <v-btn to="/searchsong">曲を検索する</v-btn>
         </v-container>
         <hr />
         <v-container center fill-height>
-    <v-form ref="form" label-width="120px" class="user-name">
+    <v-form ref="form" label-width="120px" class="user-name" v-model="userName">
         <h3>ユーザー名</h3>
-        <!-- {{ userName }} -->
+        {{ userName }}
     </v-form>
         </v-container>
 
@@ -49,7 +49,7 @@
 
 <script>
 import MusicInfo from "../components/Info/MusicInfo"
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 // import axios from 'axios'
 
  
@@ -82,21 +82,19 @@ export default {
     ...mapGetters(["current"]),
   },
   created: async function () {
-    //   await this.refresh();
+      await this.refresh("300");
 
       if (!this.current) {
-      this.$router.push("/postform");
+      this.$router.push("/home");
     }
     this.music = Object.assign({}, this.current);
+    this.userName = this.$store.state.rForm.userName;
     },
 
-    //  methods: {
-    //   refresh: async function () {
-    //     const res = await axios.get('http://localhost:8080/postform')
-    //     this.userName = res.data.userName
-    //     console.info(this.userName)
-    //   }
-    // }
+    methods: {
+        ...mapActions(["refresh"]),
+    },
+
 }
 
 </script>
