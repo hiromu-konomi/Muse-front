@@ -1,31 +1,33 @@
 <template>
-<v-app>
- <v-content>
- <v-form>
-<v-container>
-    <v-row>
-        <v-col>
-            <v-text-field
-              label="Search Song"
-               class="search"
-               v-model="search_music_name"
-               type="text">
-               <template v-slot:append>
-                <v-icon type="button" @click="search_music">mdi-magnify</v-icon>
-               </template>
-            </v-text-field>
-        </v-col>
-    </v-row>
-</v-container>
- </v-form>
-                <MusicInfo
-                  v-for="music of musics" :key="music.id"
-                  :linkable="true"
-                  :music="music"
-                  class="music"
-                  ></MusicInfo>
- </v-content>
-</v-app>
+    <v-app>
+        <v-content>
+            <v-form>
+                <v-container>
+                    <v-row>
+                        <v-col>
+                            <v-text-field
+                                label="Search Song"
+                                class="search"
+                                v-model="search_music_name"
+                                type="text"
+                            >
+                                <template v-slot:append>
+                                    <v-icon type="button" @click="search_music">mdi-magnify</v-icon>
+                                </template>
+                            </v-text-field>
+                        </v-col>
+                    </v-row>
+                </v-container>
+            </v-form>
+            <MusicInfo
+                v-for="music of musics" :key="music.id"
+                :linkable="true"
+                :music="music"
+                class="music"
+            >
+            </MusicInfo>
+        </v-content>
+    </v-app>
 </template>
 
 <script>
