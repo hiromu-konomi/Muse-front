@@ -2,7 +2,7 @@
     <div>
         <SideNav />
         <SideSearch />
-        <v-main>
+        <v-main fluid>
             <router-view />
         </v-main>
     </div>

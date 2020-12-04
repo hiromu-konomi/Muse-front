@@ -1,9 +1,9 @@
 <template>
-    <v-card></v-card>
+    <h1>member</h1>
 </template>
 
 <script>
 export default {
-    
+    name: 'GroupMember',
 }
 </script>
