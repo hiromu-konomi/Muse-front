@@ -10,7 +10,7 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
   state: {
     login_user: null,
-    userId: null,
+    userNum: null,
   },
   getters: {
     uid: (state) => (state.login_user ? state.login_user.uid : null),
@@ -22,8 +22,8 @@ const store = new Vuex.Store({
     deleteLoginUser(state) {
       state.login_user = null;
     },
-    setUserId(state, userId) {
-      state.userId = userId;
+    setUserId(state, userNum) {
+      state.userNum = userNum;
     },
   },
   actions: {
@@ -36,8 +36,8 @@ const store = new Vuex.Store({
     deleteLoginUser({ commit }) {
       commit("deleteLoginUser");
     },
-    setUserId({ commit }, userId) {
-      commit("setUserId", userId);
+    setUserId({ commit }, userNum) {
+      commit("setUserId", userNum);
     },
   },
   modules: {
