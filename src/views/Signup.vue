@@ -68,13 +68,6 @@ export default {
           .then((res) => {
             console.log(res.user);
             firebase.auth().languageCode = "ja";
-            // await firebase
-            //   .firestore()
-            //   .collection(`users/${this.uid}/userDetail`)
-            //   .add({
-            //     userId: res.user.uid,
-            //     email: res.user.email,
-            //   });
 
             res.user.sendEmailVerification({
               url: "http://" + window.location.host + "/signin",

@@ -1,32 +1,37 @@
+import axios from "axios";
+
 const userDetail = {
   state: {
-    userId: "",
+    userInformation: [],
   },
   getters: {},
   mutations: {
-    // setUserId(state, userId) {
-    //   state.userId = userId;
-    //   console.log("state.userId=" + state.userId);
-    // },
+    getUserDetail(state, userInformation) {
+      console.log("getUserDetail = " + userInformation);
+      state.userInformation = userInformation;
+    },
   },
   actions: {
-    // fetchUserId({ getters, commit }) {
-    //   console.log("getters.uid =" + getters.uid);
-    //   if (getters.uid) {
-    //     firebase
-    //       .firestore()
-    //       .collection(`users/${getters.uid}/userDetail`)
-    //       .get()
-    //       .then((snapshot) => {
-    //         snapshot.forEach((doc) =>
-    //           commit("getUserId", { payload: doc.data })
-    //         );
-    //       });
-    //   }
-    // },
-    // setUserId({ commit }, userId) {
-    //   console.log("userId=" + userId), commit("setUserId", userId);
-    // },
+    async findByUserId({ commit }, userId) {
+      await axios
+        .get("http://localhost:8080/users", {
+          params: {
+            userId: userId,
+          },
+        })
+        .then((response) => {
+          console.log("response=" + response.data);
+          commit("getUserDetail", response.data);
+        })
+        .catch((reason) => console.log(reason));
+    },
+
+    async addUserDetail({ commit }, user) {
+      await axios
+        .post("http://localhost:8080/userDetail", user)
+        .then(commit("getUserDetail", user))
+        .catch((reason) => console.log(reason));
+    },
   },
 };
 

@@ -6,8 +6,8 @@
           <v-toolbar-title>プロフィール設定</v-toolbar-title>
           <v-card-text>
             <v-form :model="form">
-              <v-row justify="center">
-                <v-avatar v-if="uploadImageUrl" size="62">
+              <!-- <v-row justify="center"> -->
+              <!-- <v-avatar v-if="uploadImageUrl" size="62">
                   <img :src="uploadImageUrl" alt="Avater" />
                 </v-avatar>
               </v-row>
@@ -17,7 +17,7 @@
                 v-model="form.img"
                 @change="onImagePicked"
               >
-              </v-file-input>
+              </v-file-input> -->
 
               <v-text-field
                 type="text"
@@ -63,7 +63,9 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 import DatePicker from "../components/DatePicker.vue";
+
 export default {
   components: {
     DatePicker,
@@ -76,7 +78,6 @@ export default {
         { occupationName: "機械学習エンジニア", id: 3 },
       ],
       form: {
-        img: [],
         userName: "",
         date: null,
         occupation: null,
@@ -85,21 +86,39 @@ export default {
       uploadImageUrl: "",
     };
   },
+  async created() {
+    // console.log("ユーザー詳細画面でのuserID =" + this.$store.state.userId);
+    // await this.findByUserId("111");
+    // console.log(this.$store.state.uDetail.userInformation);
+    // if (this.$store.state.uDetail.userInformation !== null) {
+    //   this.$router.push("/home");
+    // }
+  },
   methods: {
-    onImagePicked(file) {
-      if (file != undefined && file !== null) {
-        if (file.name.lastIndexOf(".") <= 0) {
-          return;
-        }
-        const fr = new FileReader();
-        fr.readAsDataURL(file);
-        fr.addEventListener("load", () => {
-          this.uploadImageUrl = fr.result;
-        });
-      } else {
-        this.uploadImageUrl = "";
-      }
+    // onImagePicked(file) {
+    //   if (file != undefined && file !== null) {
+    //     if (file.name.lastIndexOf(".") <= 0) {
+    //       return;
+    //     }
+    //     const fr = new FileReader();
+    //     fr.readAsDataURL(file);
+    //     fr.addEventListener("load", () => {
+    //       this.uploadImageUrl = fr.result;
+    //     });
+    //   } else {
+    //     this.uploadImageUrl = "";
+    //   }
+    // },
+
+    async onSubmit() {
+      console.log(Object.assign({}, this.form, this.$store.state.userId));
+      await this.addUserDetail(
+        Object.assign({}, this.form, this.$store.state.userId)
+      );
+      this.$router.push("/home");
+      this.form = {};
     },
+    ...mapActions(["addUserDetail", "findByUserId"]),
   },
 };
 </script>
