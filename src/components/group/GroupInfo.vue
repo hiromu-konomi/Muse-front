@@ -1,9 +1,9 @@
 <template>
-    <v-card></v-card>
+    <h1>info</h1>
 </template>
 
 <script>
 export default {
-    
+    name: 'GroupInfo',
 }
 </script>

@@ -1,7 +1,7 @@
 <template>
     <div>
         <SideAddGroup />
-        <v-content>
+        <v-main>
             <v-container>
                 <v-layout justify-center>
                     <v-flex xs9 mt-5>
@@ -13,7 +13,7 @@
                     </v-flex>
                 </v-layout>              
             </v-container>
-        </v-content>
+        </v-main>
     </div>
 </template>
 

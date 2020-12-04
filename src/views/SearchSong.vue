@@ -38,6 +38,7 @@ import MusicInfo from "../components/Info/MusicInfo.vue";
 export default {
   name: "search",
 
+
   components: {
     MusicInfo,
   },
