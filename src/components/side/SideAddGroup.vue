@@ -1,22 +1,22 @@
 <template>
-    <v-navigation-drawer permanent absolute :width="350" app>
+    <v-navigation-drawer permanent :width="350" fixed app>
         <v-card style="height: 100%;">
             <v-card-title style="height: 10%;">
-                <v-btn class="bg" icon :to="{name: 'home'}">
-                    <v-icon large>mdi-close</v-icon>
+                <span class="font-weight-bold">グループを作成</span>
+                <v-btn class="pink accent-1" icon :to="{name: 'home'}" absolute right>
+                    <v-icon large color="white">mdi-close</v-icon>
                 </v-btn>
-                <span>グループを作成</span>
             </v-card-title>
 
             <v-divider></v-divider>
 
             <v-card-text style="height: 80%;">
-                <v-form ref="form">
+                <v-form>
                     <v-text-field
                         type="text"
                         label="グループ名"
                         v-model="group.groupName"
-                        :rules="[textRules]"
+                        
                         outlined
                     ></v-text-field>
                     <v-text-field
@@ -30,7 +30,9 @@
 
             <v-card-actions style="height: 10%;">
                 <v-layout justify-center>
-                    <v-btn color="info" :width="250" @click="addGroup">作成</v-btn>
+                    <v-btn color="blue accent-3" :width="250" @click="addGroup">
+                        <span class="white--text font-weight-bold">作成</span>
+                    </v-btn>
                 </v-layout>
             </v-card-actions>
         </v-card>
@@ -38,7 +40,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+// import axios from 'axios'
 
 export default {
     data() {
@@ -47,15 +49,16 @@ export default {
                 groupName: "",
             },
 
-            textRules: (value) => !!value || "グループ名を入力してください",
+            // textRules: (value) => !!value || "グループ名を入力してください",
         }
     },
 
     methods: {
         addGroup: async function() {
-            if (this.$refs.form.validate()) {
-                await axios.post('http://localhost:8080/createGroup', this.group)
-            }
+            // if (this.$refs.form.validate()) {
+            //     // await axios.post('http://localhost:8080/createGroup', this.group)
+            // }
+            this.$router.push("/groupInfo")
         }
     }
 }
@@ -63,6 +66,9 @@ export default {
 
 <style scoped>
 .bg {
-    background-color: #DDDDDD;
+    background-color: #FFABCE;
+}
+span {
+    font-family: 'メイリオ';
 }
 </style>
