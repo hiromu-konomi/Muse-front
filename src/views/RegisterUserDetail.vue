@@ -6,18 +6,19 @@
           <v-toolbar-title>プロフィール設定</v-toolbar-title>
           <v-card-text>
             <v-form :model="form">
-              <!-- <v-row justify="center"> -->
-              <!-- <v-avatar v-if="uploadImageUrl" size="62">
+              <v-row justify="center">
+                <v-avatar v-if="uploadImageUrl" size="62">
                   <img :src="uploadImageUrl" alt="Avater" />
                 </v-avatar>
               </v-row>
               <v-file-input
                 accept="image/*"
                 label="プロフィール画像をアップロードしてください"
-                v-model="form.img"
+                v-model="userPhoto"
+                type="file"
                 @change="onImagePicked"
               >
-              </v-file-input> -->
+              </v-file-input>
 
               <v-text-field
                 type="text"
@@ -27,17 +28,17 @@
               >
               </v-text-field>
               <v-text-field
-                v-model="form.date"
+                v-model="form.hireDate"
                 single-line
                 label="入社日
               "
               >
                 <template v-slot:append-outer>
-                  <date-picker v-model="form.date"></date-picker>
+                  <date-picker v-model="form.hireDate"></date-picker>
                 </template>
               </v-text-field>
               <v-select
-                v-model="form.occupation"
+                v-model="form.depId"
                 label="部署名"
                 item-text="occupationName"
                 item-value="id"
@@ -79,11 +80,14 @@ export default {
       ],
       form: {
         userName: "",
-        date: null,
-        occupation: null,
+        hireDate: null,
+        depId: null,
         profile: "",
+        userNum: "",
       },
+      userPhoto: [],
       uploadImageUrl: "",
+      userNum: "",
     };
   },
   async created() {
@@ -95,30 +99,31 @@ export default {
     // }
   },
   methods: {
-    // onImagePicked(file) {
-    //   if (file != undefined && file !== null) {
-    //     if (file.name.lastIndexOf(".") <= 0) {
-    //       return;
-    //     }
-    //     const fr = new FileReader();
-    //     fr.readAsDataURL(file);
-    //     fr.addEventListener("load", () => {
-    //       this.uploadImageUrl = fr.result;
-    //     });
-    //   } else {
-    //     this.uploadImageUrl = "";
-    //   }
-    // },
+    onImagePicked(file) {
+      if (file != undefined && file !== null) {
+        if (file.name.lastIndexOf(".") <= 0) {
+          return;
+        }
+        const fr = new FileReader();
+        fr.readAsDataURL(file);
+        fr.addEventListener("load", () => {
+          this.uploadImageUrl = fr.result;
+        });
+      } else {
+        this.uploadImageUrl = "";
+      }
+    },
 
     async onSubmit() {
-      console.log(Object.assign({}, this.form, this.$store.state.userNum));
-      await this.addUserDetail(
-        Object.assign({}, this.form, this.$store.state.userNum)
-      );
+      this.form.userNum = this.$store.state.userNum;
+      console.log(this.form);
+
+      await this.addUserDetail(this.form);
+      this.addUserPhoto(this.userPhoto);
       this.$router.push("/home");
       this.form = {};
     },
-    ...mapActions(["addUserDetail", "findByUserId"]),
+    ...mapActions(["addUserDetail", "findByUserId", "addUserPhoto"]),
   },
 };
 </script>
