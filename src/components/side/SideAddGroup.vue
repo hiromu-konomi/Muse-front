@@ -3,8 +3,8 @@
         <v-card style="height: 100%;">
             <v-card-title style="height: 10%;">
                 <span class="font-weight-bold">グループを作成</span>
-                <v-btn class="pink accent-1" icon :to="{name: 'home'}" absolute right>
-                    <v-icon large color="white">mdi-close</v-icon>
+                <v-btn class="pink accent-2" icon :to="{name: 'home'}" absolute right>
+                    <v-icon color="white">mdi-close</v-icon>
                 </v-btn>
             </v-card-title>
 
@@ -40,13 +40,15 @@
 </template>
 
 <script>
-// import axios from 'axios'
+import firebase from 'firebase'
+import axios from 'axios'
 
 export default {
     data() {
         return {
             group: {
                 groupName: "",
+                firebaseId: "",
             },
 
             // textRules: (value) => !!value || "グループ名を入力してください",
@@ -55,9 +57,12 @@ export default {
 
     methods: {
         addGroup: async function() {
-            // if (this.$refs.form.validate()) {
-            //     // await axios.post('http://localhost:8080/createGroup', this.group)
-            // }
+            if (this.$refs.form.validate()) {
+                await firebase.auth().onAuthStateChanged((user) => {
+                    this.group.firebaseId = user.uid
+                    axios.post('http://localhost:8080/createGroup', this.group)
+                })
+            }
             this.$router.push("/groupInfo")
         }
     }
