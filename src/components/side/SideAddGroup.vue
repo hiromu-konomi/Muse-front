@@ -57,12 +57,11 @@ export default {
 
     methods: {
         addGroup: async function() {
-            if (this.$refs.form.validate()) {
-                await firebase.auth().onAuthStateChanged((user) => {
-                    this.group.firebaseId = user.uid
-                    axios.post('http://localhost:8080/createGroup', this.group)
-                })
-            }
+            await firebase.auth().onAuthStateChanged((user) => {
+                this.group.firebaseId = user.uid
+                axios.post('http://localhost:8080/createGroup', this.group)
+            })
+            
             this.$router.push("/groupInfo")
         }
     }
