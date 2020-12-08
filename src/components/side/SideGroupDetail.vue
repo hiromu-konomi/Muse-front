@@ -3,7 +3,7 @@
         <v-card style="height: 100%;">
             <v-card-title style="height: 10%;">
                 <span class="font-weight-bold">グループ</span>
-                <v-btn class="purple accent-1" icon :to="{name: 'home'}" absolute right>
+                <v-btn class="purple accent-2" icon :to="{name: 'home'}" absolute right>
                     <v-icon color="white">mdi-home</v-icon>
                 </v-btn>
             </v-card-title>
