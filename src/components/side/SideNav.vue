@@ -22,7 +22,7 @@
       <v-layout row wrap justify-center>
         <v-flex class="text-center" xs8 mt-5>
           <v-row class="sideBtn">
-            <v-btn color="pink accent-3" block type="submit" to="/postform">
+            <v-btn color="pink accent-3" block type="submit" to="/searchsong">
               <span class="white--text font-weight-bold">+Add Music</span>
             </v-btn>
           </v-row>

@@ -8,7 +8,7 @@
               <v-text-field
                 label="Search Song"
                 class="search"
-                v-model="search_music_name"
+                v-model="musicName"
                 type="text"
               >
                 <template v-slot:append>
@@ -45,9 +45,9 @@ export default {
   music_data: [],
   data() {
     return {
-      search_music_name: "",
-      searched_artist_name: "",
-      searched_picture: "",
+      musicName: "",
+      artistName: "",
+      image: "",
       searched_song: "",
       headers: [
         {
@@ -72,10 +72,10 @@ export default {
         .get("https://api.spotify.com/v1/search", {
           headers: {
             Authorization:
-              "Bearer BQCY-C4HFbO7TJIfujM1DcFb0lDrFKc0nyneg9_PaxzuPSlzH8FClkk-dnRN62yBl10qPQ77Cpu1Zo38ddg",
+              "Bearer BQB1FODw0hSU90ka3i4C4S3L6hLpgfH3sGVWvse8r-U8a_pZ7seOQpbRITAkjKDctiKuYM1OVN778sU7IRg",
           },
           params: {
-            q: this.search_music_name,
+            q: this.musicName,
             limit: "50",
             offset: "0",
             type: "track",
@@ -95,9 +95,9 @@ export default {
       for (var i = 0; i < this.music_data.tracks.items.length; i++) {
         this.musicInfo = this.music_data.tracks.items[i];
         this.musics.push({
-          searched_artist_name: this.musicInfo.artists[0].name,
-          searched_song: this.musicInfo.name,
-          searched_picture: this.musicInfo.album.images[2].url,
+          artistName: this.musicInfo.artists[0].name,
+          musicName: this.musicInfo.name,
+          image: this.musicInfo.album.images[2].url,
         });
       }
     },
