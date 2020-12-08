@@ -1,12 +1,12 @@
  <template>
   <div class="clearfix" :class="{ linkable }" @click="onclick">
     <div class="image">
-      <img :src="music.searched_picture" />
+      <img :src="music.image" />
     </div>
     <div class="details">
       <ul>
-        <li> {{ music.searched_artist_name }}</li>
-        <li> {{ music.searched_song }} </li>
+        <li> {{ music.artistName }}</li>
+        <li> {{ music.musicName }} </li>
       </ul>
     </div>
   </div>
