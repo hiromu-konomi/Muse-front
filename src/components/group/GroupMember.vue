@@ -2,11 +2,11 @@
     <v-container>
         <v-row>
             <v-col>
-                <div class="flex">
+                <!-- <div class="flex"> -->
                     <GroupMemberManager />
                     <GroupMemberUser />
                     <GroupMemberInvited />
-                </div>
+                <!-- </div> -->
             </v-col>
         </v-row>
     </v-container>
@@ -28,11 +28,11 @@ export default {
 </script>
 
 <style>
-.flex{
+/* .flex{
     display: -webkit-flex;
     display: -moz-flex;
     display: -ms-flex;
     display: -o-flex;
     display: flex;
-}
+} */
 </style>
