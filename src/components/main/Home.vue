@@ -1,5 +1,6 @@
 
-<template>   
+<template>
+    <v-components>
     <v-card color="deep-purple accent-4" dark tile>
         <v-card-text>
             <v-layout wrap justify-center>
@@ -7,11 +8,17 @@
             </v-layout>
         </v-card-text>
     </v-card>
+    <PostComponents />
+    </v-components>
 </template>
 
 <script>
-export default {
+import PostComponents from "../post/PostComponents.vue";
 
+export default {
+    components: {
+        PostComponents,
+    }
 }
 </script>
 
