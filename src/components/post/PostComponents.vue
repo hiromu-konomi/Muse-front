@@ -1,6 +1,4 @@
 <template>
-    <div id="app">
-        <v-app>
             <v-card flat outlined max-width="500"
             class="mt-3" :href="tweetUrl"
             >
@@ -43,9 +41,7 @@
                         {{ tweet.tweetedAt }}
                     </span>
                 </v-card-actions>
-            </v-card>
-        </v-app>
-    </div>
+    </v-card>
 </template>
 
 <script>
@@ -92,7 +88,5 @@ export default {
 </script>
 
 <style>
-#app {
-    margin-left: 5px;
-}
+
 </style>
