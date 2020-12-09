@@ -1,34 +1,39 @@
 <template>
-<div id="form">
-    <div class="text-center">
+<v-container>
+    <v-layout row wrap justify-center>
+      <v-flex xs5 mt-5>
+        <v-card class="text-center">
+            <v-card-text>
         <v-container center fill-height :linkable="false">
-        <h3>お気に入りの曲を選択</h3>
+        <v-toolbar-title> お気に入りの曲を選択 </v-toolbar-title>
         <MusicInfo :music="music" class="music"></MusicInfo>
         <v-btn to="/searchsong">曲を検索する</v-btn>
         </v-container>
         <hr />
         <v-container center fill-height label-width="120px" v-model="userName">
-        <h3>ユーザー名</h3>
+       <v-toolbar-title> ユーザー名 </v-toolbar-title>
         <h4>{{ userName }}</h4>
         </v-container>
 
+    <v-form label-width="120px" class="jenre" :model="genre">
         <v-container center fill-height>
-        <h3>ジャンル</h3>
+       <v-toolbar-title> ジャンル </v-toolbar-title>
        <label>
         <v-select
-         v-model="form.genreName"
+         v-model="genre.genreName"
          item-text="label"
          item-value="value"
          :items="jenre"
          label="ジャンルを選択"
-         return-object
+         required
         >
         </v-select>
         </label>
         </v-container>
-    <v-form label-width="120px" class="user-name" :model="form">
+        </v-form>
+    <v-form label-width="120px" class="review" :model="form">
         <v-container center fill-height>
-        <h3>レビュー</h3>
+        <v-toolbar-title> レビュー </v-toolbar-title>
         <v-textarea
         v-model="form.postText"
          placeholder="入力してください"
@@ -40,11 +45,13 @@
 
    <v-container center fill-height>
        <v-btn @click="onSubmit">投稿</v-btn>
-       <v-btn>削除</v-btn>
    </v-container>
 </v-form>
-    </div>
-</div>
+</v-card-text>
+</v-card>
+</v-flex>
+</v-layout>
+</v-container>
 </template>
 
 <script>
@@ -61,23 +68,18 @@ export default {
     },
     data(){
         return {
-        // info: {
-        //     searched_artist_name: null,
-        //     searched_song: null,
-        //     searched_picture: null,
-        //     review: '',
-        //     label: null,
-        //     value: null,
-        // },
-            genreName: null,
         form: {
             postText: '',
             userNum: '',
         },
+        genre: {
+            genreName: '',
+            postId: '',
+        },
             music: {},
             userName: '',
         jenre: [ 
-          { label: '邦楽', value: '邦楽' }, 
+          { label: "邦楽", value: "邦楽" }, 
           { label: '洋楽', value: '洋楽' }, 
           { label: 'KPOP', value: 'KPOP' },
           { label: 'アニメ/ゲーム', value: 'アニメ/ゲーム' }, 
@@ -92,9 +94,7 @@ export default {
     ...mapGetters(["current"]),
   },
   created: async function () {
-      await this.refresh("300");
-      
-
+      await this.refresh(this.$store.state.userNum);
       if (!this.current) {
       this.$router.push("/home");
     }
@@ -104,29 +104,24 @@ export default {
 
     methods: {
         async onSubmit(){
-            // this.info.searched_artist_name=this.music.searched_artist_name;
-            // this.info.searched_song=this.music.searched_song;
-            // this.info.searched_picture=this.music.searched_picture;
-            // this.info.review=this.form.review;
-            // this.info.label=this.form.jenre.label;
-            // this.info.value=this.form.jenre.value;
             
-            console.log("music="+this.music);
-            console.log(this.$store.state.userId);
-            console.log("posttext="+this.form.postText);
             this.form.userNum = this.$store.state.userNum;
             await this.postFormInfo(
                 this.form
             );
+            await this.getPostId(this.$store.state.userNum);
+            this.genre.postId = await this.$store.state.rForm.postId;
+            console.log(this.$store.state.rForm.postId);
             await this.postMusicInfo(
-               Object.assign({}, this.music, this.genreName)
+               Object.assign({}, this.music, this.genre)
 
             );
             this.$router.push("/home");
             this.music = {};
+            this.genreName = '';
             this.form = {};
         },
-        ...mapActions(["refresh", "postMusicInfo", "postFormInfo"]),
+        ...mapActions(["refresh", "postMusicInfo", "postFormInfo", "getPostId"]),
     },
 
 }
