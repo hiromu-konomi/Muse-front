@@ -1,8 +1,8 @@
 <template>
     <v-navigation-drawer permanent :width="350" app>
         <v-card style="height: 100%;">
-            <v-card-title style="height: 10%;">
-                <span class="font-weight-bold">グループ</span>
+            <v-card-title style="height: 10%;" class="blue-grey darken-4">
+                <span class="white--text font-weight-bold">Group</span>
                 <v-btn class="purple accent-2" icon :to="{name: 'home'}" absolute right>
                     <v-icon color="white">mdi-home</v-icon>
                 </v-btn>
