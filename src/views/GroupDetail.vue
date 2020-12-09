@@ -5,6 +5,23 @@
             <v-card
                 tile
             >
+                <v-layout wrap justify-center>
+                    <v-flex xs12>
+                        <v-container fluid>
+                            <v-row>
+                                <v-col>
+                                    <span class="grnm font-weight-bold">{{ $store.state.gDetail.groupData.groupName }}</span>
+                                </v-col>
+                                <v-col>
+                                    <v-btn color="primary">＋ 招待する</v-btn>
+                                </v-col>
+                            </v-row>
+                        </v-container>
+                    </v-flex>
+                </v-layout>                
+
+                <v-divider></v-divider>
+                
                 <v-tabs
                     v-model="tab"
                     centered
@@ -42,7 +59,18 @@ export default {
                 { tab: 'CHAT', icon: 'mdi-chat', link: {name: "GroupChat"}},
                 { tab: 'MEMBER', icon: 'mdi-account-multiple', link: {name: "GroupMember"}},
             ],
+            group: {
+                groupName: undefined,
+                ownerName: undefined,
+            }
         }
     },
 }
 </script>
+
+<style scoped>
+span.grnm {
+    font-size: xx-large;
+    font-family: 'メイリオ';
+}
+</style>

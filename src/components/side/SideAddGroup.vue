@@ -1,8 +1,8 @@
 <template>
     <v-navigation-drawer permanent :width="350" fixed app>
         <v-card style="height: 100%;">
-            <v-card-title style="height: 10%;">
-                <span class="font-weight-bold">グループを作成</span>
+            <v-card-title style="height: 10%;" class="blue-grey darken-4">
+                <span class="white--text font-weight-bold">Add Group</span>
                 <v-btn class="pink accent-2" icon :to="{name: 'home'}" absolute right>
                     <v-icon color="white">mdi-close</v-icon>
                 </v-btn>
@@ -41,14 +41,13 @@
 
 <script>
 import firebase from 'firebase'
-import axios from 'axios'
+import { mapActions } from 'vuex'
 
 export default {
     data() {
         return {
             group: {
                 groupName: "",
-                firebaseId: "",
             },
 
             // textRules: (value) => !!value || "グループ名を入力してください",
@@ -58,13 +57,15 @@ export default {
     methods: {
         addGroup: async function() {
             await firebase.auth().onAuthStateChanged((user) => {
-                this.group.firebaseId = user.uid
-                axios.post('http://localhost:8080/createGroup', this.group)
+                this.setGroupData({
+                    groupName: this.group.groupName,
+                    userNum: user.uid
+                })
             })
-            
             this.$router.push("/groupInfo")
-        }
-    }
+        },
+        ...mapActions(["setGroupData"]),
+    },
 }
 </script>
 
