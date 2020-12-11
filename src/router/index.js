@@ -21,6 +21,8 @@ import GroupDetail from "../views/GroupDetail.vue"
 import GroupInfo from "../components/group/GroupInfo.vue"
 import GroupChat from "../components/group/GroupChat.vue"
 import GroupMember from "../components/group/GroupMember.vue"
+import OwnerGroupList from "../components/group/OwnerGroupList.vue"
+import JoinGroupList from "../components/group/JoinGroupList.vue"
 
 Vue.use(VueRouter);
 
@@ -49,6 +51,18 @@ const routes = [
         path: "/group",
         name: "group",
         component: Group,
+        children: [
+          {
+            path: "/ownerGroupList",
+            name: "OwnerGroupList",
+            component: OwnerGroupList,
+          },
+          {
+            path: "/joinGroupList",
+            name: "JoinGroupList",
+            component: JoinGroupList,
+          },
+        ]
       },
       {
         path: "/mypage",
