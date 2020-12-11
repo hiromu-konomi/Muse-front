@@ -26,6 +26,116 @@ import JoinGroupList from "../components/group/JoinGroupList.vue"
 
 Vue.use(VueRouter);
 
+
+const routes = [{
+        path: "/",
+        name: "Main",
+        component: Main,
+        children: [{
+                path: "/home",
+                name: "home",
+                component: Home,
+            },
+            {
+                path: "/notification",
+                name: "notification",
+                component: Notification,
+            },
+            {
+                path: "/ranking",
+                name: "ranking",
+                component: Ranking,
+            },
+            {
+                path: "/group",
+                name: "group",
+                component: Group,
+            },
+            {
+                path: "/mypage",
+                name: "mypage",
+                component: Mypage,
+            },
+            {
+                path: "/explore",
+                name: "explore",
+                component: Explore,
+            },
+            {
+                path: "/support",
+                name: "support",
+                component: Support,
+            },
+        ],
+    },
+    {
+        path: "/admin",
+        name: "Admin",
+        component: Admin,
+        children: [{
+                path: "inquiry",
+                name: "Inquiry",
+                component: Inquiry,
+            },
+            {
+                path: "report",
+                name: "Report",
+                component: Report,
+            },
+        ],
+    },
+    {
+        path: "/signup",
+        name: "Signup",
+        component: Signup,
+    },
+    {
+        path: "/signin",
+        name: "Signin",
+        component: Signin,
+    },
+    {
+        path: "/postform",
+        name: "Postform",
+        component: Postform,
+    },
+    {
+        path: "/searchsong",
+        name: "Searchsong",
+        component: Searchsong,
+    },
+    {
+        path: "/userDetail",
+        name: "userDetail",
+        component: RegisterUserDetail,
+    },
+    {
+        path: "/addGroup",
+        name: "AddGroup",
+        component: AddGroup,
+    },
+    {
+        path: "/groupDetail",
+        name: "GroupDetail",
+        component: GroupDetail,
+        children: [{
+                path: "/groupInfo",
+                name: "GroupInfo",
+                component: GroupInfo,
+            },
+            {
+                path: "/groupChat",
+                name: "GroupChat",
+                component: GroupChat,
+            },
+            {
+                path: "/groupMember",
+                name: "GroupMember",
+                component: GroupMember,
+            },
+        ],
+    },
+
 const routes = [
   {
     path: "/",
@@ -153,9 +263,9 @@ const routes = [
 ];
 
 const router = new VueRouter({
-  mode: "history",
-  base: process.env.BASE_URL,
-  routes,
+    mode: "history",
+    base: process.env.BASE_URL,
+    routes,
 });
 
 export default router;

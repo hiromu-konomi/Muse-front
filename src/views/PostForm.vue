@@ -12,12 +12,14 @@
         <hr />
         <v-container center fill-height label-width="120px" v-model="userName">
        <v-toolbar-title> ユーザー名 </v-toolbar-title>
+       <v-spacer></v-spacer>
         <h4>{{ userName }}</h4>
         </v-container>
 
     <v-form label-width="120px" class="jenre" :model="genre">
         <v-container center fill-height>
        <v-toolbar-title> ジャンル </v-toolbar-title>
+       <v-spacer></v-spacer>
        <label>
         <v-select
          v-model="genre.genreName"
@@ -34,6 +36,7 @@
     <v-form label-width="120px" class="review" :model="form">
         <v-container center fill-height>
         <v-toolbar-title> レビュー </v-toolbar-title>
+        <v-spacer></v-spacer>
         <v-textarea
         v-model="form.postText"
          placeholder="入力してください"

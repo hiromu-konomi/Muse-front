@@ -14,10 +14,27 @@
 
 <script>
 import PostComponents from "../post/PostComponents.vue";
+import axios from 'axios';
 
 export default {
+    data(){
+        return{
+            userNum: '',
+            postId: '',
+        }
+    },
     components: {
         PostComponents,
+    },
+    created: async function () {
+        console.log(this.$store.state.userNum);
+        const res = await axios.get('http://localhost:8080/getFollowingUser',{
+            params: {
+                userNum: this.$store.state.userNum
+            }
+        })
+            this.postId = res.data
+            console.log("postId="+this.postId);
     }
 }
 </script>

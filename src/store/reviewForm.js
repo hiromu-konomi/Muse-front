@@ -11,6 +11,10 @@ const reviewForm = {
         music: '',
         form: '',
         postId: '',
+        userName: '',
+        musicName: '',
+        artistName: '',
+        image: '',
     },
     getters: {
         current(state) {
@@ -33,9 +37,10 @@ const reviewForm = {
         },
         getPostId(state, postId) {
             state.postId = postId;
+        },
+        getMusicInfo(state, musicName) {
+            state.musicName = musicName;
         }
-
-
     },
     actions: {
         [UPDATE_CURRENT]({ commit }, music) {
@@ -76,7 +81,17 @@ const reviewForm = {
                 form,
             ).then(commit("postFormInfo", form));
 
-        }
+        },
+        getMusicInfo: async function({ commit }, postId) {
+            const res = await axios.get('http://localhost:8080/getMusicInfo', {
+                params: {
+                    postId: postId,
+                }
+            })
+            this.musicName = res.data
+            console.log("museName=" + this.musicName)
+            commit("getMusicInfo", this.musicName)
+        },
 
     },
 };
