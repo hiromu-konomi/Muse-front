@@ -4,6 +4,7 @@ import reviewFrom from "./reviewForm.js";
 import userDetail from "./userDetail.js";
 import firebase from "firebase";
 import groupDetail from "./groupDetail.js";
+import explore from "./explore.js";
 // import userLogin from "./userLogin.js";
 
 Vue.use(Vuex);
@@ -45,6 +46,7 @@ const store = new Vuex.Store({
     rForm: reviewFrom,
     uDetail: userDetail,
     gDetail: groupDetail,
+    explore: explore,
   },
 });
 
