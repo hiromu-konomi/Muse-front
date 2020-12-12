@@ -12,9 +12,9 @@
                     <v-card-subtitle>このグループについて</v-card-subtitle>
                     <v-divider class="mx-3"></v-divider>
                     <v-card-text>
-                        <v-text class="groupInfo">
+                        <span class="groupInfo">
                             {{ this.group_info }}
-                        </v-text>
+                        </span>
                     </v-card-text>
                 </v-card>
             </v-col>
