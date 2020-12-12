@@ -73,8 +73,6 @@ export default {
                 }
             });
             this.groups = res.data.ownerGroups;
-            console.log("res.data.ownerGroups = " + res.data.ownerGroups);
-            console.log("this.groups = " + this.groups);
         }
     }
 }
