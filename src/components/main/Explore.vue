@@ -22,22 +22,32 @@
 
 <script>
 import PostComponents from "../post/PostComponents";
-import {mapActions} from "vuex";
+import axios from "axios";
 
 export default {
+    async created() {
+        await this.search();
+    },
     components: {
         PostComponents,
     },
     data() {
         return {
             search_post : '',
+            exploreResult: [],
         }
     },
     methods: {
         async search(){
-            await this.postSearchText(this.search_post);
+            const res = await axios.get('http://localhost:8080/searchPost', {
+                    params: {
+                    searchPost: this.search_post
+                }
+            })
+            this.exploreResult = res.data.exploreList;
+            console.log("res.data.exploreList = " + res.data.exploreList);
+            console.log("exploreResult.artistName = " + this.exploreResult.artistName);
         },
-    ...mapActions(["postSearchText"]),
     }
 
 }
