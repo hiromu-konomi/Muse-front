@@ -14,14 +14,11 @@
                 <v-form class="tfma">
                     <v-text-field
                         class="search"
-                        v-model="search_group_name"
+                        v-model="searchGroup"
                         type="text"
                         placeholder="グループを検索"
                         outlined
                     >
-                        <template v-slot:append>
-                            <v-icon type="button" @click="search_group">mdi-magnify</v-icon>
-                        </template>
                     </v-text-field>
                 </v-form>
 
@@ -52,18 +49,45 @@
 </template>
 
 <script>
+import axios from 'axios'
+import firebase from 'firebase'
+
 export default {
+    async created() {
+        await this.refresh();
+    },
+
     data() {
         return {
-            search_group_name: '',
+            searchGroup: '',
+            ownerGroups: [],
+            joinGroups: [],
+            userNum: undefined,
         }
     },
 
     methods: {
-        search_group() {
-            
-        }
-    }
+        async refresh() {
+            await firebase.auth().onAuthStateChanged((user) => {
+                this.userNum = user.uid;
+            });
+            axios.all([
+                axios.get('http://localhost:8080/showOwnGrpsBySearch', {
+                    params: {
+                        userNum: this.userNum,
+                        searchWord: this.searchGroup,
+                    }
+                }),
+                axios.get('http://localhost:8080/showJoinGrpsBySearch', {
+                    params: {
+                        userNum: this.userNum,
+                        searchWord: this.searchGroup,
+                    }
+                })
+            ]).then( axios.spread( (ownRes, joinRes) => {
+                
+            }))
+    },
 }
 </script>
 
