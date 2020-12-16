@@ -5,11 +5,11 @@
     >
         <template v-slot:activator="{ on, attrs }">
             <v-btn
-                color="primary"
+                color="blue accent-4"
                 v-bind="attrs"
                 v-on="on"
             >
-                ＋ 招待する
+                <span class="white--text font-weight-bold">＋ 招待する</span>
             </v-btn>
         </template>
 
