@@ -29,9 +29,9 @@
                
                    <v-col class="music" cols="4">
                     <ul>
-                    <li><v-img :src="tweet.music.image" /></li>
-                    <li>{{ tweet.music.artistName }}</li>
-                    <li>{{ tweet.music.musicName }}</li>
+                    <li><v-img :src="tweet.musicImage" /></li>
+                    <li>{{ tweet.artistName }}</li>
+                    <li>{{ tweet.musicName }}</li>
                     </ul>
                     </v-col>
                </v-row>
@@ -57,14 +57,16 @@
 
 <script>
 import { mapActions } from "vuex";
-import axios from 'axios';
+// import axios from 'axios';
 export default {
     data() {
         return {
             userNum: '',
             tweet: {
                 tweetId: "00000",
-                music: '',
+                artistName: '',
+                musicName: '',
+                musicImage: '',
                 postText: '',
                 tweetedAt: "2020-12-09 10:51",
                 user: {
@@ -75,27 +77,16 @@ export default {
             },
         }
     },
+    props: ['info'],
     created: async function(){
+        console.log("info="+this.info);
         this.userNum = this.$store.state.userNum;
-        this.tweet.postId = 49;
-        const res = await axios.get('http://localhost:8080/getMusicInfo', {
-                params: {
-                    postId: this.tweet.postId,
-                }
-            })
-            this.tweet.music=res.data
-            console.log("music=" + this.tweet.music.image)
-
-         const rev = await axios.get('http://localhost:8080/getReview', {
-            params: {
-                postId: this.tweet.postId,
-            }
-        })
-        this.tweet.postText=rev.data
-        console.log(this.tweet.postText)
-
         await this.refresh(this.$store.state.userNum);
-        this.tweet.user.userName = this.$store.state.rForm.userName;
+        this.tweet.user.userName = this.info.userName;
+        this.tweet.artistName = this.info.artistName;
+        this.tweet.musicName = this.info.musicName;
+        this.tweet.musicImage = this.info.musicImage;
+        this.tweet.postText = this.info.postText;
 
     },
     methods: {

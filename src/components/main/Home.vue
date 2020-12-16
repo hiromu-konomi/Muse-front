@@ -8,7 +8,9 @@
                 </v-layout>
             </v-card-text>
         </v-card>
-    <PostComponents />
+        <div v-for="(info, index) in infos" :key="index">
+            <PostComponents :info="info" />
+        </div>
     </div>
 </template>
 
@@ -20,21 +22,28 @@ export default {
     data(){
         return{
             userNum: '',
-            postId: '',
+            infos: [],
         }
     },
     components: {
         PostComponents,
     },
-    created: async function () {
-        console.log(this.$store.state.userNum);
-        const res = await axios.get('http://localhost:8080/getFollowingUser',{
-            params: {
-                userNum: this.$store.state.userNum
-            }
-        })
-            this.postId = res.data
-            console.log("postId="+this.postId);
+    methods: {
+        async reflesh(){
+
+            const rev = await axios.get('http://localhost:8080/getMusicInfoAndReview', {
+                    params: {
+                        userNum: this.$store.state.userNum,
+                    }
+                });
+                this.infos = rev.data.reviewAllList;
+                // console.log("info="+this.info)
+        }
+
+    },
+    async created() {
+            console.log(this.$store.state.userNum);
+            await this.reflesh();
     }
 }
 </script>
