@@ -47,55 +47,51 @@ const reviewForm = {
         [UPDATE_CURRENT]({ commit }, music) {
             commit(UPDATE_CURRENT, music);
         },
-    },
+        refresh: async function({ commit }, userNum) {
+            const res = await axios.get('http://localhost:8080/postform', {
+                params: {
+                    userNum: userNum,
+                }
+            })
+            this.userName = res.data
+            console.info("userName=" + this.userName)
+            commit(UPDATE_USER_NAME, this.userName)
+        },
+        postMusicInfo: async function({ commit }, music) {
+            console.log("music=" + music)
+            await axios.post('http://localhost:8080/music',
+                music,
+            ).then(commit("postMusicInfo", music));
 
+        },
+        getPostId: async function({ commit }, userNum) {
+            const res = await axios.get('http://localhost:8080/getPostId', {
+                params: {
+                    userNum: userNum,
+                }
+            })
+            this.postId = res.data
+            console.log(this.postId);
+            commit("getPostId", this.postId)
+        },
+        postFormInfo: async function({ commit }, form) {
+            console.log("form=" + form)
+            await axios.post('http://localhost:8080/form',
+                form,
+            ).then(commit("postFormInfo", form));
 
-    refresh: async function({ commit }, userNum) {
-        const res = await axios.get('http://localhost:8080/postform', {
-            params: {
-                userNum: userNum,
-            }
-        })
-        this.userName = res.data
-        console.info("userName=" + this.userName)
-        commit(UPDATE_USER_NAME, this.userName)
+        },
+        getMusicInfo: async function({ commit }, postId) {
+            const res = await axios.get('http://localhost:8080/getMusicInfo', {
+                params: {
+                    postId: postId,
+                }
+            })
+            this.musicName = res.data
+            console.log("museName=" + this.musicName)
+            commit("getMusicInfo", this.musicName)
+        },
     },
-    postMusicInfo: async function({ commit }, music) {
-        console.log("music=" + music)
-        await axios.post('http://localhost:8080/music',
-            music,
-        ).then(commit("postMusicInfo", music));
-
-    },
-    getPostId: async function({ commit }, userNum) {
-        const res = await axios.get('http://localhost:8080/getPostId', {
-            params: {
-                userNum: userNum,
-            }
-        })
-        this.postId = res.data
-        console.log(this.postId);
-        commit("getPostId", this.postId)
-    },
-    postFormInfo: async function({ commit }, form) {
-        console.log("form=" + form)
-        await axios.post('http://localhost:8080/form',
-            form,
-        ).then(commit("postFormInfo", form));
-
-    },
-    getMusicInfo: async function({ commit }, postId) {
-        const res = await axios.get('http://localhost:8080/getMusicInfo', {
-            params: {
-                postId: postId,
-            }
-        })
-        this.musicName = res.data
-        console.log("museName=" + this.musicName)
-        commit("getMusicInfo", this.musicName)
-    },
-
-
 };
 
 export default reviewForm;
