@@ -1,20 +1,19 @@
 <template>
-    <v-list>
-        <template v-for="(item, index) in items">
+    <v-list v-if="groups.length">
+        <template v-for="(group, index) in groups">
             <v-list-item
-                :key="item.groupName"
-                :to="item.link"
+                :key="`first-${group.groupId}`"
             >
                 <v-list-item-avatar>
-                    <v-img :src="item.avatar"></v-img>
+                    <v-img src="https://cdn.vuetifyjs.com/images/lists/2.jpg"></v-img>
                 </v-list-item-avatar>
 
                 <v-list-item-content>
                     <v-list-item-title >
-                        <h1>{{ item.groupName }}</h1>
+                        <h1>{{ group.groupName }}</h1>
                     </v-list-item-title>
                     <v-list-item-subtitle>
-                        管理者：{{ item.ownerName }}
+                        管理者：{{ group.ownerName }}
                     </v-list-item-subtitle>
                 </v-list-item-content>
 
@@ -25,29 +24,39 @@
                 </v-list-item-action>
             </v-list-item>
 
-            <v-divider :key="index"></v-divider>
+            <v-divider :key="`second-${index}`"></v-divider>
         </template>
     </v-list>
+    <span v-else>参加しているグループはありません</span>
 </template>
 
 <script>
+import axios from 'axios'
+import firebase from 'firebase'
+
 export default {
+    async created() {
+        await this.refresh();
+    },
+
     data() {
         return {
-            items: [
-                {
-                    avatar: "https://cdn.vuetifyjs.com/images/lists/2.jpg",
-                    groupName: "ロック",
-                    subtitle: "許斐 大夢",
-                    link: {name: "GroupInfo"},
-                },
-                {
-                    avatar: "https://cdn.vuetifyjs.com/images/lists/4.jpg",
-                    groupName: "アニソン",
-                    subtitle: "亜樹さん",
-                    link: {name: "GroupInfo"},
-                },
-            ],
+            groups: [],
+            userNum: undefined,
+        }
+    },
+
+    methods: {
+        async refresh() {
+            await firebase.auth().onAuthStateChanged((user) => {
+                this.userNum = user.uid;
+            });
+            const res = await axios.get('http://localhost:8080/showJoinGroupList', {
+                params: {
+                    userNum: this.userNum,
+                }
+            });
+            this.groups = res.data.joinGroups;
         }
     }
 }

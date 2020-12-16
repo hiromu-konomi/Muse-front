@@ -34,11 +34,11 @@
               "
               >
                 <template v-slot:append-outer>
-                  <date-picker v-model="form.hireDate"></date-picker>
+                  <date-picker v-model="form.hireDate" />
                 </template>
               </v-text-field>
               <v-select
-                v-model="form.depId"
+                v-model="form.depName"
                 label="部署名"
                 item-text="occupationName"
                 item-value="id"
@@ -74,20 +74,21 @@ export default {
   data() {
     return {
       occupations: [
-        { occupationName: "Webエンジニア", id: 1 },
-        { occupationName: "クラウドエンジニア", id: 2 },
-        { occupationName: "機械学習エンジニア", id: 3 },
+        { occupationName: "Webエンジニア", id: "Webエンジニア" },
+        { occupationName: "クラウドエンジニア", id: "クラウドエンジニア" },
+        { occupationName: "機械学習エンジニア", id: "機械学習エンジニア" },
       ],
       form: {
         userName: "",
         hireDate: null,
-        depId: null,
+        depName: null,
         profile: "",
         userNum: "",
       },
       userPhoto: [],
       uploadImageUrl: "",
       userNum: "",
+      imageData: "",
     };
   },
   async created() {
@@ -108,6 +109,7 @@ export default {
         fr.readAsDataURL(file);
         fr.addEventListener("load", () => {
           this.uploadImageUrl = fr.result;
+          console.log("画像URL =" + this.uploadImageUrl);
         });
       } else {
         this.uploadImageUrl = "";
@@ -116,14 +118,24 @@ export default {
 
     async onSubmit() {
       this.form.userNum = this.$store.state.userNum;
-      console.log(this.form);
 
       await this.addUserDetail(this.form);
-      this.addUserPhoto(this.userPhoto);
-      this.$router.push("/home");
+      await this.addUserPhoto(this.userPhoto);
+
+      console.log(
+        "ユーザーID" + this.$store.state.uDetail.userInformation.userNum
+      );
+      await this.getUserInfo(this.$store.state.uDetail.userInformation.userNum);
+
+      this.$router.push({ name: "recommendUser" });
       this.form = {};
     },
-    ...mapActions(["addUserDetail", "findByUserId", "addUserPhoto"]),
+    ...mapActions([
+      "addUserDetail",
+      "findByUserId",
+      "addUserPhoto",
+      "getUserInfo",
+    ]),
   },
 };
 </script>

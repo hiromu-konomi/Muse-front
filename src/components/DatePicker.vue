@@ -13,7 +13,7 @@
 <script>
 export default {
   props: {
-    read: {
+    hireDate: {
       type: String,
       default: new Date().toISOString().substr(0, 10),
     },

@@ -43,20 +43,6 @@ export default {
 
     data() {
         return {
-            items: [
-                {
-                    avatar: "https://cdn.vuetifyjs.com/images/lists/2.jpg",
-                    groupName: "ロック",
-                    subtitle: "許斐 大夢",
-                    link: {name: "GroupInfo"},
-                },
-                {
-                    avatar: "https://cdn.vuetifyjs.com/images/lists/4.jpg",
-                    groupName: "アニソン",
-                    subtitle: "亜樹さん",
-                    link: {name: "GroupInfo"},
-                },
-            ],
             groups: [],
             userNum: undefined,
         }
@@ -66,15 +52,13 @@ export default {
         async refresh() {
             await firebase.auth().onAuthStateChanged((user) => {
                 this.userNum = user.uid;
-            })
+            });
             const res = await axios.get('http://localhost:8080/showOwnerGroupList', {
                 params: {
                     userNum: this.userNum,
                 }
             });
             this.groups = res.data.ownerGroups;
-            console.log("res.data.ownerGroups = " + res.data.ownerGroups);
-            console.log("this.groups = " + this.groups);
         }
     }
 }

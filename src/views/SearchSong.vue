@@ -38,7 +38,6 @@ import MusicInfo from "../components/Info/MusicInfo.vue";
 export default {
   name: "search",
 
-
   components: {
     MusicInfo,
   },
@@ -99,6 +98,10 @@ export default {
           musicName: this.musicInfo.name,
           image: this.musicInfo.album.images[2].url,
         });
+      }
+      console.log(this.musics);
+      for (let m of this.musics) {
+        console.log(m);
       }
     },
   },

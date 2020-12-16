@@ -14,8 +14,8 @@
        <v-toolbar-title> ユーザー名 </v-toolbar-title>
        <v-spacer></v-spacer>
         <h4>{{ userName }}</h4>
-        </v-container>
-
+      </v-container>
+      
     <v-form label-width="120px" class="jenre" :model="genre">
         <v-container center fill-height>
        <v-toolbar-title> ジャンル </v-toolbar-title>
@@ -55,16 +55,16 @@
 </v-flex>
 </v-layout>
 </v-container>
+
 </template>
 
 <script>
-import MusicInfo from "../components/Info/MusicInfo"
+import MusicInfo from "../components/Info/MusicInfo";
 import { mapGetters, mapActions } from "vuex";
 // import axios from 'axios'
 
- 
 export default {
-    name: "post-form",
+  name: "post-form",
 
     components: {
         MusicInfo,
@@ -127,14 +127,27 @@ export default {
         ...mapActions(["refresh", "postMusicInfo", "postFormInfo", "getPostId"]),
     },
 
-}
+      console.log("music=" + this.music.artistName);
+      console.log("userNum=" + this.$store.state.userNum);
+      console.log("posttext=" + this.form.postText);
+      this.form.userNum = this.$store.state.userNum;
+      console.log("form.userNum=" + this.genreName);
+      await this.postFormInfo(this.form);
 
+      await this.postMusicInfo(Object.assign({}, this.music, this.genreName));
+      this.$router.push("/home");
+      this.music = {};
+      this.form = {};
+    },
+    ...mapActions(["refresh", "postMusicInfo", "postFormInfo"]),
+  },
+};
 </script>
 
 <style>
-        textarea {
-            width: 300px;
-            height: 80px;
-            border: solid 1px #000000;
-        }
+textarea {
+  width: 300px;
+  height: 80px;
+  border: solid 1px #000000;
+}
 </style>
