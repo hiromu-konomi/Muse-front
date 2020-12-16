@@ -1,0 +1,28 @@
+{
+  "default": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-musefront-default-231641-authRole",
+      "UnauthRoleArn": "arn:aws:iam::127022830249:role/amplify-musefront-default-231641-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::127022830249:role/amplify-musefront-default-231641-authRole",
+      "Region": "ap-northeast-1",
+      "DeploymentBucketName": "amplify-musefront-default-231641-deployment",
+      "UnauthRoleName": "amplify-musefront-default-231641-unauthRole",
+      "StackName": "amplify-musefront-default-231641",
+      "StackId": "arn:aws:cloudformation:ap-northeast-1:127022830249:stack/amplify-musefront-default-231641/d3628f40-3d4d-11eb-984f-0635424d3560",
+      "AmplifyAppId": "daiuj65yudsfj"
+    }
+  },
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-musefront-dev-160924-authRole",
+      "UnauthRoleArn": "arn:aws:iam::127022830249:role/amplify-musefront-dev-160924-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::127022830249:role/amplify-musefront-dev-160924-authRole",
+      "Region": "ap-northeast-1",
+      "DeploymentBucketName": "amplify-musefront-dev-160924-deployment",
+      "UnauthRoleName": "amplify-musefront-dev-160924-unauthRole",
+      "StackName": "amplify-musefront-dev-160924",
+      "StackId": "arn:aws:cloudformation:ap-northeast-1:127022830249:stack/amplify-musefront-dev-160924/770de4d0-3ea4-11eb-aa47-0a6e476ede30",
+      "AmplifyAppId": "daiuj65yudsfj"
+    }
+  }
+}

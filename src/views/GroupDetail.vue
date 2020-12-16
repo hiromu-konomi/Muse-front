@@ -9,15 +9,15 @@
                     <v-flex xs12>
                         <v-container fluid>
                             <v-row>
-                                <v-col>
+                                <v-col cols="12" md="10">
                                     <span class="grnm font-weight-bold">{{ $store.state.gDetail.groupData.groupName }}</span>
                                 </v-col>
-                                <v-col class="text-center" v-if="$store.state.gDetail.groupData.joinStatus = 1">
+                                <v-col class="text-center" v-if="$store.state.gDetail.groupData.joinStatus = 1" cols="12" md="2">
                                     <InviteBtn />
                                 </v-col>
                                 <v-col class="text-center" v-else>
                                     <v-btn
-                                        color="primary"
+                                        color="blue accent-4"
                                     >
                                         ＋ 参加する
                                     </v-btn>
@@ -31,6 +31,7 @@
                 
                 <v-tabs
                     v-model="tab"
+                    color="blue accent-4"
                     centered
                     grow
                     icons-and-text
