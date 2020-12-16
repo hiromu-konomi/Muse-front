@@ -10,22 +10,46 @@ import { mapActions } from "vuex";
 import firebase from "firebase";
 export default {
   async created() {
-    var user = firebase.auth().currentUser;
-    console.log(user);
-    if (user != null) {
-      if (this.$router.currentRoute.name === "Signin") {
-        this.$router.push("/home");
+    // var user = firebase.auth().currentUser;
+    // console.log(user);
+
+    // if (user != null) {
+    //   if (this.$router.currentRoute.name === "Signin") {
+    //     this.$router.push("/home");
+    //   } else {
+    //     this.$router.push("/userDetail");
+    //   }
+    // } else {
+    //   this.deleteLoginUser();
+    //   this.$router.push({ name: "Signin" }, () => {});
+    // }
+    firebase.auth().onAuthStateChanged(async (user) => {
+      console.log(user);
+      if (user) {
+        console.log("userid=" + user.uid);
+        await this.setLoginUser(user);
+
+        console.log("ログインユーザー" + this.$store.state.login_user);
+        await this.setUserId(user.uid);
+
+        // await this.setLoginUser(user);
+        // console.log("ログインユーザー" + this.$store.state.login_user);
+        // await this.setUserId(user.uid);
+        // console.log("userId = " + this.$store.state.userNum);
+        // if (this.$router.currentRoute.name === "Signin") {
+        //   this.$router.push("/home");
+        // } else {
+        //   this.$router.push("/userDetail");
+        // }
       } else {
-        this.$router.push("/userDetail");
+        this.deleteLoginUser();
+        this.$router.push({ name: "Signin" }, () => {});
       }
-    } else {
-      this.deleteLoginUser();
-      this.$router.push({ name: "Signin" }, () => {});
-    }
+    });
   },
 
   methods: {
-    ...mapActions(["deleteLoginUser"]),
+    ...mapActions(["deleteLoginUser", "setLoginUser", "setUserId"]),
   },
 };
 </script>
