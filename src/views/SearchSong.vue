@@ -71,7 +71,9 @@ export default {
         .get("https://api.spotify.com/v1/search", {
           headers: {
             Authorization:
-              "Bearer BQByr7jiZbqyD-JmOy2AEK8gQ2a1AjlDmSxFkyLpMqztZsmPxieCMMh_uR07Jkr0FXAnIOKWW5fCEh68Qpc",
+
+              "Bearer BQDJM2JHvpC5SJUSMVuIpLL8ucxPMXlXGU3i2KwoQ_pVxUFOnelntr9guj0TyCp5ulVY_nQViF0of5dCy2o",
+
           },
           params: {
             q: this.musicName,

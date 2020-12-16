@@ -5,6 +5,8 @@ import userDetail from "./userDetail.js";
 import firebase from "firebase";
 import showUser from "./showUser.js";
 import followUser from "./followUser.js";
+import groupDetail from "./groupDetail.js";
+
 // import userLogin from "./userLogin.js";
 
 Vue.use(Vuex);
@@ -49,6 +51,8 @@ const store = new Vuex.Store({
     uDetail: userDetail,
     sUser: showUser,
     fUser: followUser,
+    gDetail: groupDetail,
+
   },
 });
 
