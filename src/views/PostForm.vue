@@ -123,25 +123,16 @@ export default {
             this.music = {};
             this.genreName = '';
             this.form = {};
+            this.form.userNum = this.$store.state.userNum;
+            await this.postFormInfo(this.form);
+            await this.postMusicInfo(Object.assign({}, this.music, this.genreName));
+            this.$router.push("/home");
+            this.music = {};
+            this.form = {};
         },
         ...mapActions(["refresh", "postMusicInfo", "postFormInfo", "getPostId"]),
     },
-
-      console.log("music=" + this.music.artistName);
-      console.log("userNum=" + this.$store.state.userNum);
-      console.log("posttext=" + this.form.postText);
-      this.form.userNum = this.$store.state.userNum;
-      console.log("form.userNum=" + this.genreName);
-      await this.postFormInfo(this.form);
-
-      await this.postMusicInfo(Object.assign({}, this.music, this.genreName));
-      this.$router.push("/home");
-      this.music = {};
-      this.form = {};
-    },
-    ...mapActions(["refresh", "postMusicInfo", "postFormInfo"]),
-  },
-};
+    };
 </script>
 
 <style>
