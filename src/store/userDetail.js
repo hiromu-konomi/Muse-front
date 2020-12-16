@@ -9,7 +9,6 @@ const userDetail = {
   getters: {},
   mutations: {
     getUserDetail(state, userInformation) {
-      console.log("getUserDetail = " + userInformation);
       state.userInformation = userInformation;
     },
     addUserPhoto(state, photo) {
