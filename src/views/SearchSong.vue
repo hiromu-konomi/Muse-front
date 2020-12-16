@@ -38,7 +38,6 @@ import MusicInfo from "../components/Info/MusicInfo.vue";
 export default {
   name: "search",
 
-
   components: {
     MusicInfo,
   },
@@ -72,7 +71,9 @@ export default {
         .get("https://api.spotify.com/v1/search", {
           headers: {
             Authorization:
+
               "Bearer BQDJM2JHvpC5SJUSMVuIpLL8ucxPMXlXGU3i2KwoQ_pVxUFOnelntr9guj0TyCp5ulVY_nQViF0of5dCy2o",
+
           },
           params: {
             q: this.musicName,
@@ -99,6 +100,10 @@ export default {
           musicName: this.musicInfo.name,
           image: this.musicInfo.album.images[2].url,
         });
+      }
+      console.log(this.musics);
+      for (let m of this.musics) {
+        console.log(m);
       }
     },
   },

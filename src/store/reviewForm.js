@@ -1,10 +1,10 @@
-export const UPDATE_CURRENT = 'updateCurrent';
-export const UPDATE_USER_NAME = 'updateUserName';
-export const UPDATE_JENRE = 'updateUserJenre';
-export const UPDATE_REVIEW = 'updateUserReview';
-import axios from 'axios'
+export const UPDATE_CURRENT = "updateCurrent";
+export const UPDATE_USER_NAME = "updateUserName";
+export const UPDATE_JENRE = "updateUserJenre";
+export const UPDATE_REVIEW = "updateUserReview";
+import axios from "axios";
 const reviewForm = {
-    state: {
+  state: {
         music_data: [],
         current: null,
         userId: null,
@@ -15,11 +15,15 @@ const reviewForm = {
         musicName: '',
         artistName: '',
         image: '',
+
     },
-    getters: {
-        current(state) {
-            return state.current;
-        },
+  getters: {
+    current(state) {
+      return state.current;
+  },
+  mutations: {
+    [UPDATE_CURRENT](state, music) {
+      state.current = music;
     },
     mutations: {
         [UPDATE_CURRENT](state, music) {
@@ -93,7 +97,9 @@ const reviewForm = {
             commit("getMusicInfo", this.musicName)
         },
 
+
     },
+  },
 };
 
 export default reviewForm;

@@ -1,3 +1,4 @@
+
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Main from '../views/Main.vue'
@@ -8,7 +9,7 @@ import Home from "../components/main/Home.vue"
 import Notification from "../components/main/Notification.vue"
 import Ranking from "../components/main/Ranking.vue"
 import Group from "../components/main/Group.vue"
-import Mypage from "../components/main/Mypage.vue"
+import UserPage from "../components/main/UserPage.vue";
 import Explore from "../components/main/Explore.vue"
 import Support from "../components/main/Support.vue"
 import Inquiry from "../components/admin/Inquiry.vue"
@@ -23,6 +24,8 @@ import GroupChat from "../components/group/GroupChat.vue"
 import GroupMember from "../components/group/GroupMember.vue"
 import OwnerGroupList from "../components/group/OwnerGroupList.vue"
 import JoinGroupList from "../components/group/JoinGroupList.vue"
+import FollowUser from "../views/FollowUser.vue";
+
 
 Vue.use(VueRouter);
 
@@ -65,9 +68,9 @@ const routes = [
         ]
       },
       {
-        path: "/mypage",
-        name: "mypage",
-        component: Mypage,
+        path: "/user/:user_id?/userpage",
+        name: "userpage",
+        component: UserPage,
       },
       {
         path: "/explore",
@@ -122,6 +125,11 @@ const routes = [
     path: "/userDetail",
     name: "userDetail",
     component: RegisterUserDetail,
+  },
+  {
+    path: "/recommendUser",
+    name: "recommendUser",
+    component: FollowUser,
   },
   {
     path: "/addGroup",
