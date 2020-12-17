@@ -1,5 +1,5 @@
 <template>
-    <v-navigation-drawer permanent :width="350" style="height: 100%;" app>
+    <v-navigation-drawer permanent :width="350" app>
         <v-card style="height: 100%;">
             <v-card-title style="height: 10%;" class="blue-grey darken-4">
                 <span class="white--text font-weight-bold">Group</span>
@@ -16,7 +16,7 @@
                         class="search"
                         v-model="searchWord"
                         type="text"
-                        placeholder="グループを検索"
+                        label="グループを検索"
                         outlined
                     >
                         <template v-slot:append>
