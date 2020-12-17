@@ -1,5 +1,5 @@
 <template>
-    <v-navigation-drawer permanent :width="350" app>
+    <v-navigation-drawer permanent :width="350" style="height: 100%;" app>
         <v-card style="height: 100%;">
             <v-card-title style="height: 10%;" class="blue-grey darken-4">
                 <span class="white--text font-weight-bold">Group</span>
@@ -14,13 +14,13 @@
                 <v-form class="tfma">
                     <v-text-field
                         class="search"
-                        v-model="search_group_name"
+                        v-model="searchWord"
                         type="text"
                         placeholder="グループを検索"
                         outlined
                     >
                         <template v-slot:append>
-                            <v-icon type="button" @click="search_group">mdi-magnify</v-icon>
+                            <v-icon type="button" @click="searchGroup">mdi-magnify</v-icon>
                         </template>
                     </v-text-field>
                 </v-form>
@@ -36,15 +36,43 @@
                 <v-divider></v-divider>
 
                 <span>管理しているグループ</span><br>
-                <v-list>
-                    <v-list-item></v-list-item>
+                <v-list v-if="ownerGroups.length">
+                    <template v-for="(ownerGroup, index) in ownerGroups">
+                        <v-list-item :key="`first-${ownerGroup.groupId}`">
+                            <v-list-item-avatar>
+                                <v-img src="https://cdn.vuetifyjs.com/images/lists/4.jpg"></v-img>
+                            </v-list-item-avatar>
+
+                            <v-list-item-content>
+                                <v-list-item-title>
+                                    <h1>{{ ownerGroup.groupName }}</h1>
+                                </v-list-item-title>
+                            </v-list-item-content>
+                        </v-list-item>
+
+                        <v-divider :key="`second-${index}`"></v-divider>
+                    </template>
                 </v-list>
 
                 <v-divider></v-divider>
 
                 <span>参加しているグループ</span>
-                <v-list>
-                    <v-list-item></v-list-item>
+                <v-list v-if="joinGroups.length">
+                    <template v-for="(joinGroup, index) in joinGroups">
+                        <v-list-item :key="`first-${joinGroup.groupId}`">
+                            <v-list-item-avatar>
+                                <v-img src="https://cdn.vuetifyjs.com/images/lists/2.jpg"></v-img>
+                            </v-list-item-avatar>
+
+                            <v-list-item-content>
+                                <v-list-item-title>
+                                    <h1>{{ joinGroup.groupName }}</h1>
+                                </v-list-item-title>
+                            </v-list-item-content>
+                        </v-list-item>
+
+                        <v-divider :key="`second-${index}`"></v-divider>
+                    </template>
                 </v-list>
             </v-card-text>
         </v-card>
@@ -52,17 +80,42 @@
 </template>
 
 <script>
+import axios from 'axios'
+import firebase from 'firebase'
+
 export default {
     data() {
         return {
-            search_group_name: '',
+            searchWord: '',
+            ownerGroups: [],
+            joinGroups: [],
+            userNum: undefined,
         }
     },
 
     methods: {
-        search_group() {
-            
-        }
+        async searchGroup() {
+            await firebase.auth().onAuthStateChanged((user) => {
+                this.userNum = user.uid;
+            });
+            axios.all([
+                axios.get('http://localhost:8080/showOwnGrpsBySearch', {
+                    params: {
+                        userNum: this.userNum,
+                        searchWord: this.searchWord,
+                    }
+                }),
+                axios.get('http://localhost:8080/showJoinGrpsBySearch', {
+                    params: {
+                        userNum: this.userNum,
+                        searchWord: this.searchWord,
+                    }
+                })
+            ]).then( axios.spread( (ownRes, joinRes) => {
+                this.ownerGroups = ownRes.data.ownerGroups;
+                this.joinGroups = joinRes.data.joinGroups;
+            }));
+        },
     }
 }
 </script>
