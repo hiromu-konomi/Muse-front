@@ -39,6 +39,7 @@ export default {
         await axios.get("http://localhost:8080/notLike",{
             params: {
                 postId: this.postId,
+                userNum: this.$store.state.userNum,
             }
         })
       } else {
