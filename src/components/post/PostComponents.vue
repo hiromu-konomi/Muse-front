@@ -16,7 +16,7 @@
       </v-list-item>
     </v-card-title>
 
-               <v-row justify="center" align-content="center">
+               <v-row>
                 <v-col cols="4">
                 <v-card-text class="text--primary">
                     {{ tweet.postText }}
@@ -30,8 +30,11 @@
                     <li>{{ tweet.musicName }}</li>
                     </ul>
                     </v-col>
-                    <v-col>
-                        <good-button :postId= "postId" :countNum= "countNum" :likeStatus= "likeStatus" ></good-button>
+               </v-row>
+               <v-row>
+                   <v-col>
+                    <good-button :postId= "postId" :countNum= "countNum" :likeStatus= "likeStatus" ></good-button>
+                    <check-button :postId= "postId" :countCheck= "checkCount" :checkStatus= "checkStatus"></check-button>
                     </v-col>
                </v-row>
                
@@ -42,9 +45,11 @@
 <script>
 import { mapActions } from "vuex";
 import GoodButton from './HeartButton'
+import CheckButton from './CheckButton'
 export default {
     components: {
-    'good-button': GoodButton
+    'good-button': GoodButton,
+    'check-button': CheckButton,
     },
     data() {
         return {
@@ -52,6 +57,8 @@ export default {
             postId: '',
             countNum: this.info.likeCount,
             likeStatus: this.info.likeStatus,
+            checkCount: this.info.checkCount,
+            checkStatus: this.info.checkStatus,
             tweet: {
                 artistName: '',
                 musicName: '',
