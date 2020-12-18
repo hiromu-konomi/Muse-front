@@ -31,6 +31,7 @@ export default {
 
         console.log("ログインユーザー" + this.$store.state.login_user);
         await this.setUserId(user.uid);
+        console.log("ユーザーID＝" + this.$store.state.userNum);
 
         // await this.setLoginUser(user);
         // console.log("ログインユーザー" + this.$store.state.login_user);
