@@ -16,88 +16,71 @@
       </v-list-item>
     </v-card-title>
 
-    <v-row justify="center" align-content="center">
-      <v-col cols="4">
-        <v-card-text class="text--primary">
-          {{ tweet.postText }}
-        </v-card-text>
-      </v-col>
+               <v-row justify="center" align-content="center">
+                <v-col cols="4">
+                <v-card-text class="text--primary">
+                    {{ tweet.postText }}
+                </v-card-text>
+                </v-col>
+               
+                   <v-col class="music" cols="4">
+                    <ul>
+                    <li><v-img :src="tweet.musicImage" /></li>
+                    <li>{{ tweet.artistName }}</li>
+                    <li>{{ tweet.musicName }}</li>
+                    </ul>
+                    </v-col>
+                    <v-col>
+                        <good-button :postId= "postId" :countNum= "countNum" :likeStatus= "likeStatus" ></good-button>
+                    </v-col>
+               </v-row>
+               
 
-      <v-col class="music" cols="4">
-        <ul>
-          <li><v-img :src="tweet.musicImage" /></li>
-          <li>{{ tweet.artistName }}</li>
-          <li>{{ tweet.musicName }}</li>
-        </ul>
-      </v-col>
-    </v-row>
-
-    <v-card-actions>
-      <v-btn
-        v-for="button in buttons"
-        :key="button.icon"
-        :href="button.url"
-        :color="button.color"
-        icon
-      >
-        <v-icon>{{ button.icon }}</v-icon>
-      </v-btn>
-      <v-spacer></v-spacer>
-      <span class="body-2 font-weight-light">
-        {{ tweet.tweetedAt }}
-      </span>
-    </v-card-actions>
-  </v-card>
+    </v-card>
 </template>
 
 <script>
 import { mapActions } from "vuex";
-// import axios from 'axios';
+import GoodButton from './HeartButton'
 export default {
-  data() {
-    return {
-      userNum: "",
-      tweet: {
-        tweetId: "00000",
-        artistName: "",
-        musicName: "",
-        musicImage: "",
-        postText: "",
-        tweetedAt: "2020-12-09 10:51",
-        user: {
-          userName: "",
-          avatarUrl:
-            "https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light",
-        },
-        postId: "",
-      },
-    };
-  },
-  props: ["info"],
-  created: async function () {
-    console.log("info=" + this.info);
-    console.log("ユーザーID＝" + this.info.userNum);
-    this.userNum = this.info.userNum;
-    await this.refresh(this.$store.state.userNum);
-    this.tweet.user.userName = this.info.userName;
-    this.tweet.artistName = this.info.artistName;
-    this.tweet.musicName = this.info.musicName;
-    this.tweet.musicImage = this.info.musicImage;
-    this.tweet.postText = this.info.postText;
-  },
-  methods: {
-    ...mapActions(["refresh"]),
-  },
-  computed: {
-    buttons() {
-      return [
-        { color: "gray", icon: "mdi-chat-outline" },
-        { color: "green", icon: "mdi-twitter-retweet" },
-        { color: "pink", icon: "mdi-heart-outline" },
-      ];
+    components: {
+    'good-button': GoodButton
     },
-  },
-};
+    data() {
+        return {
+            userNum: '',
+            postId: '',
+            countNum: this.info.likeCount,
+            likeStatus: this.info.likeStatus,
+            tweet: {
+                artistName: '',
+                musicName: '',
+                musicImage: '',
+                postText: '',
+                user: {
+                    userName: '',
+                    avatarUrl: "https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light"
+                },
+            },
+        }
+    },
+    props: ['info'],
+    created: async function(){
+        // this.$router.go({path: this.$router.currentRoute.path, force: true})
+        this.userNum = this.info.userNum;
+        await this.refresh(this.userNum);
+        this.tweet.user.userName = this.info.userName;
+        this.tweet.artistName = this.info.artistName;
+        this.tweet.musicName = this.info.musicName;
+        this.tweet.musicImage = this.info.musicImage;
+        this.tweet.postText = this.info.postText;
+        this.postId = this.info.postId;
+        console.log("postComponentsのcountNum="+this.countNum);
+    },
+    methods: {
+    ...mapActions(["refresh"])
+    },
+}
 </script>
 
 <style>

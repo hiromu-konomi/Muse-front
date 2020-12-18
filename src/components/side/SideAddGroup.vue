@@ -19,10 +19,33 @@
                         
                         outlined
                     ></v-text-field>
+
                     <v-text-field
+                        class="search"
+                        v-model="searchWord"
+                        type="text"
                         label="友達を招待（任意）"
                         outlined
-                    ></v-text-field>
+                    >
+                        <template v-slot:append>
+                            <v-icon type="button" @click="searchUser">mdi-magnify</v-icon>
+                        </template>
+                    </v-text-field>
+                    
+                    <div v-for="(user, index) in users" :key="index">
+                        <v-checkbox
+                            :value="user.userNum"
+                            v-model="selectUsers"
+                            color="green accent-4"
+                        >
+                            <template v-slot:label>
+                                <v-avatar>
+                                    <v-img src="https://cdn.vuetifyjs.com/images/lists/4.jpg"></v-img>
+                                </v-avatar>
+                                <span class="invName">{{ user.userName }}</span>
+                            </template>
+                        </v-checkbox>
+                    </div>                    
                 </v-form>
             </v-card-text>
 
@@ -42,6 +65,7 @@
 <script>
 import firebase from 'firebase'
 import { mapActions } from 'vuex'
+import axios from 'axios'
 
 export default {
     data() {
@@ -49,6 +73,10 @@ export default {
             group: {
                 groupName: "",
             },
+            searchWord: "",
+            users: [],
+            userNum: undefined,
+            selectUsers: [],
 
             // textRules: (value) => !!value || "グループ名を入力してください",
         }
@@ -64,6 +92,19 @@ export default {
             })
             this.$router.push("/groupInfo")
         },
+
+        searchUser: async function() {
+            await firebase.auth().onAuthStateChanged((user) => {
+                this.userNum = user.uid;
+            });
+            const res = axios.get('http://localhost:8080/searchFollowing', {
+                params: {
+                    followingUserNum: this.userNum,
+                    searchWord: this.searchWord,
+                }
+            });
+            this.users = (await res).data;
+        },
         ...mapActions(["setGroupData"]),
     },
 }
@@ -75,5 +116,9 @@ export default {
 }
 span {
     font-family: 'メイリオ';
+}
+.invName {
+    margin-left: 5%;
+    font-size: large;
 }
 </style>
