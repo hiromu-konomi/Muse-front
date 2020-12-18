@@ -25,6 +25,9 @@ import GroupMember from "../components/group/GroupMember.vue"
 import OwnerGroupList from "../components/group/OwnerGroupList.vue"
 import JoinGroupList from "../components/group/JoinGroupList.vue"
 import FollowUser from "../views/FollowUser.vue";
+import FollowNotification from "../components/notification/FollowNotification.vue"
+import LikeNotification from "../components/notification/LikeNotification.vue"
+import GroupInviteNotification from "../components/notification/GroupInviteNotification.vue"
 
 
 Vue.use(VueRouter);
@@ -44,6 +47,23 @@ const routes = [
         path: "/notification",
         name: "notification",
         component: Notification,
+        children: [
+          {
+            path: "/followNoti",
+            name: "FollowNotification",
+            component: FollowNotification,
+          },
+          {
+            path: "/likeNoti",
+            name: "LikeNotification",
+            component: LikeNotification,
+          },
+          {
+            path: "/groupInvNoti",
+            name: "GroupInviteNotification",
+            component: GroupInviteNotification,
+          }
+        ]
       },
       {
         path: "/ranking",
