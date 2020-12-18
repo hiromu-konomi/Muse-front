@@ -1,5 +1,9 @@
 import axios from "axios";
 import firebase from "firebase";
+import Vue from "vue";
+import Vuex from "vuex";
+
+Vue.use(Vuex);
 
 const userDetail = {
   state: {
@@ -11,10 +15,18 @@ const userDetail = {
     getUserDetail(state, userInformation) {
       state.userInformation = userInformation;
     },
-    addUserPhoto(state, photo) {
-      console.log(photo);
-      state.photo = photo;
+    // async addUserPhoto(state, photo) {
+    //   console.log(photo);
+    //   state.userPhoto = await photo;
+    // },
+    updateUserDetail(state, { userNum, user }) {
+      user.userNum = userNum;
+      state.userInformation = user;
     },
+    // addPhoto(state, { id, userPhoto }) {
+    //   userPhoto.id = id;
+    //   state.userPhoto = userPhoto;
+    // },
   },
   actions: {
     async findByUserId({ commit }, userNum) {
@@ -39,20 +51,31 @@ const userDetail = {
         .catch((reason) => console.log(reason));
     },
 
-    addUserPhoto({ getters, commit }, photo) {
+    async addUserPhoto({ getters }, photo) {
       if (getters.uid) {
         const uploadFile = photo;
         const storageRef = firebase.storage().ref();
 
         const uploadTask = storageRef.child(`images/${uploadFile.name}`);
-        uploadTask
+        await uploadTask
           .put(uploadFile)
           .then((snapshot) => {
             snapshot.ref
               .getDownloadURL()
               .then((downloadURL) => {
                 console.log("ダウンロードURL =" + downloadURL);
-                commit("addUserPhoto", downloadURL);
+                const userNum = getters.uid;
+                firebase
+                  .firestore()
+                  .collection("users")
+                  .add({
+                    userNum,
+                    downloadURL,
+                  })
+                  .then((doc) => {
+                    // commit("addPhoto", { id: doc.id, downloadURL });
+                    console.log(doc.id);
+                  });
               })
               .catch((error) => {
                 console.log(error.message);
@@ -63,6 +86,17 @@ const userDetail = {
           });
       }
     },
+    addPhoto({ commit }, userPhoto) {
+      commit("addPhoto", userPhoto);
+    },
+    // async updateUserDetail({ commit }, { userNum, user }) {
+    //   console.log("userNum=" + userNum);
+    //   console.log("user=" + user.photo);
+    //   await axios
+    //     .put("http://localhost:8080/userDetail/" + userNum, user)
+    //     .then(commit("updateUserDetail", { userNum, user }))
+    //     .catch((e) => console.log(e.message));
+    // },
     // addUserPhoto({ getters, commit }, photo) {
     //   if (getters.uid) {
     //     firebase
