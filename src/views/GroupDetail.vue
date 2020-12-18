@@ -12,15 +12,11 @@
                                 <v-col cols="12" md="10">
                                     <span class="grnm font-weight-bold">{{ $store.state.gDetail.groupData.groupName }}</span>
                                 </v-col>
-                                <v-col class="text-center" v-if="$store.state.gDetail.groupData.joinStatus = 1" cols="12" md="2">
+                                <v-col class="text-center" v-if="$store.state.gDetail.groupData.joinStatus === 1" cols="12" md="2">
                                     <InviteBtn />
                                 </v-col>
-                                <v-col class="text-center" v-else>
-                                    <v-btn
-                                        color="blue accent-4"
-                                    >
-                                        ＋ 参加する
-                                    </v-btn>
+                                <v-col class="text-center" v-else cols="12" md="2">
+                                    <JoinBtn />
                                 </v-col>
                             </v-row>
                         </v-container>
@@ -54,11 +50,13 @@
 <script>
 import SideGroupDetail from "../components/side/SideGroupDetail"
 import InviteBtn from "../components/group/InviteBtn"
+import JoinBtn from "../components/group/JoinBtn"
 
 export default {
     components: {
         SideGroupDetail,
         InviteBtn,
+        JoinBtn
     },
 
     data() {

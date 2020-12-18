@@ -77,6 +77,11 @@ export default {
             users: [],
             userNum: undefined,
             selectUsers: [],
+            request: {
+                groupName: undefined,
+                userNum: undefined,
+                inviteUsers: undefined,
+            }
 
             // textRules: (value) => !!value || "グループ名を入力してください",
         }
@@ -85,9 +90,12 @@ export default {
     methods: {
         addGroup: async function() {
             await firebase.auth().onAuthStateChanged((user) => {
+                this.request.groupName = this.group.groupName;
+                this.request.userNum = user.uid;
+                this.request.inviteUsers = this.selectUsers;
+                axios.post('http://localhost:8080/createGroup', this.request);
                 this.setGroupData({
-                    groupName: this.group.groupName,
-                    userNum: user.uid
+                    userNum: user.uid,
                 })
             })
             this.$router.push("/groupInfo")
