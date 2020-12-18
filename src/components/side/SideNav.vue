@@ -43,7 +43,7 @@
       return {
         items: [
           { title: 'Home', icon: 'mdi-home', link: {name: "home"}},
-          { title: 'Notification', icon: 'mdi-bell', link: {name: "notification"}},
+          { title: 'Notification', icon: 'mdi-bell', link: {name: "FollowNotification"}},
           { title: 'Ranking', icon: 'mdi-crown', link: {name: "ranking"}},
           { title: 'Group', icon: 'mdi-human-greeting', link: {name: "OwnerGroupList"} },
           { title: 'Mypage', icon: 'mdi-emoticon', link: {name: "mypage"} },
