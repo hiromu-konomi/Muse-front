@@ -84,6 +84,7 @@ export default {
         depName: null,
         profile: "",
         userNum: "",
+        photo: "",
       },
       userPhoto: [],
       uploadImageUrl: "",
@@ -109,7 +110,6 @@ export default {
         fr.readAsDataURL(file);
         fr.addEventListener("load", () => {
           this.uploadImageUrl = fr.result;
-          console.log("画像URL =" + this.uploadImageUrl);
         });
       } else {
         this.uploadImageUrl = "";
@@ -119,8 +119,12 @@ export default {
     async onSubmit() {
       this.form.userNum = this.$store.state.userNum;
 
-      await this.addUserDetail(this.form);
       await this.addUserPhoto(this.userPhoto);
+      await this.addUserDetail(this.form);
+
+      //   userNum: this.$store.state.userNum,
+      //   user: this.form,
+      // });
 
       console.log(
         "ユーザーID" + this.$store.state.uDetail.userInformation.userNum
@@ -135,6 +139,7 @@ export default {
       "findByUserId",
       "addUserPhoto",
       "getUserInfo",
+      "updateUserDetail",
     ]),
   },
 };

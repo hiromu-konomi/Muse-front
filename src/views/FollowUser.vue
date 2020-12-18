@@ -32,10 +32,11 @@ export default {
     };
   },
 
-  async created() {
+  created() {
     console.log("おすすめユーザー" + this.$store.state.sUser.usersData);
     this.users = this.$store.state.sUser.usersData;
     for (let u of this.users) {
+      console.log("画像＝" + u.photo);
       console.log("ユーザー情報 =" + u);
     }
   },
