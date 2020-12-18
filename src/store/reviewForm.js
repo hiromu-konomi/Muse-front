@@ -54,11 +54,9 @@ const reviewForm = {
                 }
             })
             this.userName = res.data
-            console.info("userName=" + this.userName)
             commit(UPDATE_USER_NAME, this.userName)
         },
         postMusicInfo: async function({ commit }, music) {
-            console.log("music=" + music)
             await axios.post('http://localhost:8080/music',
                 music,
             ).then(commit("postMusicInfo", music));
@@ -71,7 +69,6 @@ const reviewForm = {
                 }
             })
             this.postId = res.data
-            console.log(this.postId);
             commit("getPostId", this.postId)
         },
         postFormInfo: async function({ commit }, form) {

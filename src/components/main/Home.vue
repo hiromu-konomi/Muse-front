@@ -1,4 +1,3 @@
-
 <template>
     <div>
         <v-card color="deep-purple accent-4" dark tile>
@@ -30,7 +29,6 @@ export default {
     },
     methods: {
         async reflesh(){
-
             const rev = await axios.get('http://localhost:8080/getMusicInfoAndReview', {
                     params: {
                         userNum: this.$store.state.userNum,
@@ -42,8 +40,7 @@ export default {
 
     },
     async created() {
-            console.log(this.$store.state.userNum);
-            await this.reflesh();
+        await this.reflesh();
     }
 }
 </script>
