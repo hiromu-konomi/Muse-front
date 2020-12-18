@@ -52,7 +52,6 @@ const store = new Vuex.Store({
     sUser: showUser,
     fUser: followUser,
     gDetail: groupDetail,
-
   },
 });
 
