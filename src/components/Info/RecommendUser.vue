@@ -1,16 +1,34 @@
 <template>
-  <v-card>
-    <!-- <div :class="{ linkable }" @click="onClick"> -->
-    <router-link
-      :to="{
-        name: 'userpage',
-        params: { user_id: user.userNum },
-      }"
-    >
-      <v-row class="userInfo">
-        <!-- <v-avatar @click="onClick">
-        <v-img :src="user.userPhoto"></v-img>
-      </v-avatar> -->
+  <!-- <div :class="{ linkable }" @click="onClick"> -->
+  <router-link
+    :to="{
+      name: 'userpage',
+      params: { user_id: user.userNum },
+    }"
+  >
+    <v-list class="userInfo">
+      <v-list-item>
+        <v-list-item-avatar size="62">
+          <v-img
+            :src="'http://gahag.net/img/201602/25s/gahag-0059907781-1.jpg'"
+          ></v-img>
+        </v-list-item-avatar>
+
+        <v-list-item-content>
+          <v-list-item-title>
+            <h3>{{ user.userName }}</h3>
+          </v-list-item-title>
+          <v-list-item-subtitle>{{ user.depName }}</v-list-item-subtitle>
+          <v-list-item-subtitle>{{ user.profile }}</v-list-item-subtitle>
+        </v-list-item-content>
+      </v-list-item>
+    </v-list>
+    <!-- <v-row class="userInfo">
+        <v-avatar size="62">
+          <v-img
+            :src="'http://gahag.net/img/201602/25s/gahag-0059907781-1.jpg'"
+          ></v-img>
+        </v-avatar>
         <div class="user">
           {{ user.userName }}
 
@@ -19,10 +37,9 @@
       </v-row>
       <div class="profile">
         {{ user.profile }}
-      </div>
-    </router-link>
-    <!-- </div> -->
-  </v-card>
+      </div> -->
+  </router-link>
+  <!-- </div> -->
 </template>
 
 <script>
