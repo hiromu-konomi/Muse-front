@@ -66,14 +66,12 @@ export default {
     };
   },
   methods: {
-    search_music: function() {
+    search_music: function () {
       axios
         .get("https://api.spotify.com/v1/search", {
           headers: {
             Authorization:
-
-              "Bearer BQCBgRrcg8pkj2kIaYQSVtCapEwR8MEf7kxGskzblycTRW2ttlZF4TKpVqwveyBCFWzcqiXZ493ywE089WI",
-
+              "Bearer BQDe0ajB8qkGzgqW01StMmqCPLV9nfW19hV_EDHQ80VDDVZLlrzEeeDzJwgA7Nu70w6_OHenGciA04TsFS0",
           },
           params: {
             q: this.musicName,
@@ -90,7 +88,7 @@ export default {
         })
         .catch((error) => console.log(error));
     },
-    relative_data: function() {
+    relative_data: function () {
       this.musics = [];
 
       for (var i = 0; i < this.music_data.tracks.items.length; i++) {

@@ -49,6 +49,16 @@
             <PostComponents :info="info" />
           </div>
         </div>
+        <div v-if="tab.title === 'いいね'">
+          <div v-for="(info, index) in likeposts" :key="index">
+            <LikePostComponents :info="info" />
+          </div>
+        </div>
+        <div v-if="tab.title === 'お気に入り'">
+          <div v-for="(info, index) in checkSongs" :key="index">
+            <CheckSongComponents :info="info" />
+          </div>
+        </div>
       </v-tab-item>
     </v-tabs-items>
     <v-divider></v-divider>
@@ -60,12 +70,16 @@ import { mapActions } from "vuex";
 import firebase from "firebase";
 import axios from "axios";
 import PostComponents from "../post/PostComponents.vue";
+import LikePostComponents from "../post/LikePostComponents.vue";
+import CheckSongComponents from "../post/CheckSongComponents.vue";
 export default {
   data() {
     return {
       title: null,
       userInfo: [],
       infos: [],
+      likeposts: [],
+      checkSongs: [],
       tabs: [
         {
           title: "投稿",
@@ -82,6 +96,8 @@ export default {
 
   components: {
     PostComponents,
+    LikePostComponents,
+    CheckSongComponents,
   },
   async created() {
     // console.log("パラメーター＝" + this.$route.params.user_id);
@@ -103,8 +119,9 @@ export default {
       });
     }
 
-    console.log("リクエストパラメーター＝" + this.$route.params.user_id);
     await this.reflesh();
+    await this.getLikePosts();
+    await this.getCheckSongs();
   },
   computed: {
     detailUser() {
@@ -146,7 +163,6 @@ export default {
       await this.unFollow(user);
     },
     async reflesh() {
-      console.log(this.$route.params.user_id);
       await axios
         .get("http://localhost:8080/getMyPosts", {
           params: {
@@ -155,6 +171,32 @@ export default {
         })
         .then((response) => {
           this.infos = response.data.reviewAllList;
+        })
+        .catch((e) => console.log(e.message));
+    },
+    async getLikePosts() {
+      await axios
+        .get("http://localhost:8080/getLikePosts", {
+          params: {
+            userNum: this.$route.params.user_id,
+          },
+        })
+        .then((response) => {
+          this.likeposts = response.data.reviewAllList;
+        })
+        .catch((e) => console.log(e.message));
+    },
+    async getCheckSongs() {
+      console.log("パラメータ＝" + this.$route.params.user_id);
+      await axios
+        .get("http://localhost:8080/getCheckSongs", {
+          params: {
+            userNum: this.$route.params.user_id,
+          },
+        })
+        .then((response) => {
+          console.log(response.data.checkAllList);
+          this.checkSongs = response.data.checkAllList;
         })
         .catch((e) => console.log(e.message));
     },
