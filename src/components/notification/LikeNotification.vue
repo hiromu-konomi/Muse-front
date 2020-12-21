@@ -4,7 +4,9 @@
       <template v-for="(lkNoti, index) in likeNoti">
         <v-list-item
           :key="lkNoti.NotiId"
-          @Click="mypage()"
+          :to="{ name: 'userpage',
+          params: { user_id: lkNoti.userNum }
+          }"
         >
           <v-list-item-avatar>
             <v-img src="https://cdn.vuetifyjs.com/images/lists/3.jpg"></v-img>
