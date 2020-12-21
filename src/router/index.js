@@ -24,6 +24,8 @@ import GroupMember from "../components/group/GroupMember.vue";
 import OwnerGroupList from "../components/group/OwnerGroupList.vue";
 import JoinGroupList from "../components/group/JoinGroupList.vue";
 import FollowUser from "../views/FollowUser.vue";
+import Follow from "../components/main/Follow.vue";
+import Followers from "../components/main/Followers.vue";
 
 Vue.use(VueRouter);
 
@@ -69,6 +71,16 @@ const routes = [
         path: "/user/:user_id?/userpage",
         name: "userpage",
         component: UserPage,
+      },
+      {
+        path: "/follows",
+        name: "follows",
+        component: Follow,
+      },
+      {
+        path: "/followers",
+        name: "followers",
+        component: Followers,
       },
       {
         path: "/explore",
