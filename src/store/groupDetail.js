@@ -20,17 +20,33 @@ const groupDetail = {
             state.groupData.ownerId = resData.ownerId;
             state.groupData.joinStatus = resData.joinStatus;
         },
+
+        setJoinStatus(state, resData) {
+            state.groupData.joinStatus = resData;
+        }
     },
     actions: {
-        async setGroupData({commit}, { groupName, userNum }) {
+        async setGroupData({commit}, {userNum}) {
             await axios.get("http://localhost:8080/showGroup", {
                 params: {
-                    groupName: groupName,
                     userNum: userNum,
-                }
+                },
             })
             .then((response) => {
                 commit("setGroupData", response.data);
+            })
+            .catch((reason) => console.log(reason));
+        },
+
+        async setJoinStatus({commit}, userNum) {
+            await axios.get("http://localhost:8080/setJoinStatus", {
+                params: {
+                    userNum: userNum,
+                    groupId: this.state.groupData.groupId
+                }
+            })
+            .then((response) => {
+                commit("setJoinStatus", response.data);
             })
             .catch((reason) => console.log(reason));
         },

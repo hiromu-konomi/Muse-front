@@ -30,37 +30,22 @@
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      items: [
-        { title: "Home", icon: "mdi-home", link: { name: "home" } },
-        {
-          title: "Notification",
-          icon: "mdi-bell",
-          link: { name: "notification" },
-        },
-        { title: "Ranking", icon: "mdi-crown", link: { name: "ranking" } },
-        {
-          title: "Group",
-          icon: "mdi-human-greeting",
-          link: { name: "OwnerGroupList" },
-        },
-        {
-          title: "Mypage",
-          icon: "mdi-emoticon",
-          link: {
-            name: "userpage",
-            params: { user_id: this.$store.state.userNum },
-          },
-        },
-        { title: "Explore", icon: "mdi-magnify", link: { name: "explore" } },
-        { title: "Support", icon: "mdi-feather", link: { name: "support" } },
-      ],
-      right: null,
-    };
-  },
-};
+  export default {
+    data () {
+      return {
+        items: [
+          { title: 'Home', icon: 'mdi-home', link: {name: "home"}},
+          { title: 'Notification', icon: 'mdi-bell', link: {name: "FollowNotification"}},
+          { title: 'Ranking', icon: 'mdi-crown', link: {name: "ranking"}},
+          { title: 'Group', icon: 'mdi-human-greeting', link: {name: "OwnerGroupList"} },
+          { title: 'Mypage', icon: 'mdi-emoticon', link: {name: "userpage", params: { user_id: this.$store.state.userNum }}},
+          { title: 'Explore', icon: 'mdi-magnify', link: {name: "explore"} },
+          { title: 'Support', icon: 'mdi-feather', link: {name: "support"} },
+        ],
+        right: null,
+      }
+    },
+  }
 </script>
 
 <style scoped>
