@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-layout row wrap justify-center>
-      <v-flex xs5 mt-5>
+      <v-flex xs7 mt-5>
         <v-card class="text-center" id="registerUser">
           <v-toolbar-title>ユーザー登録</v-toolbar-title>
           <v-card-text>
@@ -13,7 +13,21 @@
                 v-model="email"
                 :rules="[emailRules]"
                 outlined
-              ></v-text-field>
+              >
+                <!-- <template v-slot:append-outer>
+                  @
+                  <v-select
+                    v-model="domain"
+                    label="選択してください"
+                    outlined
+                    item-text="domain"
+                    item-value="id"
+                    :items="emailDomain"
+                    class="select"
+                  >
+                  </v-select>
+                </template> -->
+              </v-text-field>
               <v-text-field
                 :append-icon="toggle.icon"
                 :type="toggle.type"
@@ -43,7 +57,11 @@ export default {
     return {
       email: "",
       password: "",
-
+      // domain: "",
+      // emailDomain: [
+      //   { domain: "rakus-partners.co.jp", id: "rakus-partners.co.jp" },
+      //   { domain: "rakus.co.jp", id: "rakus.co.jp" },
+      // ],
       show: false,
       emailRules: (value) => !!value || "メールアドレスを入力してください",
       passwordRules: (value) => !!value || "パスワードを入力してください",
@@ -62,6 +80,7 @@ export default {
   methods: {
     onSubmit() {
       if (this.$refs.form.validate()) {
+        // console.log(this.email + "@" + this.domain);
         firebase
           .auth()
           .createUserWithEmailAndPassword(this.email, this.password)
@@ -76,7 +95,7 @@ export default {
           .then(() => {
             alert("認証メールを送信しました");
           })
-          .catch((e) => console.log(e.message));
+          .catch(alert("このメールアドレスは既に登録されています"));
       }
     },
     ...mapGetters(["uid"]),
@@ -90,5 +109,7 @@ export default {
 }
 .registerBtn {
   margin-left: 180px;
+}
+.select {
 }
 </style>
