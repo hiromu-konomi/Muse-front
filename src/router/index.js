@@ -24,9 +24,12 @@ import GroupMember from "../components/group/GroupMember.vue";
 import OwnerGroupList from "../components/group/OwnerGroupList.vue";
 import JoinGroupList from "../components/group/JoinGroupList.vue";
 import FollowUser from "../views/FollowUser.vue";
+import Follow from "../components/main/Follow.vue";
+import Followers from "../components/main/Followers.vue";
 import FollowNotification from "../components/notification/FollowNotification.vue"
 import LikeNotification from "../components/notification/LikeNotification.vue"
 import GroupInviteNotification from "../components/notification/GroupInviteNotification.vue"
+
 
 Vue.use(VueRouter);
 
@@ -89,6 +92,16 @@ const routes = [
         path: "/user/:user_id?/userpage",
         name: "userpage",
         component: UserPage,
+      },
+      {
+        path: "/follows",
+        name: "follows",
+        component: Follow,
+      },
+      {
+        path: "/followers",
+        name: "followers",
+        component: Followers,
       },
       {
         path: "/explore",

@@ -17,22 +17,22 @@
     </v-row>
     <v-row>
       <v-col>
-        <!-- <check-button
+        <check-button
           :postId="postId"
           :countCheck="checkCount"
           :checkStatus="checkStatus"
-        ></check-button> -->
+        ></check-button>
       </v-col>
     </v-row>
   </v-card>
 </template>
 
 <script>
-// import CheckButton from "./CheckButton";
+import CheckButton from "./CheckButton";
 export default {
-  //   components: {
-  //     "check-button": CheckButton,
-  //   },
+  components: {
+    "check-button": CheckButton,
+  },
   data() {
     return {
       postId: "",
