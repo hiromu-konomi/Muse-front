@@ -27,15 +27,24 @@
           >
         </v-form>
       </v-col>
-      <!-- <v-col>
-        {{ userInfo.depId }}
-      </v-col> -->
     </v-row>
     <v-row>
       <v-col>
         {{ userInfo.depName }}
       </v-col>
       <v-col> {{ userInfo.profile }} </v-col>
+    </v-row>
+    <v-row>
+      <v-col>
+        <router-link :to="{ name: 'follows' }"
+          >{{ this.follows }} フォロー</router-link
+        ></v-col
+      >
+      <v-col>
+        <router-link :to="{ name: 'followers' }"
+          >{{ this.followers }} フォロワー</router-link
+        ></v-col
+      >
     </v-row>
 
     <v-tabs centered grow v-model="title">
@@ -67,7 +76,7 @@
 
 <script>
 import { mapActions } from "vuex";
-import firebase from "firebase";
+// import firebase from "firebase";
 import axios from "axios";
 import PostComponents from "../post/PostComponents.vue";
 import LikePostComponents from "../post/LikePostComponents.vue";
@@ -80,6 +89,8 @@ export default {
       infos: [],
       likeposts: [],
       checkSongs: [],
+      follows: "",
+      followers: "",
       tabs: [
         {
           title: "投稿",
@@ -100,8 +111,6 @@ export default {
     CheckSongComponents,
   },
   async created() {
-    // console.log("パラメーター＝" + this.$route.params.user_id);
-    // console.log("ユーザーID＝" + this.$store.state.userNum);
     if (this.$route.params.user_id === this.$store.state.userNum) {
       this.userInfo = this.$store.state.uDetail.userInformation;
     } else {
@@ -111,22 +120,24 @@ export default {
 
       this.userInfo = user;
 
-      firebase.auth().onAuthStateChanged(async (user) => {
-        user = user ? user : {};
-        this.$store.commit("onAuthStatusChanged", user.uid ? true : false);
-        await this.myFollows();
-        await this.myFollowers();
-      });
+      // firebase.auth().onAuthStateChanged(async (user) => {
+      //   user = user ? user : {};
+      //   this.$store.commit("onAuthStatusChanged", user.uid ? true : false);
+      // });
     }
-
+    await this.myFollows();
+    await this.myFollowers();
     await this.reflesh();
     await this.getLikePosts();
     await this.getCheckSongs();
+
+    this.follows = this.$store.state.fUser.myfollows_users.length;
+    this.followers = this.$store.state.fUser.myfollowers_users.length;
   },
   computed: {
     detailUser() {
       let array = this.$store.state.fUser.myfollows_users;
-      console.log("フォローユーザー情報=" + array);
+
       let check_user = this.userInfo;
 
       function checkAlreadyFollows(arry, id) {
@@ -147,19 +158,15 @@ export default {
         }
       });
 
-      console.log("チェックユーザー =" + check_user.follow_status);
-      console.log(check_user.userName);
       return check_user;
     },
   },
   methods: {
     async followUser(user) {
-      console.log("フォローするユーザー" + user);
       await this.follow(user);
     },
 
     async unFollowUser(user) {
-      console.log("フォロー解除したいユーザー ＝" + user);
       await this.unFollow(user);
     },
     async reflesh() {
@@ -187,7 +194,6 @@ export default {
         .catch((e) => console.log(e.message));
     },
     async getCheckSongs() {
-      console.log("パラメータ＝" + this.$route.params.user_id);
       await axios
         .get("http://localhost:8080/getCheckSongs", {
           params: {
