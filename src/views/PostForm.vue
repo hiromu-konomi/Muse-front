@@ -179,7 +179,7 @@ textarea {
 }
 .userName{
     position: absolute;
-    left: 0px;
+    left: 50px;
 }
 .hr{
     position: absolute;
@@ -192,7 +192,7 @@ textarea {
 
 .v-select{
     position: absolute;
-    top: 250px;
+    top: 30px;
     right: 0px;
 }
 .review{

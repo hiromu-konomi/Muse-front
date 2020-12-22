@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-content>
+    <v-main>
       <v-form>
         <v-container>
           <h2>お気に入りの曲を選択してください</h2>
@@ -11,7 +11,7 @@
                 class="search"
                 v-model="musicName"
                 type="text"
-                @keyup.enter="search_music">
+                @keyup.enter="get_token_to_search_music">
                 <template v-slot:append>
                   <v-icon type="button" @click="get_token_to_search_music"
                     >mdi-magnify</v-icon
@@ -29,7 +29,7 @@
         :music="music"
         class="music"
       ></MusicInfo>
-    </v-content>
+    </v-main>
   </v-app>
 </template>
 
@@ -120,9 +120,6 @@ export default {
           musicName: this.musicInfo.name,
           image: this.musicInfo.album.images[2].url,
         });
-      }
-      for (let m of this.musics) {
-        console.log(m);
       }
     },
   },
