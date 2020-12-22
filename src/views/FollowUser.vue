@@ -39,10 +39,9 @@ export default {
 
     for (let u of this.userPhoto) {
       console.log(u.downloadURL);
-      const user = this.$store.getters.getUserbyUserNum(u.userNum);
+      let user = this.$store.getters.getUserbyUserNum(u.userNum);
       if (user !== null) {
         user.photo = u.downloadURL;
-
         this.users.push(user);
       }
     }
