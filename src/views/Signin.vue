@@ -81,7 +81,7 @@ export default {
             }
           });
         })
-        .catch(alert("メールアドレスまたはパスワードが違います"));
+        .catch(() => alert("メールアドレスまたはパスワードが違います"));
     },
 
     ...mapActions([
