@@ -57,7 +57,6 @@ const userDetail = {
           .catch((reason) => console.log(reason));
       },
 
-
       async addUserDetail({ commit }, user) {
         await axios
           .post("http://localhost:8080/userDetail", user)
@@ -110,8 +109,8 @@ const userDetail = {
             });
           });
       },
-    }
-  }
-},
+    },
+  },
+};
 
 export default userDetail;
