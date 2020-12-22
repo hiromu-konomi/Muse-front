@@ -7,7 +7,7 @@
       @click="clickHeart"
       :class="{ 'heart-red' : isActive }"
       >
-      <span class="count">{{ goodArticleCount }}</span>
+      <span>{{ goodArticleCount }}</span>
     </i>
   </div>
 </template>
@@ -26,16 +26,13 @@ export default {
   async created(){
     this.postId = String(this.postId);
     this.isActive = this.likeStatus;
-    console.log("isActive="+this.isActive)
     this.goodArticleCount = this.countNum;
-    console.log("newCount="+this.goodArticleCount)
   },
   methods: {
       async clickHeart () {
         if (this.isActive) {
         this.goodArticleCount = this.goodArticleCount - 1
         this.isActive = false
-        console.log("ハートボタンコンポーネントのpostId="+this.postId)
         await axios.get("http://localhost:8080/notLike",{
             params: {
                 postId: this.postId,
@@ -46,7 +43,6 @@ export default {
         this.goodArticleCount = this.goodArticleCount + 1
         this.isActive = true
         this.postId = Number(this.postId);
-        console.log("ハートボタンコンポーネントのpostId="+this.postId)
         await axios.get("http://localhost:8080/like",{
             params: {
                 postId: this.postId,
@@ -55,7 +51,6 @@ export default {
         })
             // this.goodArticleCount = rev.data
             // console.log(this.goodArticleCount);
-            console.log("いいね追加");
       }
     }
   }
@@ -67,14 +62,14 @@ export default {
     font-size: 20px;
     margin-left: 35px;
     color: #5F5B5B;
-    position: left;
-    top: 150px;
-    left: 700px;
+    position: absolute;
+    top: 0px;
+    left: 50px;
   }
 
-   .count {
+   /* .count {
     color: #5F5B5B;
-  }
+  } */
 
   .heart-red {
     color: red;
