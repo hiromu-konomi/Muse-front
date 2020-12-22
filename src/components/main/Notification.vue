@@ -1,5 +1,5 @@
 <template>   
-    <v-card color="deep-purple accent-4" dark tile>
+    <v-card color="#B0C4DE" dark tile>
         <v-card-text>
             <v-layout wrap justify-center>
                 <h1 class="white--text">Notification</h1>
