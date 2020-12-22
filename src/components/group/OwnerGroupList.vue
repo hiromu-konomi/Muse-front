@@ -19,7 +19,13 @@
                     </v-list-item-content>
 
                     <v-list-item-action>
-                        <v-btn class="pink accent-2 " icon>
+                        <v-btn @click="toGroup(group.groupId)" class="green accent-3" icon>
+                            <v-icon color="white">mdi-arrow-up-bold-box-outline</v-icon>
+                        </v-btn>
+                    </v-list-item-action>
+
+                    <v-list-item-action>
+                        <v-btn class="pink accent-2" icon>
                             <v-icon color="white">mdi-close</v-icon>
                         </v-btn>
                     </v-list-item-action>
@@ -35,6 +41,7 @@
 <script>
 import axios from 'axios'
 import firebase from 'firebase'
+import { mapActions } from 'vuex'
 
 export default {
     async created() {
@@ -59,7 +66,16 @@ export default {
                 }
             });
             this.groups = res.data.ownerGroups;
-        }
+        },
+
+        async toGroup(groupId) {
+            await firebase.auth().onAuthStateChanged((user) => {
+                this.userNum = user.uid;
+            });
+            await this.setShowGroup({groupId: groupId, userNum: this.userNum});
+            this.$router.push("/groupInfo");
+        },
+        ...mapActions(["setShowGroup"]),
     }
 }
 </script>

@@ -28,6 +28,14 @@ const groupDetail = {
         setGrpDes(state, resData) {
             state.groupData.groupDescription = resData;
         },
+
+        setShowGroup(state, resData) {
+            state.groupData.groupId = resData.groupId;
+            state.groupData.groupName = resData.groupName;
+            state.groupData.ownerId = resData.ownerId;
+            state.groupData.joinStatus = resData.joinStatus;
+            state.groupData.groupDescription = resData.groupDescription;
+        }
     },
     actions: {
         async setGroupData({commit}, {userNum, groupName, inviteUsers}) {
@@ -70,6 +78,19 @@ const groupDetail = {
             })
             .then((response) => {
                 commit("setGrpDes", response.data);
+            })
+            .catch((reason) => console.log(reason));
+        },
+
+        async setShowGroup({commit}, {groupId, userNum}) {
+            await axios.get("http://localhost:8080/showGroup", {
+                params: {
+                    groupId: groupId,
+                    userNum: userNum
+                }
+            })
+            .then((response) => {
+                commit("setShowGroup", response.data)
             })
             .catch((reason) => console.log(reason));
         }
