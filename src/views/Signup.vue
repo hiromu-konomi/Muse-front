@@ -110,6 +110,4 @@ export default {
 .registerBtn {
   margin-left: 180px;
 }
-.select {
-}
 </style>
