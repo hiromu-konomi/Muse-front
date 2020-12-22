@@ -24,14 +24,12 @@ export default {
     //   this.$router.push({ name: "Signin" }, () => {});
     // }
     firebase.auth().onAuthStateChanged(async (user) => {
-      console.log(user);
       if (user) {
-        console.log("userid=" + user.uid);
         await this.setLoginUser(user);
 
-        console.log("ログインユーザー" + this.$store.state.login_user);
         await this.setUserId(user.uid);
-        console.log("ユーザーID＝" + this.$store.state.userNum);
+
+        await this.showUserPhoto();
 
         // await this.setLoginUser(user);
         // console.log("ログインユーザー" + this.$store.state.login_user);
@@ -50,7 +48,12 @@ export default {
   },
 
   methods: {
-    ...mapActions(["deleteLoginUser", "setLoginUser", "setUserId"]),
+    ...mapActions([
+      "deleteLoginUser",
+      "setLoginUser",
+      "setUserId",
+      "showUserPhoto",
+    ]),
   },
 };
 </script>

@@ -35,8 +35,17 @@ export default {
   },
 
   async created() {
-    await this.myFollowers();
-    this.followers = this.$store.state.fUser.myfollowers_users;
+    await this.myFollowers(this.$route.params.follower_id);
+    let followersPhoto = this.$store.state.fUser.myfollowers_users;
+    let followerList = [];
+    for (let f of followersPhoto) {
+      let followerUserPhoto = this.$store.getters.getUserPhotobyUserNum(
+        f.userNum
+      );
+      f.photo = followerUserPhoto.downloadURL;
+      followerList.push(f);
+    }
+    this.followers = followerList;
   },
 
   methods: {

@@ -7,6 +7,7 @@ const followUser = {
     status: false,
     myfollows_users: [],
     myfollowers_users: [],
+    change_myfollow_status: [],
   },
   getters: {},
   mutations: {
@@ -18,16 +19,14 @@ const followUser = {
     },
     myFollowers(state, my_follower_users) {
       state.myfollowers_users = my_follower_users;
-      console.log("フォロワー＝" + state.myfollowers_users);
+    },
+    myChengeFollowStatus(state, my_follows) {
+      state.change_myfollow_status = my_follows;
     },
   },
   actions: {
     async follow({ state }, detail_user) {
       const user = firebase.auth().currentUser;
-
-      console.log("自分 = " + user);
-      console.log(state.myfollows_users.length);
-      console.log(state.myfollows_users);
 
       let followingUserNum = "";
       let followerUserNum = "";
@@ -61,7 +60,6 @@ const followUser = {
       }
     },
     async unFollow({ state }, detail_user) {
-      console.log(detail_user);
       const user = firebase.auth().currentUser;
       let followingUserNum = "";
       let followerUserNum = "";
@@ -85,13 +83,13 @@ const followUser = {
           .catch((e) => console.log(e.message));
       }
     },
-    async myFollows({ commit }) {
-      const user = firebase.auth().currentUser;
+    async myFollows({ commit }, userNum) {
+      // const user = firebase.auth().currentUser;
 
       await axios
         .get("http://localhost:8080/followingId", {
           params: {
-            followingUserNum: user.uid,
+            followingUserNum: userNum,
           },
         })
         .then(async (response) => {
@@ -106,13 +104,34 @@ const followUser = {
         .catch((error) => console.log(error.message));
     },
 
-    async myFollowers({ commit }) {
+    async myChengeFollowStatus({ commit }) {
       const user = firebase.auth().currentUser;
+
+      await axios
+        .get("http://localhost:8080/followingId", {
+          params: {
+            followingUserNum: user.uid,
+          },
+        })
+        .then(async (response) => {
+          let my_follows = [];
+
+          for (let u of response.data) {
+            my_follows.push(u);
+          }
+
+          commit("myChengeFollowStatus", my_follows);
+        })
+        .catch((error) => console.log(error.message));
+    },
+
+    async myFollowers({ commit }, userNum) {
+      // const user = firebase.auth().currentUser;
 
       await axios
         .get("http://localhost:8080/followerId", {
           params: {
-            followerUserNum: user.uid,
+            followerUserNum: userNum,
           },
         })
         .then(async (response) => {

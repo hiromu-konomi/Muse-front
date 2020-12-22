@@ -95,7 +95,7 @@ export default {
           .then(() => {
             alert("認証メールを送信しました");
           })
-          .catch(alert("このメールアドレスは既に登録されています"));
+          .catch(() => alert("このメールアドレスは既に登録されています"));
       }
     },
     ...mapGetters(["uid"]),
@@ -109,7 +109,5 @@ export default {
 }
 .registerBtn {
   margin-left: 180px;
-}
-.select {
 }
 </style>

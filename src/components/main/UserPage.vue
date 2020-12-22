@@ -1,9 +1,7 @@
 <template>
   <div class="text-center">
     <v-avatar size="150">
-      <v-img
-        :src="'http://gahag.net/img/201602/25s/gahag-0059907781-1.jpg'"
-      ></v-img>
+      <v-img :src="userInfo.photo"></v-img>
     </v-avatar>
     <v-row>
       <v-col>
@@ -36,12 +34,14 @@
     </v-row>
     <v-row>
       <v-col>
-        <router-link :to="{ name: 'follows' }"
+        <router-link
+          :to="{ name: 'follows', params: { follow_id: userInfo.userNum } }"
           >{{ this.follows }} フォロー</router-link
         ></v-col
       >
       <v-col>
-        <router-link :to="{ name: 'followers' }"
+        <router-link
+          :to="{ name: 'followers', params: { follower_id: userInfo.userNum } }"
           >{{ this.followers }} フォロワー</router-link
         ></v-col
       >
@@ -112,21 +112,28 @@ export default {
   },
   async created() {
     if (this.$route.params.user_id === this.$store.state.userNum) {
-      this.userInfo = this.$store.state.uDetail.userInformation;
+      let myphoto = this.$store.getters.getUserPhotobyUserNum(
+        this.$store.state.userNum
+      );
+      let myUser = this.$store.state.uDetail.userInformation;
+
+      myUser.photo = myphoto.downloadURL;
+      this.userInfo = myUser;
     } else {
-      const user = this.$store.getters.getUserbyUserNum(
+      let user = this.$store.getters.getUserbyUserNum(
+        this.$route.params.user_id
+      );
+      let photo = this.$store.getters.getUserPhotobyUserNum(
         this.$route.params.user_id
       );
 
-      this.userInfo = user;
+      user.photo = photo.downloadURL;
 
-      // firebase.auth().onAuthStateChanged(async (user) => {
-      //   user = user ? user : {};
-      //   this.$store.commit("onAuthStatusChanged", user.uid ? true : false);
-      // });
+      this.userInfo = user;
     }
-    await this.myFollows();
-    await this.myFollowers();
+    await this.myFollows(this.userInfo.userNum);
+    await this.myFollowers(this.userInfo.userNum);
+    await this.myChengeFollowStatus();
     await this.reflesh();
     await this.getLikePosts();
     await this.getCheckSongs();
@@ -136,7 +143,7 @@ export default {
   },
   computed: {
     detailUser() {
-      let array = this.$store.state.fUser.myfollows_users;
+      let array = this.$store.state.fUser.change_myfollow_status;
 
       let check_user = this.userInfo;
 
@@ -177,7 +184,18 @@ export default {
           },
         })
         .then((response) => {
-          this.infos = response.data.reviewAllList;
+          let myposts = response.data.reviewAllList;
+          let mypostList = [];
+
+          for (let m of myposts) {
+            let myPostPhoto = this.$store.getters.getUserPhotobyUserNum(
+              m.userNum
+            );
+            m.photo = myPostPhoto.downloadURL;
+
+            mypostList.push(m);
+          }
+          this.infos = mypostList;
         })
         .catch((e) => console.log(e.message));
     },
@@ -189,7 +207,16 @@ export default {
           },
         })
         .then((response) => {
-          this.likeposts = response.data.reviewAllList;
+          let likes = response.data.reviewAllList;
+          let likeList = [];
+          for (let l of likes) {
+            let usersPostPhoto = this.$store.getters.getUserPhotobyUserNum(
+              l.userNum
+            );
+            l.photo = usersPostPhoto.downloadURL;
+            likeList.push(l);
+          }
+          this.likeposts = likeList;
         })
         .catch((e) => console.log(e.message));
     },
@@ -201,12 +228,17 @@ export default {
           },
         })
         .then((response) => {
-          console.log(response.data.checkAllList);
           this.checkSongs = response.data.checkAllList;
         })
         .catch((e) => console.log(e.message));
     },
-    ...mapActions(["follow", "myFollows", "myFollowers", "unFollow"]),
+    ...mapActions([
+      "follow",
+      "myFollows",
+      "myFollowers",
+      "unFollow",
+      "myChengeFollowStatus",
+    ]),
   },
 };
 </script>

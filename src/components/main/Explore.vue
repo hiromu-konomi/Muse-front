@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-card color="#FFC0CB" dark tile>
+        <v-card color="#ADD8E6" dark tile>
             <v-card-text>
                 <v-layout wrap justify-center>
                     <h1 class="white--text">Explore</h1>
@@ -54,5 +54,7 @@ export default {
 </script>
 
 <style>
-
+h1 {
+    font-family: 'メイリオ';
+}
 </style>
