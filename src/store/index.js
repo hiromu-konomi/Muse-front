@@ -20,6 +20,10 @@ const store = new Vuex.Store({
     uid: (state) => (state.login_user ? state.login_user.uid : null),
     getUserbyUserNum: (state) => (id) =>
       state.sUser.usersData.find((user) => user.userNum === id),
+    getUserPhotobyUserNum: (state) => (id) =>
+      state.uDetail.userPhoto.find((photo) => photo.userNum === id),
+    getFollowUserPost: (state) => (id) =>
+      state.fUser.myfollows_users.find((follow) => follow.userNum === id),
   },
   mutations: {
     setLoginUser(state, user) {
