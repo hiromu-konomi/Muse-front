@@ -29,6 +29,7 @@ const userDetail = {
       }
     },
   },
+
   actions: {
     async findByUserId({ commit }, userNum) {
       await axios
@@ -38,77 +39,63 @@ const userDetail = {
           },
         })
         .then((response) => {
+          console.log("response=", response.data);
           commit("getUserDetail", response.data);
         })
         .catch((reason) => console.log(reason));
     },
-    actions: {
-      async findByUserId({ commit }, userNum) {
-        await axios
-          .get("http://localhost:8080/users", {
-            params: {
-              userNum: userNum,
-            },
-          })
-          .then((response) => {
-            console.log("response=", response.data);
-            commit("getUserDetail", response.data);
-          })
-          .catch((reason) => console.log(reason));
-      },
 
-      async addUserDetail({ commit }, user) {
-        await axios
-          .post("http://localhost:8080/userDetail", user)
-          .then(commit("getUserDetail", user))
-          .catch((reason) => console.log(reason));
-      },
+    async addUserDetail({ commit }, user) {
+      await axios
+        .post("http://localhost:8080/userDetail", user)
+        .then(commit("getUserDetail", user))
+        .catch((reason) => console.log(reason));
+    },
 
-      async addUserPhoto({ getters }, photo) {
-        if (getters.uid) {
-          const uploadFile = photo;
-          const storageRef = firebase.storage().ref();
+    async addUserPhoto({ getters }, photo) {
+      if (getters.uid) {
+        const uploadFile = photo;
+        const storageRef = firebase.storage().ref();
 
-          const uploadTask = storageRef.child(`images/${uploadFile.name}`);
-          await uploadTask
-            .put(uploadFile)
-            .then((snapshot) => {
-              snapshot.ref
-                .getDownloadURL()
-                .then((downloadURL) => {
-                  const userNum = getters.uid;
-                  firebase
-                    .firestore()
-                    .collection("users")
-                    .add({
-                      userNum,
-                      downloadURL,
-                    })
-                    .then((doc) => {
-                      // commit("addPhoto", { id: doc.id, downloadURL });
-                      console.log(doc.id);
-                    });
-                })
-                .catch((error) => {
-                  console.log(error.message);
-                });
-            })
-            .catch((error) => {
-              console.log(error.message);
-            });
-        }
-      },
-      showUserPhoto({ commit }) {
-        firebase
-          .firestore()
-          .collection("users")
-          .get()
+        const uploadTask = storageRef.child(`images/${uploadFile.name}`);
+        await uploadTask
+          .put(uploadFile)
           .then((snapshot) => {
-            snapshot.forEach((doc) => {
-              commit("showUserPhoto", doc.data());
-            });
+            snapshot.ref
+              .getDownloadURL()
+              .then((downloadURL) => {
+                const userNum = getters.uid;
+                firebase
+                  .firestore()
+                  .collection("users")
+                  .add({
+                    userNum,
+                    downloadURL,
+                  })
+                  .then((doc) => {
+                    // commit("addPhoto", { id: doc.id, downloadURL });
+                    console.log(doc.id);
+                  });
+              })
+              .catch((error) => {
+                console.log(error.message);
+              });
+          })
+          .catch((error) => {
+            console.log(error.message);
           });
-      },
+      }
+    },
+    showUserPhoto({ commit }) {
+      firebase
+        .firestore()
+        .collection("users")
+        .get()
+        .then((snapshot) => {
+          snapshot.forEach((doc) => {
+            commit("showUserPhoto", doc.data());
+          });
+        });
     },
   },
 };
