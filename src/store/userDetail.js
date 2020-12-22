@@ -15,21 +15,18 @@ const userDetail = {
     getUserDetail(state, userInformation) {
       state.userInformation = userInformation;
     },
-    // async addUserPhoto(state, photo) {
-    //   console.log(photo);
-    //   state.userPhoto = await photo;
-    // },
     updateUserDetail(state, { userNum, user }) {
       user.userNum = userNum;
       state.userInformation = user;
     },
-    // addPhoto(state, { id, userPhoto }) {
-    //   userPhoto.id = id;
-    //   state.userPhoto = userPhoto;
-    // },
     showUserPhoto(state, photo) {
-      console.log("p=" + photo);
-      state.userPhoto.push(photo);
+      if (
+        !state.userPhoto.find(
+          (userPhoto) => userPhoto.userNum === photo.userNum
+        )
+      ) {
+        state.userPhoto.push(photo);
+      }
     },
   },
   actions: {
@@ -98,25 +95,6 @@ const userDetail = {
           });
         });
     },
-    // async updateUserDetail({ commit }, { userNum, user }) {
-    //   console.log("userNum=" + userNum);
-    //   console.log("user=" + user.photo);
-    //   await axios
-    //     .put("http://localhost:8080/userDetail/" + userNum, user)
-    //     .then(commit("updateUserDetail", { userNum, user }))
-    //     .catch((e) => console.log(e.message));
-    // },
-    // addUserPhoto({ getters, commit }, photo) {
-    //   if (getters.uid) {
-    //     firebase
-    //       .firestore()
-    //       .collection(`users/${getters.uid}/userDetail`)
-    //       .add(photo)
-    //       .then((doc) => {
-    //         id: doc.id, photo;
-    //       });
-    //   }
-    // },
   },
 };
 
