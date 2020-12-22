@@ -64,8 +64,8 @@
 
 <script>
 import firebase from 'firebase'
-import { mapActions } from 'vuex'
 import axios from 'axios'
+import { mapActions } from 'vuex'
 
 export default {
     data() {
@@ -90,15 +90,13 @@ export default {
     methods: {
         addGroup: async function() {
             await firebase.auth().onAuthStateChanged((user) => {
-                this.request.groupName = this.group.groupName;
-                this.request.userNum = user.uid;
-                this.request.inviteUsers = this.selectUsers;
-                axios.post('http://localhost:8080/createGroup', this.request);
                 this.setGroupData({
                     userNum: user.uid,
-                })
-            })
-            this.$router.push("/groupInfo")
+                    groupName: this.group.groupName,
+                    inviteUsers: this.selectUsers
+                });
+            });
+            this.$router.push("/groupInfo");
         },
 
         searchUser: async function() {

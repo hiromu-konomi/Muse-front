@@ -3,16 +3,17 @@
     <v-content>
       <v-form>
         <v-container>
+          <h2>お気に入りの曲を選択してください</h2>
           <v-row>
             <v-col>
               <v-text-field
-                label="Search Song"
+                label="アーティスト名/曲名を入力してください"
                 class="search"
                 v-model="musicName"
                 type="text"
-              >
+                @keyup.enter="search_music">
                 <template v-slot:append>
-                  <v-icon type="button" @click="search_music"
+                  <v-icon type="button" @click="get_token_to_search_music"
                     >mdi-magnify</v-icon
                   >
                 </template>
@@ -66,12 +67,34 @@ export default {
     };
   },
   methods: {
-    search_music: function () {
+    get_token_to_search_music: function () {
+      const url = "https://accounts.spotify.com/api/token";
+      const requestBody =
+        "grant_type=client_credentials"
+      const requestConfig = {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          Authorization: "Basic YmI2NTVhOTM0NjA0NDc5NjhmMGFlM2E3Mzc4YTVmNDY6NjdhYmE5N2M4ODljNDQ0ZDllMDdjMmJmNjViMmIxMmQ=",
+        },
+      };
+
+      axios
+        .post(url, requestBody, requestConfig)
+          .then((res) => {
+            this.search_music(res.data.access_token)
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+    },
+    search_music: function (accessToken) {
       axios
         .get("https://api.spotify.com/v1/search", {
           headers: {
-            Authorization:
-              "Bearer BQDD535tFk3JVLoOahXMrZCaiOGJU9VWGBv-XGdJJAOfadF1AnH7Wi_LNcvfMP4oDVA7-UTGOYTGraYJ5KE",
+
+            "Authorization":
+              "Bearer " + accessToken
+
           },
           params: {
             q: this.musicName,
@@ -84,7 +107,6 @@ export default {
         .then((response) => {
           this.music_data = response.data;
           this.relative_data();
-          console.log(this.music_data);
         })
         .catch((error) => console.log(error));
     },
@@ -99,7 +121,6 @@ export default {
           image: this.musicInfo.album.images[2].url,
         });
       }
-      console.log(this.musics);
       for (let m of this.musics) {
         console.log(m);
       }

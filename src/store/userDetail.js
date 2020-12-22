@@ -42,6 +42,21 @@ const userDetail = {
         })
         .catch((reason) => console.log(reason));
     },
+    actions: {
+        async findByUserId({ commit }, userNum) {
+            await axios
+                .get("http://localhost:8080/users", {
+                    params: {
+                        userNum: userNum,
+                    },
+                })
+                .then((response) => {
+                    console.log("response=", response.data);
+                    commit("getUserDetail", response.data);
+                })
+                .catch((reason) => console.log(reason));
+        },
+
 
     async addUserDetail({ commit }, user) {
       await axios
@@ -50,10 +65,10 @@ const userDetail = {
         .catch((reason) => console.log(reason));
     },
 
-    async addUserPhoto({ getters }, photo) {
-      if (getters.uid) {
-        const uploadFile = photo;
-        const storageRef = firebase.storage().ref();
+        async addUserPhoto({ getters }, photo) {
+            if (getters.uid) {
+                const uploadFile = photo;
+                const storageRef = firebase.storage().ref();
 
         const uploadTask = storageRef.child(`images/${uploadFile.name}`);
         await uploadTask

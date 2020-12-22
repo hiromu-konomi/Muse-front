@@ -11,6 +11,7 @@
       :class="{ 'check-green': isGreen }"
     >
       <span class="count">{{ checkCount }}</span>
+      <p>Check Music</p>
     </i>
   </div>
 </template>
@@ -35,27 +36,23 @@ export default {
   methods: {
     async clickCheck() {
       if (this.isGreen) {
-        this.checkCount = this.checkCount - 1;
-        this.isGreen = false;
-        console.log("チェックボタンコンポーネントのpost_id=" + this.postId);
-        await axios.get("http://localhost:8080/notCheck", {
-          params: {
-            postId: this.postId,
-            userNum: this.$store.state.userNum,
-          },
-        });
+        this.checkCount = this.checkCount - 1
+        this.isGreen = false
+        await axios.get("http://localhost:8080/notCheck",{
+            params: {
+                postId: this.postId,
+                userNum: this.$store.state.userNum,
+            }
+        })
       } else {
-        this.checkCount = this.checkCount + 1;
-        this.isGreen = true;
-        // this.postId = Number(this.postId);
-        console.log("チェックボタンコンポーネントのpostId=" + this.postId);
-        await axios.get("http://localhost:8080/check", {
-          params: {
-            postId: this.postId,
-            userNum: this.$store.state.userNum,
-          },
-        });
-        console.log("チェック完了");
+        this.checkCount = this.checkCount + 1
+        this.isGreen = true
+        await axios.get("http://localhost:8080/check",{
+            params: {
+                postId: this.postId,
+                userNum: this.$store.state.userNum,
+            }
+        })
       }
     },
   },
@@ -63,17 +60,19 @@ export default {
 </script>
 
 <style>
-.fa-check-square {
-  font-size: 20px;
-  margin-left: 35px;
-  color: #5f5b5b;
-  top: 150px;
-  left: 700px;
-}
+  .fa-check-square {
+    font-size: 20px;
+    margin-left: 35px;
+    color: #5F5B5B;
+    position: absolute;
+    top: 90px;
+    left: -150px;
+    text-align: left;
+  }
 
-.count {
-  color: #5f5b5b;
-}
+   /* .count {
+    color: #5F5B5B;
+  } */
 
 .check-green {
   color: green;
