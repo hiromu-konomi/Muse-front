@@ -1,4 +1,5 @@
 <template>
+  <div>
     <div>
         <v-card color="#ADD8E6" dark tile>
             <v-card-text>
@@ -11,11 +12,12 @@
             <PostComponents :info="info" @deleteInfo="deleteInfo"/>
         </div>
     </div>
+  </div>
 </template>
 
 <script>
 import PostComponents from "../post/PostComponents.vue";
-import axios from 'axios';
+import axios from "axios";
 
 export default {
     data(){
@@ -34,15 +36,27 @@ export default {
                         userNum: this.uid,
                     }
                 });
-                this.infos = rev.data.reviewAllList;
-        },
+      
+      let followPosts = rev.data.reviewAllList;
+      let followPostList = [];
+
+      for (let f of followPosts) {
+        let followPhtoto = this.$store.getters.getUserPhotobyUserNum(f.userNum);
+        f.photo = followPhtoto.downloadURL;
+        followPostList.push(f);
+      }
+      
+      this.infos = followPostList;
+      
+      },
+      
         deleteInfo(){
             this.reflesh();
             // await console.log(this.infos);
-            // await this.$nextTick();
-        }
-
-    },
+            // await this.$nextTick();      
+    　},
+    
+    
     computed: {
         uid(){
             return this.$store.getters.uid
@@ -57,10 +71,11 @@ export default {
         this.reflesh();
     }
 }
+
 </script>
 
 <style scoped>
 h1 {
-    font-family: 'メイリオ';
+  font-family: "メイリオ";
 }
 </style>

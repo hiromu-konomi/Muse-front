@@ -14,18 +14,22 @@ import createPersistedState from 'vuex-persistedstate'
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
-    state: {
-        login_user: null,
-        userNum: null,
-    },
-    getters: {
-        uid: (state) => (state.login_user ? state.login_user.uid : null),
-        getUserbyUserNum: (state) => (id) =>
-            state.sUser.usersData.find((user) => user.userNum === id),
-    },
-    mutations: {
-        setLoginUser(state, user) {
-            state.login_user = user;
+  state: {
+    login_user: null,
+    userNum: null,
+  },
+  getters: {
+    uid: (state) => (state.login_user ? state.login_user.uid : null),
+    getUserbyUserNum: (state) => (id) =>
+      state.sUser.usersData.find((user) => user.userNum === id),
+    getUserPhotobyUserNum: (state) => (id) =>
+      state.uDetail.userPhoto.find((photo) => photo.userNum === id),
+    getFollowUserPost: (state) => (id) =>
+      state.fUser.myfollows_users.find((follow) => follow.userNum === id),
+  },
+  mutations: {
+    setLoginUser(state, user) {
+      state.login_user = user;
         },
         deleteLoginUser(state) {
             state.login_user = null;
