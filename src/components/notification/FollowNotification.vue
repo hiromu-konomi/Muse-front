@@ -12,7 +12,7 @@
                         <v-img src="https://cdn.vuetifyjs.com/images/lists/2.jpg"></v-img>
                     </v-list-item-avatar>
                     <v-list-item-content>
-                        <v-list-item-title>
+                        <v-list-item-title class="notifi">
                             <h3>{{ folNoti.userName }}にフォローされました</h3>
                         </v-list-item-title>
                     </v-list-item-content>
@@ -54,11 +54,13 @@ export default {
                 }
             });
             this.followNoti = res.data.followLikeNotificationList;
-        }
+        },
     }
 }
 </script>
 
 <style>
-
+    .notifi{
+        font-family: 'メイリオ';
+    }
 </style>
