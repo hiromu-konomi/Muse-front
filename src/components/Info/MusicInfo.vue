@@ -1,14 +1,18 @@
  <template>
   <div class="clearfix" :class="{ linkable }" @click="onclick">
-    <div class="image">
-      <img :src="music.image" />
-    </div>
-    <div class="details">
-      <ul>
-        <li> {{ music.artistName }}</li>
-        <li> {{ music.musicName }} </li>
-      </ul>
-    </div>
+  <v-card>
+    <table>
+      <tr>
+        <th rowspan="2">
+          <img :src="music.image" />
+        </th>
+            <td class="artistName"><h4>{{ music.artistName }}</h4></td>
+      </tr>
+      <tr>
+        <td class="musicName">{{ music.musicName }}</td>
+      </tr>
+    </table>
+  </v-card>
   </div>
 </template>
 
@@ -41,6 +45,13 @@ export default {
 .linkable:hover {
   cursor: pointer;
   background-color: #ff9;
+}
+
+.artistName{
+  text-align: left;
+}
+.musicName{
+  text-align: left;
 }
 
 ul li {

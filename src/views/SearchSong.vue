@@ -3,14 +3,15 @@
     <v-content>
       <v-form>
         <v-container>
+          <h2>お気に入りの曲を選択してください</h2>
           <v-row>
             <v-col>
               <v-text-field
-                label="Search Song"
+                label="アーティスト名/曲名を入力してください"
                 class="search"
                 v-model="musicName"
                 type="text"
-              >
+                @keyup.enter="search_music">
                 <template v-slot:append>
                   <v-icon type="button" @click="get_token_to_search_music"
                     >mdi-magnify</v-icon
@@ -104,7 +105,6 @@ export default {
         .then((response) => {
           this.music_data = response.data;
           this.relative_data();
-          console.log(this.music_data);
         })
         .catch((error) => console.log(error));
     },
@@ -119,7 +119,6 @@ export default {
           image: this.musicInfo.album.images[2].url,
         });
       }
-      console.log(this.musics);
       for (let m of this.musics) {
         console.log(m);
       }

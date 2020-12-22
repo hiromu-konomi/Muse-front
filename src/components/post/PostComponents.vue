@@ -1,44 +1,56 @@
 <template>
-  <v-card flat outlined max-width="700" height="420" class="mt-3">
+  <v-card flat outlined max-width="700" height="300" class="mt-3">
+    <v-list>
     <v-card-title>
-      <v-list-item class="pl-0">
         <router-link :to="{ name: 'userpage', params: { user_id: userNum } }">
           <v-list-item-avatar color="grey" size="40">
             <v-img :src="tweet.user.avatarUrl" />
           </v-list-item-avatar>
         </router-link>
         <v-list-item-content>
-          <v-list-item-title>
+          <v-list-item-title class="userName">
             {{ tweet.user.userName }}
           </v-list-item-title>
-          <v-spacer></v-spacer>
         </v-list-item-content>
-      </v-list-item>
+        <v-list-item class="likeButton">
+          <good-button :postId= "postId" :countNum= "countNum" :likeStatus= "likeStatus" ></good-button>
+        <v-icon @click="deleteConfilm" class="deleteButton">mdi-delete</v-icon>
+        <!-- 削除確認ダイアログを追加 -->
+        <v-dialog v-model="deleteDialog" persistent max-width="290">
+          <v-card>
+            <v-card-title class="headline">削除確認</v-card-title>
+            <v-card-text>削除してもよろしいですか？</v-card-text>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="green darken-1" text @click="deleteDialog = false">キャンセル</v-btn>
+              <v-btn color="green darken-1" text @click="deleteItem">削除</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+        </v-list-item>
+        <v-list-item class="checkButton">
+          <check-button :postId= "postId" :countCheck= "checkCount" :checkStatus= "checkStatus"></check-button>
+        </v-list-item>
     </v-card-title>
+    </v-list>
 
-               <v-row>
-                <v-col cols="4">
-                <v-card-text class="text--primary">
-                    {{ tweet.postText }}
-                </v-card-text>
-                </v-col>
-               
-                   <v-col class="music" cols="4">
-                    <ul>
-                    <li><v-img :src="tweet.musicImage" /></li>
-                    <li>{{ tweet.artistName }}</li>
-                    <li>{{ tweet.musicName }}</li>
-                    </ul>
-                    </v-col>
-               </v-row>
-               <v-row>
-                   <v-col>
-                    <good-button :postId= "postId" :countNum= "countNum" :likeStatus= "likeStatus" ></good-button>
-                    <check-button :postId= "postId" :countCheck= "checkCount" :checkStatus= "checkStatus"></check-button>
-                    </v-col>
-               </v-row>
-               
 
+    <table>
+      <tr>
+        <th rowspan="2">
+          <v-img :src="tweet.musicImage" />
+        </th>
+        <td class="artistName">
+          {{ tweet.artistName }}
+        </td>
+      </tr>
+          <td class="musicName">{{ tweet.musicName }}</td>
+    </table>
+      <hr />
+
+      <div class="postText">
+        {{ tweet.postText }}
+      </div>
     </v-card>
 </template>
 
@@ -46,6 +58,7 @@
 import { mapActions } from "vuex";
 import GoodButton from './HeartButton'
 import CheckButton from './CheckButton'
+import axios from 'axios';
 export default {
     components: {
     'good-button': GoodButton,
@@ -59,6 +72,7 @@ export default {
             likeStatus: this.info.likeStatus,
             checkCount: this.info.checkCount,
             checkStatus: this.info.checkStatus,
+            deleteDialog: false,
             tweet: {
                 artistName: '',
                 musicName: '',
@@ -82,9 +96,24 @@ export default {
         this.tweet.musicImage = this.info.musicImage;
         this.tweet.postText = this.info.postText;
         this.postId = this.info.postId;
-        console.log("postComponentsのcountNum="+this.countNum);
     },
     methods: {
+      //削除確認ダイアログ表示を追加
+      deleteConfilm(){
+        this.deleteDialog = true;
+      },
+      async deleteItem(){
+        this.postId = Number(this.postId);
+        await axios.get('http://localhost:8080/deleteInfo',{
+          params:{
+            postId: this.postId,
+            userNum: this.$store.state.userNum,
+          }
+        })
+        this.deleteDialog = false;
+        await this.$emit('deleteInfo')
+        // await this.$nextTick();
+      },
     ...mapActions(["refresh"])
     },
 }
@@ -94,6 +123,47 @@ export default {
 .music {
   display: flex-end;
   flex-direction: column;
+}
+
+.artistName{
+  text-align:left;
+}
+
+.musicName{
+  text-align:left;
+}
+
+.likeButton{
+  position: absolute;
+  right: 170px;
+  top: 27px;
+  font-size: 120%; 
+}
+
+.deleteButton{
+  position: absolute;
+  left: 140px;
+  top: -14px;
+}
+
+.checkButton{
+  position: absolute;
+  right: 100px;
+  top: 27px;
+  font-size: 120%; 
+}
+
+.postText{
+  position: absolute;
+  left: 0px;
+  top: 185px;
+  font-size: 120%; 
+}
+
+.userName{
+    position: relative;
+    right: 500px;
+    font-size: 100%; 
 }
 
 ul li {
