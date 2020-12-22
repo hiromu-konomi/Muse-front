@@ -16,78 +16,84 @@
       </v-list-item>
     </v-card-title>
 
-               <v-row>
-                <v-col cols="4">
-                <v-card-text class="text--primary">
-                    {{ tweet.postText }}
-                </v-card-text>
-                </v-col>
-               
-                   <v-col class="music" cols="4">
-                    <ul>
-                    <li><v-img :src="tweet.musicImage" /></li>
-                    <li>{{ tweet.artistName }}</li>
-                    <li>{{ tweet.musicName }}</li>
-                    </ul>
-                    </v-col>
-               </v-row>
-               <v-row>
-                   <v-col>
-                    <good-button :postId= "postId" :countNum= "countNum" :likeStatus= "likeStatus" ></good-button>
-                    <check-button :postId= "postId" :countCheck= "checkCount" :checkStatus= "checkStatus"></check-button>
-                    </v-col>
-               </v-row>
-               
+    <v-row>
+      <v-col cols="4">
+        <v-card-text class="text--primary">
+          {{ tweet.postText }}
+        </v-card-text>
+      </v-col>
 
-    </v-card>
+      <v-col class="music" cols="4">
+        <ul>
+          <li><v-img :src="tweet.musicImage" /></li>
+          <li>{{ tweet.artistName }}</li>
+          <li>{{ tweet.musicName }}</li>
+        </ul>
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col>
+        <good-button
+          :postId="postId"
+          :countNum="countNum"
+          :likeStatus="likeStatus"
+        ></good-button>
+        <check-button
+          :postId="postId"
+          :countCheck="checkCount"
+          :checkStatus="checkStatus"
+        ></check-button>
+      </v-col>
+    </v-row>
+  </v-card>
 </template>
 
 <script>
 import { mapActions } from "vuex";
-import GoodButton from './HeartButton'
-import CheckButton from './CheckButton'
+import GoodButton from "./HeartButton";
+import CheckButton from "./CheckButton";
 export default {
-    components: {
-    'good-button': GoodButton,
-    'check-button': CheckButton,
-    },
-    data() {
-        return {
-            userNum: '',
-            postId: '',
-            countNum: this.info.likeCount,
-            likeStatus: this.info.likeStatus,
-            checkCount: this.info.checkCount,
-            checkStatus: this.info.checkStatus,
-            tweet: {
-                artistName: '',
-                musicName: '',
-                musicImage: '',
-                postText: '',
-                user: {
-                    userName: '',
-                    avatarUrl: "https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light"
-                },
-            },
-        }
-    },
-    props: ['info'],
-    created: async function(){
-        // this.$router.go({path: this.$router.currentRoute.path, force: true})
-        this.userNum = this.info.userNum;
-        await this.refresh(this.userNum);
-        this.tweet.user.userName = this.info.userName;
-        this.tweet.artistName = this.info.artistName;
-        this.tweet.musicName = this.info.musicName;
-        this.tweet.musicImage = this.info.musicImage;
-        this.tweet.postText = this.info.postText;
-        this.postId = this.info.postId;
-        console.log("postComponentsのcountNum="+this.countNum);
-    },
-    methods: {
-    ...mapActions(["refresh"])
-    },
-}
+  components: {
+    "good-button": GoodButton,
+    "check-button": CheckButton,
+  },
+  data() {
+    return {
+      userNum: "",
+      postId: "",
+      countNum: this.info.likeCount,
+      likeStatus: this.info.likeStatus,
+      checkCount: this.info.checkCount,
+      checkStatus: this.info.checkStatus,
+      tweet: {
+        artistName: "",
+        musicName: "",
+        musicImage: "",
+        postText: "",
+        user: {
+          userName: "",
+          avatarUrl: this.info.photo,
+        },
+      },
+    };
+  },
+  props: ["info"],
+  created: async function () {
+    // this.$router.go({path: this.$router.currentRoute.path, force: true})
+    this.userNum = this.info.userNum;
+    await this.refresh(this.userNum);
+    this.tweet.user.userName = this.info.userName;
+    this.tweet.artistName = this.info.artistName;
+    this.tweet.musicName = this.info.musicName;
+    this.tweet.musicImage = this.info.musicImage;
+    this.tweet.postText = this.info.postText;
+    this.postId = this.info.postId;
+    console.log("postComponentsのcountNum=" + this.countNum);
+  },
+  methods: {
+    ...mapActions(["refresh"]),
+  },
+};
 </script>
 
 <style>
