@@ -8,6 +8,7 @@
       :class="{ 'check-green' : isGreen }"
       >
       <span class="count">{{ checkCount }}</span>
+      <p>Check Music</p>
     </i>
   </div>
 </template>
@@ -22,19 +23,15 @@ props: ['postId', 'countCheck', 'checkStatus'],
       isGreen: false
     }
   },
-  async created(){
-      this.postId = String(this.postId);
+  created(){
       this.isGreen = this.checkStatus;
-      console.log("checkStatus="+this.isGreen);
       this.checkCount = this.countCheck;
-      console.log("checkCount="+this.checkCount);
   },
   methods: {
     async clickCheck () {
       if (this.isGreen) {
         this.checkCount = this.checkCount - 1
         this.isGreen = false
-        console.log("チェックボタンコンポーネントのpost_id="+this.postId);
         await axios.get("http://localhost:8080/notCheck",{
             params: {
                 postId: this.postId,
@@ -44,15 +41,12 @@ props: ['postId', 'countCheck', 'checkStatus'],
       } else {
         this.checkCount = this.checkCount + 1
         this.isGreen = true
-        this.postId = Number(this.postId);
-        console.log("チェックボタンコンポーネントのpostId="+this.postId)
         await axios.get("http://localhost:8080/check",{
             params: {
                 postId: this.postId,
                 userNum: this.$store.state.userNum,
             }
         })
-        console.log("チェック完了")
       }
     }
   }
@@ -64,13 +58,15 @@ props: ['postId', 'countCheck', 'checkStatus'],
     font-size: 20px;
     margin-left: 35px;
     color: #5F5B5B;
-    top: 150px;
-    left: 700px;
+    position: absolute;
+    top: 90px;
+    left: -150px;
+    text-align: left;
   }
 
-   .count {
+   /* .count {
     color: #5F5B5B;
-  }
+  } */
 
   .check-green {
     color: green;
