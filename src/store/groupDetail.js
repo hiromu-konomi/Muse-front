@@ -19,7 +19,6 @@ const groupDetail = {
             state.groupData.groupName = resData.groupName;
             state.groupData.ownerId = resData.ownerId;
             state.groupData.joinStatus = resData.joinStatus;
-            console.log("resData.groupId = " + resData.groupId);
         },
 
         setJoinStatus(state, resData) {
