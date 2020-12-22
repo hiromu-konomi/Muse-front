@@ -1,5 +1,5 @@
 <template>
-<v-container>
+  <v-container>
     <v-layout row wrap justify-center>
       <v-flex xs5 mt-5>
         <v-card class="text-center" width="900px">
@@ -67,7 +67,6 @@
 </v-flex>
 </v-layout>
 </v-container>
-
 </template>
 
 <script>
@@ -180,7 +179,7 @@ textarea {
 }
 .userName{
     position: absolute;
-    left: 0px;
+    left: 50px;
 }
 .hr{
     position: absolute;
@@ -193,7 +192,7 @@ textarea {
 
 .v-select{
     position: absolute;
-    top: 250px;
+    top: 30px;
     right: 0px;
 }
 .review{
