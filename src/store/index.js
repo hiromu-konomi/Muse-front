@@ -6,6 +6,7 @@ import firebase from "firebase";
 import showUser from "./showUser.js";
 import followUser from "./followUser.js";
 import groupDetail from "./groupDetail.js";
+import createPersistedState from 'vuex-persistedstate'
 
 // import userLogin from "./userLogin.js";
 
@@ -41,7 +42,7 @@ const store = new Vuex.Store({
       commit("setLoginUser", user);
     },
     logout() {
-      firebase.auth().signOut();
+     firebase.auth().signOut();
     },
     deleteLoginUser({ commit }) {
       commit("deleteLoginUser");
@@ -50,6 +51,18 @@ const store = new Vuex.Store({
       commit("setUserId", userNum);
     },
   },
+  plugins: [createPersistedState({ // ストレージのキーを指定。デフォルトではvuex
+        key: 'reviewPost',
+
+        // 管理対象のステートを指定。pathsを書かない時は`modules`に書いたモジュールに含まれるステート全て。`[]`の時はどれも保存されない
+        paths: [
+            'rForm.current',
+            'uDetail.userInformation.userName',
+        ],
+
+        // ストレージの種類を指定する。デフォルトではローカルストレージ
+        storage: window.sessionStorage
+    })],
   modules: {
     rForm: reviewFrom,
     uDetail: userDetail,

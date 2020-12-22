@@ -18,9 +18,9 @@
                                 <v-icon type="button" @click="get_token_to_search_music">mdi-magnify</v-icon>
                             </template>
                         </v-text-field>
-                        <v-card v-if="musics.length == 0">
+                        <v-card v-if="musics.length == 0" color="#FFCCFF">
                             <v-card-text>
-                                <h1>再生できない曲もあります</h1>
+                                <h1 class="white--text">再生できない曲もあります</h1>
                             </v-card-text>
                         </v-card>
                         <div class="search">
@@ -64,6 +64,7 @@ export default {
     data(){
         return{
             musics: [],
+            search_music_name: '',
             music: {
                 title: '',
                 artist: '',
@@ -94,7 +95,6 @@ export default {
                     });
         },
         search_music: function(accessToken){
-            console.log("accessToken =" + accessToken);
             axios
                 .get("https://api.spotify.com/v1/search",{
                 headers: {
@@ -127,7 +127,6 @@ export default {
                         searched_id : i + 1,
                     })
             }
-            console.log(this.musics);
         },
         setMusicPlayer: function(info){
             this.music = {};
@@ -135,7 +134,6 @@ export default {
             this.music.artist = info.searched_artist_name;
             this.music.src = info.searched_preview_url;
             this.music.pic = info.searched_picture;
-            console.log(this.music.src);
         },
     }
 }
