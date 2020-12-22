@@ -29,9 +29,7 @@ export default {
   async created() {
     // this.postId = String(this.postId);
     this.isGreen = this.checkStatus;
-    console.log("checkStatus=" + this.isGreen);
     this.checkCount = this.countCheck;
-    console.log("checkCount=" + this.checkCount);
   },
   methods: {
     async clickCheck() {

@@ -51,13 +51,13 @@ export default {
 
       this.infos = followPostList;
     },
-  },
-
     deleteInfo() {
       this.reflesh();
       // await console.log(this.infos);
       // await this.$nextTick();
     },
+  },
+
 
     computed: {
       uid() {
