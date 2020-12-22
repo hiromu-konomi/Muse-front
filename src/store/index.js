@@ -30,6 +30,14 @@ const store = new Vuex.Store({
     setLoginUser(state, user) {
       state.login_user = user;
     },
+    getters: {
+        uid: (state) => (state.login_user ? state.login_user.uid : null),
+        getUserbyUserNum: (state) => (id) =>
+            state.sUser.usersData.find((user) => user.userNum === id),
+        getUserPhotobyUserNum: (state) => (id) =>
+            state.uDetail.userPhoto.find((photo) => photo.userNum === id),
+        getFollowUserPost: (state) => (id) =>
+            state.fUser.myfollows_users.find((follow) => follow.userNum === id),
     deleteLoginUser(state) {
       state.login_user = null;
     },

@@ -51,6 +51,7 @@ export default {
 
       this.infos = followPostList;
     },
+  },
 
     deleteInfo() {
       this.reflesh();
@@ -71,7 +72,6 @@ export default {
     created() {
       this.reflesh();
     },
-  },
 };
 </script>
 
