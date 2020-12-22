@@ -12,7 +12,7 @@
                 type="text"
               >
                 <template v-slot:append>
-                  <v-icon type="button" @click="search_music"
+                  <v-icon type="button" @click="get_token_to_search_music"
                     >mdi-magnify</v-icon
                   >
                 </template>
@@ -66,12 +66,32 @@ export default {
     };
   },
   methods: {
-    search_music: function () {
+    get_token_to_search_music: function () {
+      const url = "https://accounts.spotify.com/api/token";
+      const requestBody =
+        "grant_type=client_credentials"
+      const requestConfig = {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          Authorization: "Basic YmI2NTVhOTM0NjA0NDc5NjhmMGFlM2E3Mzc4YTVmNDY6NjdhYmE5N2M4ODljNDQ0ZDllMDdjMmJmNjViMmIxMmQ=",
+        },
+      };
+
+      axios
+        .post(url, requestBody, requestConfig)
+          .then((res) => {
+            this.search_music(res.data.access_token)
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+    },
+    search_music: function (accessToken) {
       axios
         .get("https://api.spotify.com/v1/search", {
           headers: {
-            Authorization:
-              "Bearer BQDe0ajB8qkGzgqW01StMmqCPLV9nfW19hV_EDHQ80VDDVZLlrzEeeDzJwgA7Nu70w6_OHenGciA04TsFS0",
+            "Authorization":
+              "Bearer " + accessToken
           },
           params: {
             q: this.musicName,
