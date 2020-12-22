@@ -21,6 +21,10 @@ const reviewForm = {
         current(state) {
             return state.current;
         },
+        userName(state) {
+
+            return state.userName;
+        }
     },
     mutations: {
         [UPDATE_CURRENT](state, music) {
