@@ -48,10 +48,10 @@ const userDetail = {
                 .catch((reason) => console.log(reason));
         },
 
-        async addUserPhoto({ getters }, photo) {
-            if (getters.uid) {
-                const uploadFile = photo;
-                const storageRef = firebase.storage().ref();
+      async addUserPhoto({ getters }, photo) {
+        if (getters.uid) {
+          const uploadFile = photo;
+          const storageRef = firebase.storage().ref();
 
                 const uploadTask = storageRef.child(`images/${uploadFile.name}`);
                 await uploadTask
@@ -76,10 +76,6 @@ const userDetail = {
                             .catch((error) => {
                                 console.log(error.message);
                             });
-                    })
-                    .catch((error) => {
-                        console.log(error.message);
-                    });
             }
         },
         showUserPhoto({ commit }) {
@@ -92,8 +88,8 @@ const userDetail = {
                         commit("showUserPhoto", doc.data());
                     });
                 });
-        },
     },
+  },
 };
 
 export default userDetail;
