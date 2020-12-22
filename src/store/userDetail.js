@@ -8,7 +8,7 @@ Vue.use(Vuex);
 const userDetail = {
   state: {
     userInformation: "",
-    userPhoto: null,
+    userPhoto: [],
   },
   getters: {},
   mutations: {
@@ -27,6 +27,10 @@ const userDetail = {
     //   userPhoto.id = id;
     //   state.userPhoto = userPhoto;
     // },
+    showUserPhoto(state, photo) {
+      console.log("p=" + photo);
+      state.userPhoto.push(photo);
+    },
   },
   actions: {
     async findByUserId({ commit }, userNum) {
@@ -37,14 +41,12 @@ const userDetail = {
           },
         })
         .then((response) => {
-          console.log("response=" + response.data);
           commit("getUserDetail", response.data);
         })
         .catch((reason) => console.log(reason));
     },
 
     async addUserDetail({ commit }, user) {
-      console.log("storeに渡されたユーザー情報=" + user);
       await axios
         .post("http://localhost:8080/userDetail", user)
         .then(commit("getUserDetail", user))
@@ -63,7 +65,6 @@ const userDetail = {
             snapshot.ref
               .getDownloadURL()
               .then((downloadURL) => {
-                console.log("ダウンロードURL =" + downloadURL);
                 const userNum = getters.uid;
                 firebase
                   .firestore()
@@ -86,8 +87,16 @@ const userDetail = {
           });
       }
     },
-    addPhoto({ commit }, userPhoto) {
-      commit("addPhoto", userPhoto);
+    showUserPhoto({ commit }) {
+      firebase
+        .firestore()
+        .collection("users")
+        .get()
+        .then((snapshot) => {
+          snapshot.forEach((doc) => {
+            commit("showUserPhoto", doc.data());
+          });
+        });
     },
     // async updateUserDetail({ commit }, { userNum, user }) {
     //   console.log("userNum=" + userNum);
