@@ -64,19 +64,13 @@ export default {
         .then(() => {
           firebase.auth().onAuthStateChanged(async (user) => {
             if (user) {
-              console.log("userid=" + user.uid);
               await this.setLoginUser(user);
 
-              console.log("ログインユーザー" + this.$store.state.login_user);
               await this.setUserId(user.uid);
-
-              console.log("userId = " + this.$store.state.userNum);
 
               await this.findByUserId(user.uid);
 
               await this.getUserInfo(user.uid);
-
-              console.log(this.$store.state.uDetail.userInformation.userNum);
 
               if (this.$store.state.uDetail.userInformation === "") {
                 this.$router.push("/userDetail");
@@ -87,9 +81,7 @@ export default {
             }
           });
         })
-        .catch((e) => {
-          console.log(e);
-        });
+        .catch(alert("メールアドレスまたはパスワードが違います"));
     },
 
     ...mapActions([

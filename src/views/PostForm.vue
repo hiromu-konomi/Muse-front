@@ -1,5 +1,5 @@
 <template>
-<v-container>
+  <v-container>
     <v-layout row wrap justify-center>
       <v-flex xs5 mt-5>
         <v-card class="text-center" width="900px">
@@ -67,7 +67,6 @@
 </v-flex>
 </v-layout>
 </v-container>
-
 </template>
 
 <script>

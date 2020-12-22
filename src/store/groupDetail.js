@@ -20,13 +20,26 @@ const groupDetail = {
             state.groupData.ownerId = resData.ownerId;
             state.groupData.joinStatus = resData.joinStatus;
         },
+
+        setJoinStatus(state, resData) {
+            state.groupData.joinStatus = resData;
+        },
+
+        setGrpDes(state, resData) {
+            state.groupData.groupDescription = resData;
+        },
     },
     actions: {
-        async setGroupData({commit}, { groupName, userNum }) {
-            await axios.get("http://localhost:8080/showGroup", {
+        async setGroupData({commit}, {userNum, groupName, inviteUsers}) {
+            var qs = require('qs');
+            await axios.get("http://localhost:8080/createGroup", {
                 params: {
-                    groupName: groupName,
                     userNum: userNum,
+                    groupName: groupName,
+                    inviteUsers: inviteUsers
+                },
+                paramsSerializer: params => {
+                    return qs.stringify(params, { arrayFormat: "repeat" })
                 }
             })
             .then((response) => {
@@ -34,6 +47,32 @@ const groupDetail = {
             })
             .catch((reason) => console.log(reason));
         },
+
+        async setJoinStatus({commit}, userNum) {
+            await axios.get("http://localhost:8080/setJoinStatus", {
+                params: {
+                    userNum: userNum,
+                    groupId: this.state.groupData.groupId
+                }
+            })
+            .then((response) => {
+                commit("setJoinStatus", response.data);
+            })
+            .catch((reason) => console.log(reason));
+        },
+
+        async setGrpDes({commit}, {groupDes, groupId}) {
+            await axios.get("http://localhost:8080/setGrpDes", {
+                params: {
+                    groupDescription: groupDes,
+                    groupId: groupId
+                }
+            })
+            .then((response) => {
+                commit("setGrpDes", response.data);
+            })
+            .catch((reason) => console.log(reason));
+        }
     }
 }
 

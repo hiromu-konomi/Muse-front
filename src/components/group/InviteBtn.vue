@@ -72,7 +72,7 @@
                 <v-btn color="blue accent-3" text @click="dialog = false">
                     キャンセル
                 </v-btn>
-                <v-btn color="blue accent-3">
+                <v-btn color="blue accent-3" @click="invite">
                     <span class="white--text">招待を送信</span>
                 </v-btn>
             </v-card-actions>
@@ -105,6 +105,13 @@ export default {
 
             // フォローしているユーザーリスト
             users: [],
+
+            // リクエスト用のオブジェクト
+            request: {
+                transferUser: undefined,
+                receiverUsers: [],
+                groupId: undefined,
+            }
         }
     },
 
@@ -120,7 +127,17 @@ export default {
                 }
             });
             this.users = res.data.followUsers;
-        }
+        },
+
+        async invite() {
+            await firebase.auth().onAuthStateChanged((user) => {
+                this.request.transferUser = user.uid;
+            });
+            this.request.receiverUsers = this.selectUsers;
+            this.request.groupId = this.$store.state.gDetail.groupData.groupId;
+            await axios.post('http://localhost:8080/inviteGroup', this.request);
+            this.dialog = false;
+        },
     }
 }
 </script>

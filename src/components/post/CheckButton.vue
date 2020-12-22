@@ -1,12 +1,15 @@
 <template>
   <div>
     <!-- fontawsomeのCDN -->
-    <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+    <link
+      href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
+      rel="stylesheet"
+    />
     <i
       class="far fa-check-square"
       @click="clickCheck"
-      :class="{ 'check-green' : isGreen }"
-      >
+      :class="{ 'check-green': isGreen }"
+    >
       <span class="count">{{ checkCount }}</span>
       <p>Check Music</p>
     </i>
@@ -16,19 +19,22 @@
 <script>
 import axios from "axios";
 export default {
-props: ['postId', 'countCheck', 'checkStatus'],
-  data () {
+  props: ["postId", "countCheck", "checkStatus"],
+  data() {
     return {
       checkCount: 0,
-      isGreen: false
-    }
+      isGreen: false,
+    };
   },
-  created(){
-      this.isGreen = this.checkStatus;
-      this.checkCount = this.countCheck;
+  async created() {
+    // this.postId = String(this.postId);
+    this.isGreen = this.checkStatus;
+    console.log("checkStatus=" + this.isGreen);
+    this.checkCount = this.countCheck;
+    console.log("checkCount=" + this.checkCount);
   },
   methods: {
-    async clickCheck () {
+    async clickCheck() {
       if (this.isGreen) {
         this.checkCount = this.checkCount - 1
         this.isGreen = false
@@ -48,9 +54,9 @@ props: ['postId', 'countCheck', 'checkStatus'],
             }
         })
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style>
@@ -68,7 +74,7 @@ props: ['postId', 'countCheck', 'checkStatus'],
     color: #5F5B5B;
   } */
 
-  .check-green {
-    color: green;
-  }
+.check-green {
+  color: green;
+}
 </style>

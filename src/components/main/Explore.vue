@@ -16,7 +16,10 @@
                     <v-icon type="button" @click="search">mdi-magnify</v-icon>
                 </template>
             </v-text-field>
-            <PostComponents />
+            <div v-for="(info, index) in exploreResult" :key="index">
+                <h1>{{ info.artistName }}</h1>
+                <PostComponents :info="info" />
+            </div>
     </div>
 </template>
 
@@ -25,9 +28,6 @@ import PostComponents from "../post/PostComponents";
 import axios from "axios";
 
 export default {
-    async created() {
-        await this.search();
-    },
     components: {
         PostComponents,
     },
@@ -39,14 +39,14 @@ export default {
     },
     methods: {
         async search(){
+            console.log(this.search_post);
             const res = await axios.get('http://localhost:8080/searchPost', {
                     params: {
                     searchPost: this.search_post
                 }
             })
+            this.exploreResult = [];
             this.exploreResult = res.data.exploreList;
-            console.log("res.data.exploreList = " + res.data.exploreList);
-            console.log("exploreResult.artistName = " + this.exploreResult.artistName);
         },
     }
 

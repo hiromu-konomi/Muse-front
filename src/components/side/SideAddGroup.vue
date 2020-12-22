@@ -64,8 +64,8 @@
 
 <script>
 import firebase from 'firebase'
-import { mapActions } from 'vuex'
 import axios from 'axios'
+import { mapActions } from 'vuex'
 
 export default {
     data() {
@@ -77,6 +77,11 @@ export default {
             users: [],
             userNum: undefined,
             selectUsers: [],
+            request: {
+                groupName: undefined,
+                userNum: undefined,
+                inviteUsers: undefined,
+            }
 
             // textRules: (value) => !!value || "グループ名を入力してください",
         }
@@ -86,11 +91,12 @@ export default {
         addGroup: async function() {
             await firebase.auth().onAuthStateChanged((user) => {
                 this.setGroupData({
+                    userNum: user.uid,
                     groupName: this.group.groupName,
-                    userNum: user.uid
-                })
-            })
-            this.$router.push("/groupInfo")
+                    inviteUsers: this.selectUsers
+                });
+            });
+            this.$router.push("/groupInfo");
         },
 
         searchUser: async function() {

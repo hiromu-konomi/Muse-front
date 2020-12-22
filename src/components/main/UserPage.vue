@@ -27,15 +27,24 @@
           >
         </v-form>
       </v-col>
-      <!-- <v-col>
-        {{ userInfo.depId }}
-      </v-col> -->
     </v-row>
     <v-row>
       <v-col>
         {{ userInfo.depName }}
       </v-col>
       <v-col> {{ userInfo.profile }} </v-col>
+    </v-row>
+    <v-row>
+      <v-col>
+        <router-link :to="{ name: 'follows' }"
+          >{{ this.follows }} フォロー</router-link
+        ></v-col
+      >
+      <v-col>
+        <router-link :to="{ name: 'followers' }"
+          >{{ this.followers }} フォロワー</router-link
+        ></v-col
+      >
     </v-row>
 
     <v-tabs centered grow v-model="title">
@@ -49,6 +58,16 @@
             <PostComponents :info="info" />
           </div>
         </div>
+        <div v-if="tab.title === 'いいね'">
+          <div v-for="(info, index) in likeposts" :key="index">
+            <LikePostComponents :info="info" />
+          </div>
+        </div>
+        <div v-if="tab.title === 'お気に入り'">
+          <div v-for="(info, index) in checkSongs" :key="index">
+            <CheckSongComponents :info="info" />
+          </div>
+        </div>
       </v-tab-item>
     </v-tabs-items>
     <v-divider></v-divider>
@@ -57,15 +76,21 @@
 
 <script>
 import { mapActions } from "vuex";
-import firebase from "firebase";
+// import firebase from "firebase";
 import axios from "axios";
 import PostComponents from "../post/PostComponents.vue";
+import LikePostComponents from "../post/LikePostComponents.vue";
+import CheckSongComponents from "../post/CheckSongComponents.vue";
 export default {
   data() {
     return {
       title: null,
       userInfo: [],
       infos: [],
+      likeposts: [],
+      checkSongs: [],
+      follows: "",
+      followers: "",
       tabs: [
         {
           title: "投稿",
@@ -82,10 +107,10 @@ export default {
 
   components: {
     PostComponents,
+    LikePostComponents,
+    CheckSongComponents,
   },
   async created() {
-    // console.log("パラメーター＝" + this.$route.params.user_id);
-    // console.log("ユーザーID＝" + this.$store.state.userNum);
     if (this.$route.params.user_id === this.$store.state.userNum) {
       this.userInfo = this.$store.state.uDetail.userInformation;
     } else {
@@ -95,21 +120,24 @@ export default {
 
       this.userInfo = user;
 
-      firebase.auth().onAuthStateChanged(async (user) => {
-        user = user ? user : {};
-        this.$store.commit("onAuthStatusChanged", user.uid ? true : false);
-        await this.myFollows();
-        await this.myFollowers();
-      });
+      // firebase.auth().onAuthStateChanged(async (user) => {
+      //   user = user ? user : {};
+      //   this.$store.commit("onAuthStatusChanged", user.uid ? true : false);
+      // });
     }
-
-    console.log("リクエストパラメーター＝" + this.$route.params.user_id);
+    await this.myFollows();
+    await this.myFollowers();
     await this.reflesh();
+    await this.getLikePosts();
+    await this.getCheckSongs();
+
+    this.follows = this.$store.state.fUser.myfollows_users.length;
+    this.followers = this.$store.state.fUser.myfollowers_users.length;
   },
   computed: {
     detailUser() {
       let array = this.$store.state.fUser.myfollows_users;
-      console.log("フォローユーザー情報=" + array);
+
       let check_user = this.userInfo;
 
       function checkAlreadyFollows(arry, id) {
@@ -130,23 +158,18 @@ export default {
         }
       });
 
-      console.log("チェックユーザー =" + check_user.follow_status);
-      console.log(check_user.userName);
       return check_user;
     },
   },
   methods: {
     async followUser(user) {
-      console.log("フォローするユーザー" + user);
       await this.follow(user);
     },
 
     async unFollowUser(user) {
-      console.log("フォロー解除したいユーザー ＝" + user);
       await this.unFollow(user);
     },
     async reflesh() {
-      console.log(this.$route.params.user_id);
       await axios
         .get("http://localhost:8080/getMyPosts", {
           params: {
@@ -155,6 +178,31 @@ export default {
         })
         .then((response) => {
           this.infos = response.data.reviewAllList;
+        })
+        .catch((e) => console.log(e.message));
+    },
+    async getLikePosts() {
+      await axios
+        .get("http://localhost:8080/getLikePosts", {
+          params: {
+            userNum: this.$route.params.user_id,
+          },
+        })
+        .then((response) => {
+          this.likeposts = response.data.reviewAllList;
+        })
+        .catch((e) => console.log(e.message));
+    },
+    async getCheckSongs() {
+      await axios
+        .get("http://localhost:8080/getCheckSongs", {
+          params: {
+            userNum: this.$route.params.user_id,
+          },
+        })
+        .then((response) => {
+          console.log(response.data.checkAllList);
+          this.checkSongs = response.data.checkAllList;
         })
         .catch((e) => console.log(e.message));
     },
