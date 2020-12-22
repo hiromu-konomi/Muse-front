@@ -77,11 +77,10 @@ export default {
               } else {
                 this.$router.push("/home");
               }
-              // this.$router.push({ name: "recommendUser" });
             }
           });
         })
-        .catch(alert("メールアドレスまたはパスワードが違います"));
+        .catch(() => alert("メールアドレスまたはパスワードが違います"));
     },
 
     ...mapActions([

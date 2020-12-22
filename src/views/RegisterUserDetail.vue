@@ -124,7 +124,7 @@ export default {
 
       //   userNum: this.$store.state.userNum,
       //   user: this.form,
-      // });
+      // });]
 
       console.log(
         "ユーザーID" + this.$store.state.uDetail.userInformation.userNum

@@ -9,9 +9,7 @@
     <v-list class="userInfo">
       <v-list-item>
         <v-list-item-avatar size="62">
-          <v-img
-            :src="'http://gahag.net/img/201602/25s/gahag-0059907781-1.jpg'"
-          ></v-img>
+          <v-img :src="user.photo"></v-img>
         </v-list-item-avatar>
 
         <v-list-item-content>
