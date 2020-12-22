@@ -26,10 +26,9 @@ import JoinGroupList from "../components/group/JoinGroupList.vue";
 import FollowUser from "../views/FollowUser.vue";
 import Follow from "../components/main/Follow.vue";
 import Followers from "../components/main/Followers.vue";
-import FollowNotification from "../components/notification/FollowNotification.vue"
-import LikeNotification from "../components/notification/LikeNotification.vue"
-import GroupInviteNotification from "../components/notification/GroupInviteNotification.vue"
-
+import FollowNotification from "../components/notification/FollowNotification.vue";
+import LikeNotification from "../components/notification/LikeNotification.vue";
+import GroupInviteNotification from "../components/notification/GroupInviteNotification.vue";
 
 Vue.use(VueRouter);
 
@@ -63,8 +62,8 @@ const routes = [
             path: "/groupInvNoti",
             name: "GroupInviteNotification",
             component: GroupInviteNotification,
-          }
-        ]
+          },
+        ],
       },
       {
         path: "/ranking",
@@ -94,12 +93,12 @@ const routes = [
         component: UserPage,
       },
       {
-        path: "/follows",
+        path: "uesr/:follow_id/follows",
         name: "follows",
         component: Follow,
       },
       {
-        path: "/followers",
+        path: "user/:follower_id/followers",
         name: "followers",
         component: Followers,
       },
