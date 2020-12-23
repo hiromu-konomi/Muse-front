@@ -9,7 +9,7 @@
                     }"
                 >
                     <v-list-item-avatar>
-                        <v-img src="https://cdn.vuetifyjs.com/images/lists/2.jpg"></v-img>
+                        <v-img :src="folNoti.photo"></v-img>
                     </v-list-item-avatar>
                     <v-list-item-content>
                         <v-list-item-title class="notifi">
@@ -21,11 +21,9 @@
                 <v-divider :key="`second-${index}`"></v-divider>
             </template>
         </v-list>
-        <v-card v-else>
-            <v-card-text>
-                <h1>フォローはまだ来ていません</h1>
-            </v-card-text>
-        </v-card>
+        <v-list v-else>
+            <h1 style="color: #AAAAAA;">フォローはまだ来ていません</h1>
+        </v-list>
     </div>
 </template>
 
@@ -53,8 +51,16 @@ export default {
                     receiverUserNum: this.userNum,
                 }
             });
-            this.followNoti = res.data.followLikeNotificationList;
+            let dataFollowerNoti = res.data.followLikeNotificationList;
+            let userData = [];
+            for(let data of dataFollowerNoti) {
+                let userPhot = this.$store.getters.getUserPhotobyUserNum(data.userNum);
+                data.photo = userPhot.downloadURL;
+                userData.push(data);
+            }
+            this.followNoti = userData;
         },
+
     }
 }
 </script>
