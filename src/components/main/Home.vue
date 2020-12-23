@@ -35,7 +35,7 @@ export default {
         "http://localhost:8080/getMusicInfoAndReview",
         {
           params: {
-            userNum: this.uid,
+            userNum: this.$store.getters.uid,
           },
         }
       );
@@ -53,25 +53,22 @@ export default {
     },
     deleteInfo() {
       this.reflesh();
-      // await console.log(this.infos);
-      // await this.$nextTick();
     },
   },
 
-
-    computed: {
-      uid() {
-        return this.$store.getters.uid;
-      },
+  computed: {
+    uid() {
+      return this.$store.getters.uid;
     },
-    watch: {
-      async uid() {
-        this.reflesh();
-      },
-    },
-    created() {
+  },
+  watch: {
+    async uid() {
       this.reflesh();
     },
+  },
+  created() {
+    this.reflesh();
+  },
 };
 </script>
 
