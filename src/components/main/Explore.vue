@@ -7,49 +7,40 @@
                 </v-layout>
             </v-card-text>
         </v-card>
-            <v-text-field
-                class="search"
-                v-model="search_post"
-                type="text"
+        <v-tabs
+            color="grey"
+            centered
+            grow
+            icons-and-text
+        >
+            <v-tab
+                v-for="item in items"
+                :key="item.tab"
+                :to="item.link"
+                style="color: #AAAAAA;"
             >
-                <template v-slot:append>
-                    <v-icon type="button" @click="search">mdi-magnify</v-icon>
-                </template>
-            </v-text-field>
-            <div v-for="(info, index) in exploreResult" :key="index">
-                <h1>{{ info.artistName }}</h1>
-                <PostComponents :info="info" />
-            </div>
+                {{ item.tab }}
+                <v-icon color="#FFCCFF">{{ item.icon }}</v-icon>
+            </v-tab>
+        </v-tabs>
+
+        <v-divider></v-divider>
+
+        <router-view />
     </div>
 </template>
 
 <script>
-import PostComponents from "../post/PostComponents";
-import axios from "axios";
-
 export default {
-    components: {
-        PostComponents,
-    },
     data() {
         return {
-            search_post : '',
-            exploreResult: [],
+            items: [
+                {tab: 'SONG', icon: 'mdi-music-circle-outline', link: {name: "SongExplore"}},
+                {tab: 'USER', icon: 'mdi-account-search-outline', link: {name: "UserExplore"}},
+                {tab: 'GROUP', icon: 'mdi-account-group-outline', link: {name: "GroupExplore"}},
+            ],
         }
     },
-    methods: {
-        async search(){
-            console.log(this.search_post);
-            const res = await axios.get('http://localhost:8080/searchPost', {
-                    params: {
-                    searchPost: this.search_post
-                }
-            })
-            this.exploreResult = [];
-            this.exploreResult = res.data.exploreList;
-        },
-    }
-
 }
 </script>
 

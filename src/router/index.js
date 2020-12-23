@@ -29,6 +29,9 @@ import Followers from "../components/main/Followers.vue";
 import FollowNotification from "../components/notification/FollowNotification.vue";
 import LikeNotification from "../components/notification/LikeNotification.vue";
 import GroupInviteNotification from "../components/notification/GroupInviteNotification.vue";
+import SongEx from "../components/explore/SongEx.vue";
+import UserEx from "../components/explore/UserEx.vue";
+import GroupEx from "../components/explore/GroupEx.vue";
 
 Vue.use(VueRouter);
 
@@ -106,6 +109,23 @@ const routes = [
         path: "/explore",
         name: "explore",
         component: Explore,
+        children: [
+          {
+            path: "/songExplore",
+            name: "SongExplore",
+            component: SongEx,
+          },
+          {
+            path: "/userExplore",
+            name: "UserExplore",
+            component: UserEx,
+          },
+          {
+            path: "/groupExplore",
+            name: "GroupExplore",
+            component: GroupEx,
+          },
+        ]
       },
       {
         path: "/support",
