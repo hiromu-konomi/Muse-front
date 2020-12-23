@@ -8,7 +8,7 @@ import store from "./store";
 // import { AmplifyPlugin } from "aws-amplify-vue";
 // import aws_exports from "./aws-exports";
 
-//AWSの設定
+// // AWSの設定
 // Amplify.configure(aws_exports);
 // Vue.use(AmplifyPlugin, AmplifyModules);
 

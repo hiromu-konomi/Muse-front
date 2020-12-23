@@ -7,6 +7,7 @@ import showUser from "./showUser.js";
 import followUser from "./followUser.js";
 import groupDetail from "./groupDetail.js";
 import createPersistedState from 'vuex-persistedstate'
+import groupChat from "./groupChat.js";
 
 // import userLogin from "./userLogin.js";
 
@@ -76,6 +77,7 @@ const store = new Vuex.Store({
         sUser: showUser,
         fUser: followUser,
         gDetail: groupDetail,
+        gChat: groupChat,
     },
 });
 
