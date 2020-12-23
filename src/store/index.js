@@ -6,7 +6,9 @@ import firebase from "firebase";
 import showUser from "./showUser.js";
 import followUser from "./followUser.js";
 import groupDetail from "./groupDetail.js";
-import createPersistedState from "vuex-persistedstate";
+import createPersistedState from 'vuex-persistedstate'
+import groupChat from "./groupChat.js";
+
 
 // import userLogin from "./userLogin.js";
 
@@ -76,13 +78,15 @@ const store = new Vuex.Store({
     }),
   ],
 
-  modules: {
-    rForm: reviewFrom,
-    uDetail: userDetail,
-    sUser: showUser,
-    fUser: followUser,
-    gDetail: groupDetail,
-  },
+
+    modules: {
+        rForm: reviewFrom,
+        uDetail: userDetail,
+        sUser: showUser,
+        fUser: followUser,
+        gDetail: groupDetail,
+        gChat: groupChat,
+    },
 });
 
 export default store;

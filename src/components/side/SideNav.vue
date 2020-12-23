@@ -41,6 +41,7 @@
 </template>
 
 <script>
+
 export default {
   data() {
     return {
@@ -64,6 +65,7 @@ export default {
   computed: {
     userNum() {
       return this.$store.getters.uid;
+
     },
   },
 };
