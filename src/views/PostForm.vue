@@ -3,70 +3,80 @@
     <v-layout row wrap justify-center>
       <v-flex xs5 mt-5>
         <v-card class="text-center" width="900px">
-            <v-card-text>
-        <v-container center fill-height :linkable="false">
-        <v-toolbar-title class="fav-text"> ❤︎お気に入りの曲を選択 </v-toolbar-title>
-        <v-row>
-            <v-col>
-        <MusicInfo :music="music" class="music"></MusicInfo>
-            </v-col>
-        </v-row>
-        <v-btn to="/searchsong" color="#D8BFD8">曲を検索する</v-btn>
-        </v-container>
-        <hr />
-    <v-row>
-        <v-col><v-toolbar-title class="userText">ユーザー名</v-toolbar-title></v-col>
-        <v-col class="userName"><h2>{{ userName }}</h2></v-col>
-    </v-row>
-    <!-- </v-container> -->
-    <v-spacer></v-spacer>
-    <hr class="hr"/>
-    <v-form label-width="120px" class="jenre" :model="genre">
-    <v-row>
-        <v-col>
-            <v-toolbar-title class="genre"> ジャンル </v-toolbar-title>
-        </v-col>
-        <v-col>
-       <label>
-        <v-select class="v-select"
-         v-model="genre.genreName"
-         item-text="label"
-         item-value="value"
-         :items="jenre"
-         label="ジャンルを選択"
-         :rules="[v => !!v || 'ジャンルを選択してください']"
-         required
-        >
-        </v-select>
-        </label>
-        </v-col>
-    </v-row>
-        </v-form>
-    <hr />
-    <v-form label-width="120px" :model="form">
-        <v-container center fill-height>
-        <v-toolbar-title class="review"> レビュー </v-toolbar-title>
-        <v-spacer></v-spacer>
-        <v-textarea class="textarea"
-        v-model="form.postText"
-         placeholder="入力してください"
-         ref="myTextarea"
-         :min-height="70"
-         :max-height="250"
-         counter="255" 
-         :rules="[required, counter]"
-  ></v-textarea>
-   </v-container>
+          <v-card-text>
+            <v-container center fill-height :linkable="false">
+              <v-toolbar-title class="fav-text">
+                ❤︎お気に入りの曲を選択
+              </v-toolbar-title>
+              <v-row>
+                <v-col>
+                  <MusicInfo :music="music" class="music"></MusicInfo>
+                </v-col>
+              </v-row>
+              <v-btn to="/searchsong" color="#D8BFD8">曲を検索する</v-btn>
+            </v-container>
+            <hr />
+            <v-row>
+              <v-col
+                ><v-toolbar-title class="userText"
+                  >ユーザー名</v-toolbar-title
+                ></v-col
+              >
+              <v-col class="userName"
+                ><h2>{{ userName }}</h2></v-col
+              >
+            </v-row>
+            <!-- </v-container> -->
+            <v-spacer></v-spacer>
+            <hr class="hr" />
+            <v-form label-width="120px" class="jenre" :model="genre" ref="form">
+              <v-row>
+                <v-col>
+                  <v-toolbar-title class="genre"> ジャンル </v-toolbar-title>
+                </v-col>
+                <v-col>
+                  <label>
+                    <v-select
+                      class="v-select"
+                      v-model="genre.genreName"
+                      item-text="label"
+                      item-value="value"
+                      :items="jenre"
+                      label="ジャンルを選択"
+                      :rules="[genres]"
+                      required
+                    >
+                    </v-select>
+                  </label>
+                </v-col>
+              </v-row>
+            </v-form>
+            <hr />
+            <v-form label-width="120px" :model="form" ref="form">
+              <v-container center fill-height>
+                <v-toolbar-title class="review"> レビュー </v-toolbar-title>
+                <v-spacer></v-spacer>
+                <v-textarea
+                  class="textarea"
+                  v-model="form.postText"
+                  placeholder="入力してください"
+                  ref="myTextarea"
+                  :min-height="70"
+                  :max-height="250"
+                  counter="255"
+                  :rules="[required, counter]"
+                ></v-textarea>
+              </v-container>
 
-   <v-container center fill-height>
-       <v-btn @click="onSubmit" color="#D8BFD8">投稿</v-btn>
-   </v-container>
-</v-form>
-</v-card-text>
-</v-card>
-</v-flex>
-</v-layout>
-</v-container>
+              <v-container center fill-height>
+                <v-btn @click="onSubmit" color="#D8BFD8">投稿</v-btn>
+              </v-container>
+            </v-form>
+          </v-card-text>
+        </v-card>
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
 
 <script>
@@ -77,92 +87,70 @@ import { mapGetters, mapActions } from "vuex";
 export default {
   name: "post-form",
 
-    components: {
-        MusicInfo,
-    },
-    data(){
-        return {
-        form: {
-            postText: '',
-            userNum: '',
-        },
-        genre: {
-            genreName: '',
-            postId: '',
-        },
-            music: {},
-            userName: this.$store.state.uDetail.userInformation.userName,
-        jenre: [ 
-          { label: "邦楽", value: "邦楽" }, 
-          { label: '洋楽', value: '洋楽' }, 
-          { label: 'KPOP', value: 'KPOP' },
-          { label: 'アニメ/ゲーム', value: 'アニメ/ゲーム' }, 
-          { label: 'クラシック', value: 'クラシック' }, 
-          { label: 'ラップ/ヒップホップ', value: 'ラップ/ヒップホップ' },
-          { label: 'ジャズ', value: 'ジャズ' }, 
-          { label: 'ロック/メタル', value: 'ロック/メタル' },
-      ], 
-      validation: {
-        title: false,
-        description: false,
-        date: false,
-        location: false
+  components: {
+    MusicInfo,
+  },
+  data() {
+    return {
+      form: {
+        postText: "",
+        userNum: "",
       },
-        }
-    },
-    computed: {
-        isValid: function () {
-        var valid = true
-        for (var key in this.validation) {
-          if (!this.validation[key]) {
-            valid = false
-          }
-        }
-        return valid
+      genre: {
+        genreName: "",
+        postId: "",
       },
+      music: {},
+      userName: this.$store.state.uDetail.userInformation.userName,
+      jenre: [
+        { label: "邦楽", value: "邦楽" },
+        { label: "洋楽", value: "洋楽" },
+        { label: "KPOP", value: "KPOP" },
+        { label: "アニメ/ゲーム", value: "アニメ/ゲーム" },
+        { label: "クラシック", value: "クラシック" },
+        { label: "ラップ/ヒップホップ", value: "ラップ/ヒップホップ" },
+        { label: "ジャズ", value: "ジャズ" },
+        { label: "ロック/メタル", value: "ロック/メタル" },
+      ],
+
+      genres: (v) => !!v || "ジャンルを選択してください",
+      //バリデーションチェック
+      required: (value) => !!value || "入力してください.",
+      //レビューフォームを255文字制限にする
+      counter: (value) =>
+        value.length <= 255 || "入力できるのは255文字までです。",
+    };
+  },
+  computed: {
     ...mapGetters(["current"]),
   },
 
   created: async function () {
-      console.log(this.$store.state.uDetail.userInformation);
-      if (!this.current) {
+    console.log(this.$store.state.uDetail.userInformation);
+    if (!this.current) {
       this.$router.push("/home");
-      }
+    }
     this.music = Object.assign({}, this.current);
+  },
+
+  methods: {
+    async onSubmit() {
+      if (this.$refs.form.validate()) {
+        this.form.userNum = this.$store.state.userNum;
+        await this.postFormInfo(this.form);
+        await this.getPostId(this.$store.state.userNum);
+        this.genre.postId = await this.$store.state.rForm.postId;
+        await this.postMusicInfo(Object.assign({}, this.music, this.genre));
+        this.music = {};
+        this.genreName = "";
+        this.form = {};
+        this.$router.push("/home");
+      }
     },
 
-    methods: {
-        async onSubmit(){
-            
-            this.form.userNum = this.$store.state.userNum;
-            await this.postFormInfo(
-                this.form
-            );
-            await this.getPostId(this.$store.state.userNum);
-            this.genre.postId = await this.$store.state.rForm.postId;
-            await this.postMusicInfo(
-               Object.assign({}, this.music, this.genre)
-            );
-            this.music = {};
-            this.genreName = '';
-            this.form = {};
-            this.$router.push("/home");
-
-            if (this.isValid) {
-             console.log("success")
-            }else{
-             console.log("need edit")
-             }
-        },
-        //バリデーションチェック
-        required: value => !!value || '入力してください.',
-        //レビューフォームを255文字制限にする
-        counter: value => value.length <= 255 || '入力できるのは255文字までです。',
-        ...mapActions(["refresh", "postMusicInfo", "postFormInfo", "getPostId"]),
-        
-    },
-
-    };
+    ...mapActions(["refresh", "postMusicInfo", "postFormInfo", "getPostId"]),
+  },
+};
 </script>
 
 <style>
@@ -171,40 +159,40 @@ textarea {
   height: 80px;
   border: solid 1px #000000;
 }
-.fav-text{
-    color: #F08080;
+.fav-text {
+  color: #f08080;
 }
-.userText{
-    position: absolute;
+.userText {
+  position: absolute;
 }
-.userName{
-    position: absolute;
-    left: 50px;
+.userName {
+  position: absolute;
+  left: 50px;
 }
-.hr{
-    position: absolute;
-}
-
-.genre{
-    position: absolute;
-    top: 265px;
+.hr {
+  position: absolute;
 }
 
-.v-select{
-    position: absolute;
-    top: 30px;
-    right: 0px;
+.genre {
+  position: absolute;
+  top: 265px;
 }
-.review{
-    position: absolute;
-    top: 330px;
+
+.v-select {
+  position: absolute;
+  top: 30px;
+  right: 0px;
 }
-.textarea{
-    position: relative;
-    top: 30px;
-    left:10px;
+.review {
+  position: absolute;
+  top: 330px;
 }
-td{
-  text-align: center
+.textarea {
+  position: relative;
+  top: 30px;
+  left: 10px;
+}
+td {
+  text-align: center;
 }
 </style>
