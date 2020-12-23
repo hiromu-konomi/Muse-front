@@ -35,41 +35,15 @@ export default {
 
   async created() {
     this.userPhoto = this.$store.state.uDetail.userPhoto;
-    console.log("photo=" + this.$store.state.uDetail.userPhoto);
 
     for (let u of this.userPhoto) {
-      console.log(u.downloadURL);
       let user = this.$store.getters.getUserbyUserNum(u.userNum);
-      if (user !== null) {
+
+      if (user) {
         user.photo = u.downloadURL;
         this.users.push(user);
       }
     }
-
-    // for (let u of this.userDetail) {
-    //   console.log("1");
-    //   for (let p of this.userPhoto) {
-    //     console.log("2");
-    //     if (u.userNum === p.userNum) {
-    //       console.log("3");
-    //       u.photo = await p.downloadURL;
-    //       this.users = await u;
-    //     }
-    //   }
-    // }
-
-    // for (let up of this.userPhoto) {
-    //   console.log("1");
-    //   for (let ud of this.userDetail) {
-    //     console.log("2");
-    //     if (up.userNum === ud.userNum) {
-    //       console.log("3");
-    //       this.img = up.downloadURL;
-    //       this.users = Object.assign({}, ud, this.img);
-    //       console.log("ユーザー=" + this.users.img);
-    //     }
-    //   }
-    // }
   },
 
   methods: {
@@ -79,7 +53,4 @@ export default {
 </script>
 
 <style scoped>
-/* .user {
-  border: solid 1px grey;
-} */
 </style>
