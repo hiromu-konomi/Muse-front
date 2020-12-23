@@ -34,15 +34,13 @@
     </v-row>
     <v-row>
       <v-col>
-        <router-link
-          :to="{ name: 'follows', params: { follow_id: userInfo.userNum } }"
-          >{{ this.follows }} フォロー</router-link
+        <router-link :to="{ name: 'follows', params: { follow_id: param } }"
+          >{{ follows }} フォロー</router-link
         ></v-col
       >
       <v-col>
-        <router-link
-          :to="{ name: 'followers', params: { follower_id: userInfo.userNum } }"
-          >{{ this.followers }} フォロワー</router-link
+        <router-link :to="{ name: 'followers', params: { follower_id: param } }"
+          >{{ followers }} フォロワー</router-link
         ></v-col
       >
     </v-row>
@@ -55,7 +53,7 @@
       <v-tab-item v-for="tab in tabs" :key="tab.title">
         <div v-if="tab.title === '投稿'">
           <div v-for="(info, index) in infos" :key="index">
-            <PostComponents :info="info" />
+            <MyPostsComponents :info="info" />
           </div>
         </div>
         <div v-if="tab.title === 'いいね'">
@@ -78,9 +76,9 @@
 import { mapActions } from "vuex";
 // import firebase from "firebase";
 import axios from "axios";
-import PostComponents from "../post/PostComponents.vue";
 import LikePostComponents from "../post/LikePostComponents.vue";
 import CheckSongComponents from "../post/CheckSongComponents.vue";
+import MyPostsComponents from "../post/MyPostsComponents.vue";
 export default {
   data() {
     return {
@@ -106,19 +104,21 @@ export default {
   },
 
   components: {
-    PostComponents,
+    MyPostsComponents,
     LikePostComponents,
     CheckSongComponents,
   },
   async created() {
     if (this.$route.params.user_id === this.$store.state.userNum) {
       let myphoto = this.$store.getters.getUserPhotobyUserNum(
-        this.$store.state.userNum
+        this.$route.params.user_id
       );
       let myUser = this.$store.state.uDetail.userInformation;
 
       myUser.photo = myphoto.downloadURL;
       this.userInfo = myUser;
+      console.log("userInfo=", this.userInfo.userName);
+      console.log(this.userInfo.profile);
     } else {
       let user = this.$store.getters.getUserbyUserNum(
         this.$route.params.user_id
@@ -137,6 +137,7 @@ export default {
     await this.reflesh();
     await this.getLikePosts();
     await this.getCheckSongs();
+    await this.findByUserId(this.$route.params.user_id);
 
     this.follows = this.$store.state.fUser.myfollows_users.length;
     this.followers = this.$store.state.fUser.myfollowers_users.length;
@@ -166,6 +167,19 @@ export default {
       });
 
       return check_user;
+    },
+
+    param() {
+      return this.$route.params.user_id;
+    },
+  },
+  watch: {
+    async param() {
+      this.reflesh();
+      this.getLikePosts();
+      this.getCheckSongs();
+      this.myChengeFollowStatus();
+      this.findByUserId(this.$route.params.user_id);
     },
   },
   methods: {
@@ -238,6 +252,7 @@ export default {
       "myFollowers",
       "unFollow",
       "myChengeFollowStatus",
+      "findByUserId",
     ]),
   },
 };
