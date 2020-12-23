@@ -1,4 +1,3 @@
-
 <template>
     <div>
         <v-card color="#ADD8E6" dark tile>
@@ -18,9 +17,10 @@
                 v-for="item in items"
                 :key="item.tab"
                 :to="item.link"
+                style="color: #AAAAAA;"
             >
                 {{ item.tab }}
-                <v-icon>{{ item.icon }}</v-icon>
+                <v-icon color="#FFCCFF">{{ item.icon }}</v-icon>
             </v-tab>
         </v-tabs>
 
@@ -35,9 +35,9 @@ export default {
     data() {
         return {
             items: [
-                {tab: 'FOLLOW', icon: 'mdi-account-alert', link: {name: "FollowNotification"}},
-                {tab: 'LIKE', icon: 'mdi-heart', link: {name: "LikeNotification"}},
-                {tab: 'GROUP INVITE', icon: 'mdi-account-group', link: {name: "GroupInviteNotification"}},
+                {tab: 'FOLLOW', icon: 'mdi-account-alert-outline', link: {name: "FollowNotification"}},
+                {tab: 'LIKE', icon: 'mdi-account-heart-outline', link: {name: "LikeNotification"}},
+                {tab: 'GROUP INVITE', icon: 'mdi-account-group-outline', link: {name: "GroupInviteNotification"}},
             ],
         }
     },
