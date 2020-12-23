@@ -18,14 +18,32 @@
                 </v-list-item-content>
 
                 <v-list-item-action>
-                    <v-btn class="pink accent-2 " icon>
-                        <v-icon color="white">mdi-close</v-icon>
+                    <v-btn @click="toGroup(group.groupId)" class="green accent-3" icon>
+                        <v-icon color="white">mdi-arrow-up-bold-box-outline</v-icon>
                     </v-btn>
+                </v-list-item-action>
+
+                <v-list-item-action class="deleteButton">
+                        <v-btn @click="deleteConfilm(group.groupId)" class="pink accent-2" icon>
+                            <v-icon color="white">mdi-close</v-icon>
+                        </v-btn>
                 </v-list-item-action>
             </v-list-item>
 
             <v-divider :key="`second-${index}`"></v-divider>
         </template>
+        <!-- 削除確認ダイアログを追加 -->
+        <v-dialog v-model="deleteDialog" persistent max-width="290">
+            <v-card>
+                <v-card-title class="headline">退会確認</v-card-title>
+                <v-card-text>このグループを退会しますか？</v-card-text>
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn color="green darken-1" text @click="deleteDialog = false">キャンセル</v-btn>
+                    <v-btn color="green darken-1" text @click="deleteGroup">退会</v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
     </v-list>
     <span v-else>参加しているグループはありません</span>
 </template>
@@ -33,7 +51,7 @@
 <script>
 import axios from 'axios'
 import firebase from 'firebase'
-
+import { mapActions } from 'vuex'
 export default {
     async created() {
         await this.refresh();
@@ -43,6 +61,8 @@ export default {
         return {
             groups: [],
             userNum: undefined,
+            deleteDialog: false,
+            selectGroupId: undefined,
         }
     },
 
@@ -57,7 +77,35 @@ export default {
                 }
             });
             this.groups = res.data.joinGroups;
-        }
+        },
+
+        async toGroup(groupId) {
+            await firebase.auth().onAuthStateChanged((user) => {
+                this.userNum = user.uid;
+            });
+            await this.setShowGroup({groupId: groupId, userNum: this.userNum});
+            this.$router.push("/groupInfo");
+        },
+
+        //削除確認ダイアログ表示を追加
+        deleteConfilm(groupId){
+            this.deleteDialog = true;
+            this.selectGroupId = groupId;
+        },
+
+        //グループを削除する
+        async deleteGroup(groupId){
+            await axios.get('http://localhost:8080/deleteJoinGroups', {
+                params: {
+                    groupId: groupId,
+                    userNum: this.userNum,
+                }
+            })
+            this.deleteDialog = false;
+            this.refresh();
+        },
+
+        ...mapActions(["setShowGroup"]),
     }
 }
 </script>
