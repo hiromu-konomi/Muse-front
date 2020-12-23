@@ -109,7 +109,10 @@ export default {
     CheckSongComponents,
   },
   async created() {
-    if (this.$route.params.user_id === this.$store.state.userNum) {
+    if (
+      this.$route.params.user_id === this.$store.state.userNum ||
+      this.$store.state.userNum === null
+    ) {
       let myphoto = this.$store.getters.getUserPhotobyUserNum(
         this.$route.params.user_id
       );
@@ -117,7 +120,7 @@ export default {
 
       myUser.photo = myphoto.downloadURL;
       this.userInfo = myUser;
-      console.log("userInfo=", this.userInfo.userName);
+      console.log("myUrl=", myUser.photo);
       console.log(this.userInfo.profile);
     } else {
       let user = this.$store.getters.getUserbyUserNum(
@@ -126,9 +129,7 @@ export default {
       let photo = this.$store.getters.getUserPhotobyUserNum(
         this.$route.params.user_id
       );
-
       user.photo = photo.downloadURL;
-
       this.userInfo = user;
     }
     await this.myFollows(this.userInfo.userNum);
@@ -149,7 +150,7 @@ export default {
       let check_user = this.userInfo;
 
       function checkAlreadyFollows(arry, id) {
-        return arry.some(function (value) {
+        return arry.some(function(value) {
           return id === value.userNum;
         });
       }
