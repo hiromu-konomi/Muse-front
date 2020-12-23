@@ -14,6 +14,11 @@
               <h3>{{ grpNoti.groupName }}に招待されました</h3>
             </v-list-item-title>
           </v-list-item-content>
+          <v-list-item-action>
+            <v-btn @click="toGroup(grpNoti.groupId)">
+              <h6>グループ詳細へ</h6>
+            </v-btn>
+          </v-list-item-action>
         </v-list-item>
 
         <v-divider :key="`second-${index}`"></v-divider>
@@ -28,6 +33,7 @@
 <script>
 import axios from 'axios'
 import firebase from 'firebase'
+import { mapActions } from 'vuex'
 
 export default {
   async created() {
@@ -50,7 +56,15 @@ export default {
         }
       });
       this.groupNoti = res.data.groupToResponseList;
-    }
+    },
+    async toGroup(groupId) {
+      await firebase.auth().onAuthStateChanged((user) => {
+        this.userNum = user.uid;
+      });
+    await this.setShowGroup({groupId: groupId, userNum: this.userNum});
+      this.$router.push("/groupInfo");
+    },
+    ...mapActions(["setShowGroup"]),
   }
 }
 </script>
