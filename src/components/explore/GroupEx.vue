@@ -25,6 +25,11 @@
                 <h5 v-else>{{ group.groupDescription }}</h5>
               </v-list-item-title>
             </v-list-item-content>
+            <v-list-item-action>
+              <v-btn @click="toGroup(group.groupId)">
+                <h6>グループ詳細へ</h6>
+              </v-btn>
+            </v-list-item-action>
           </v-list-item>
 
           <v-divider :key="`second-${index}`"></v-divider>
@@ -39,6 +44,8 @@
 
 <script>
 import axios from 'axios';
+import firebase from 'firebase'
+import { mapActions } from 'vuex'
 
 export default {
   data() {
@@ -58,8 +65,16 @@ export default {
       this.exploreGroupResult = res.data;
       this.count = 1;
     },
-    }
+    async toGroup(groupId) {
+      await firebase.auth().onAuthStateChanged((user) => {
+        this.userNum = user.uid;
+      });
+    await this.setShowGroup({groupId: groupId, userNum: this.userNum});
+      this.$router.push("/groupInfo");
+    },
+    ...mapActions(["setShowGroup"]),
   }
+}
 </script>
 
 <style>
