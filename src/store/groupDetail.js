@@ -38,61 +38,61 @@ const groupDetail = {
         }
     },
     actions: {
-        async setGroupData({commit}, {userNum, groupName, inviteUsers}) {
+        async setGroupData({ commit }, { userNum, groupName, inviteUsers }) {
             var qs = require('qs');
             await axios.get("http://localhost:8080/createGroup", {
-                params: {
-                    userNum: userNum,
-                    groupName: groupName,
-                    inviteUsers: inviteUsers
-                },
-                paramsSerializer: params => {
-                    return qs.stringify(params, { arrayFormat: "repeat" })
-                }
-            })
-            .then((response) => {
-                commit("setGroupData", response.data);
-            })
-            .catch((reason) => console.log(reason));
+                    params: {
+                        userNum: userNum,
+                        groupName: groupName,
+                        inviteUsers: inviteUsers
+                    },
+                    paramsSerializer: params => {
+                        return qs.stringify(params, { arrayFormat: "repeat" })
+                    }
+                })
+                .then((response) => {
+                    commit("setGroupData", response.data);
+                })
+                .catch((reason) => console.log(reason));
         },
 
-        async setJoinStatus({commit}, userNum) {
+        async setJoinStatus({ commit }, userNum) {
             await axios.get("http://localhost:8080/setJoinStatus", {
-                params: {
-                    userNum: userNum,
-                    groupId: this.state.groupData.groupId
-                }
-            })
-            .then((response) => {
-                commit("setJoinStatus", response.data);
-            })
-            .catch((reason) => console.log(reason));
+                    params: {
+                        userNum: userNum,
+                        groupId: this.state.groupData.groupId
+                    }
+                })
+                .then((response) => {
+                    commit("setJoinStatus", response.data);
+                })
+                .catch((reason) => console.log(reason));
         },
 
-        async setGrpDes({commit}, {groupDes, groupId}) {
+        async setGrpDes({ commit }, { groupDes, groupId }) {
             await axios.get("http://localhost:8080/setGrpDes", {
-                params: {
-                    groupDescription: groupDes,
-                    groupId: groupId
-                }
-            })
-            .then((response) => {
-                commit("setGrpDes", response.data);
-            })
-            .catch((reason) => console.log(reason));
+                    params: {
+                        groupDescription: groupDes,
+                        groupId: groupId
+                    }
+                })
+                .then((response) => {
+                    commit("setGrpDes", response.data);
+                })
+                .catch((reason) => console.log(reason));
         },
 
-        async setShowGroup({commit}, {groupId, userNum}) {
+        async setShowGroup({ commit }, { groupId, userNum }) {
             await axios.get("http://localhost:8080/showGroup", {
-                params: {
-                    groupId: groupId,
-                    userNum: userNum
-                }
-            })
-            .then((response) => {
-                commit("setShowGroup", response.data)
-            })
-            .catch((reason) => console.log(reason));
+                    params: {
+                        groupId: groupId,
+                        userNum: userNum
+                    }
+                })
+                .then((response) => {
+                    commit("setShowGroup", response.data)
+                })
+                .catch((reason) => console.log(reason));
         }
     }
 }
