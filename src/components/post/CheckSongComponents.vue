@@ -1,29 +1,28 @@
 <template>
-  <v-card flat outlined max-width="700" height="420" class="mt-3">
-    <v-row>
-      <v-col cols="4">
-        <v-card-text class="text--primary">
-          {{ tweet.postText }}
-        </v-card-text>
-      </v-col>
+  <v-card flat outlined max-width="700" height="200" class="mt-3">
+    <v-list>
+      <v-card-title>
+        <v-list-item class="checkButton">
+          <check-button
+            :postId="postId"
+            :countCheck="checkCount"
+            :checkStatus="checkStatus"
+          ></check-button>
+        </v-list-item>
+      </v-card-title>
+    </v-list>
 
-      <v-col class="music" cols="4">
-        <ul>
-          <li><v-img :src="tweet.musicImage" /></li>
-          <li>{{ tweet.artistName }}</li>
-          <li>{{ tweet.musicName }}</li>
-        </ul>
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col>
-        <check-button
-          :postId="postId"
-          :countCheck="checkCount"
-          :checkStatus="checkStatus"
-        ></check-button>
-      </v-col>
-    </v-row>
+    <table>
+      <tr>
+        <th rowspan="2">
+          <v-img :src="tweet.musicImage" />
+        </th>
+        <td class="artistName">
+          {{ tweet.artistName }}
+        </td>
+      </tr>
+      <td class="musicName">{{ tweet.musicName }}</td>
+    </table>
   </v-card>
 </template>
 
