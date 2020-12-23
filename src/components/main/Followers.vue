@@ -47,7 +47,16 @@ export default {
     }
     this.followers = followerList;
   },
-
+  computed: {
+    param() {
+      return this.$route.params.follower_id;
+    },
+  },
+  watch: {
+    param() {
+      this.myFollowers(this.$route.params.follower_id);
+    },
+  },
   methods: {
     ...mapActions(["myFollowers"]),
   },
