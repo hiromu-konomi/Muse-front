@@ -10,6 +10,7 @@
           </v-list-item-avatar>
           <v-list-item-content>
             <v-list-item-title>
+              <h5>{{ grpNoti.transferUserName }}から</h5>
               <h3>{{ grpNoti.groupName }}に招待されました</h3>
             </v-list-item-title>
           </v-list-item-content>
@@ -18,11 +19,9 @@
         <v-divider :key="`second-${index}`"></v-divider>
       </template>
     </v-list>
-    <v-card v-else>
-      <v-card-text>
-        <h1>グループ招待はまだありません</h1>
-      </v-card-text>
-    </v-card>
+    <v-list v-else>
+      <h1 style="color:#AAAAAA;">グループ招待はまだありません</h1>
+    </v-list>
   </div>
 </template>
 
