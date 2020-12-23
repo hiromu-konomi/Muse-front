@@ -16,7 +16,6 @@ const showDetail = {
           state.usersData.push(u);
         }
       }
-      console.log("stateUser=" + state.usersData);
     },
   },
   actions: {
@@ -31,8 +30,6 @@ const showDetail = {
             },
           })
           .then((response) => {
-            console.log("aaaa");
-            console.log("resData=", response.data);
             commit("getUserInfo", response.data);
           })
           .catch((e) => {
