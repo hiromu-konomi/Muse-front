@@ -63,7 +63,8 @@ export default {
         async joinGroup() {
             await firebase.auth().onAuthStateChanged((user) => {
                 this.setJoinStatus({
-                    userNum: user.uid
+                    userNum: user.uid,
+                    groupId: this.$store.state.gDetail.groupData.groupId
                 })
             });
             this.dialog = false;

@@ -13,9 +13,6 @@
                         <v-list-item-title >
                             <h1>{{ group.groupName }}</h1>
                         </v-list-item-title>
-                        <v-list-item-subtitle>
-                            メンバー数：{{ group.countMember }}
-                        </v-list-item-subtitle>
                     </v-list-item-content>
 
                     <v-list-item-action>
