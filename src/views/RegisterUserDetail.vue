@@ -53,7 +53,7 @@
                 type="text"
               ></v-textarea>
               <div class="text-center">
-                <v-btn @click="onSubmit">登録</v-btn>
+                <v-btn @click="onSubmit" color="teal lighten-3">登録</v-btn>
               </div>
             </v-form>
           </v-card-text>

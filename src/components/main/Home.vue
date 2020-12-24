@@ -45,6 +45,7 @@ export default {
 
       for (let f of followPosts) {
         let followPhtoto = this.$store.getters.getUserPhotobyUserNum(f.userNum);
+
         f.photo = followPhtoto.downloadURL;
         followPostList.push(f);
       }

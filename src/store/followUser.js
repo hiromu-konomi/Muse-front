@@ -106,29 +106,30 @@ const followUser = {
 
     async myChengeFollowStatus({ commit }) {
       firebase.auth().onAuthStateChanged(async (user) => {
-        console.log("user=" + user);
-        await axios
-          .get("http://localhost:8080/followingId", {
-            params: {
-              followingUserNum: user.uid,
-            },
-          })
-          .then(async (response) => {
-            let my_follows = [];
+        if (user) {
+          console.log("user=" + user);
+          await axios
+            .get("http://localhost:8080/followingId", {
+              params: {
+                followingUserNum: user.uid,
+              },
+            })
+            .then(async (response) => {
+              let my_follows = [];
 
-            for (let u of response.data) {
-              my_follows.push(u);
-            }
+              for (let u of response.data) {
+                my_follows.push(u);
+              }
 
-            commit("myChengeFollowStatus", my_follows);
-          })
-          .catch((error) => console.log(error.message));
+              commit("myChengeFollowStatus", my_follows);
+            })
+            .catch((error) => console.log(error.message));
+        }
       });
     },
 
     async myFollowers({ commit }, userNum) {
-      // const user = firebase.auth().currentUser;
-
+      console.log("userNUm", userNum);
       await axios
         .get("http://localhost:8080/followerId", {
           params: {

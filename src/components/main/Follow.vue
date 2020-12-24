@@ -40,11 +40,13 @@ export default {
     let followsPhoto = this.$store.state.fUser.myfollows_users;
     let followList = [];
     for (let f of followsPhoto) {
-      let followUserPhoto = this.$store.getters.getUserPhotobyUserNum(
-        f.userNum
-      );
-      f.photo = followUserPhoto.downloadURL;
-      followList.push(f);
+      if (f !== null) {
+        let followUserPhoto = this.$store.getters.getUserPhotobyUserNum(
+          f.userNum
+        );
+        f.photo = followUserPhoto.downloadURL;
+        followList.push(f);
+      }
     }
     this.follows = followList;
   },
@@ -65,7 +67,4 @@ export default {
 </script>
 
 <style scoped>
-/* .user {
-  border: solid 1px grey;
-} */
 </style>
