@@ -33,8 +33,8 @@
           </v-btn>
         </v-row>
         <v-row class="LogoutBtn" v-if="$store.getters.uid">
-          <v-btn color="red accent-2" block type="submit">
-            <span text @click="logoutBtn" class="font-weight-bold">Logout</span>
+          <v-btn color="red accent-2" block type="submit" @click="logoutBtn">
+            <span text class="font-weight-bold">Logout</span>
           </v-btn>
         </v-row>
       </v-flex>
@@ -73,6 +73,7 @@ export default {
     logoutBtn() {
       this.logout();
       this.deleteLoginUser();
+      console.log("ログインユーザー＝", this.$store.state.login_user);
       if (this.$store.state.login_user === null) {
         this.$router.push({ name: "Signin" }, () => {});
       }
