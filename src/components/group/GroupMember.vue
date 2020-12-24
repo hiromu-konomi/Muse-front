@@ -13,12 +13,12 @@
                     </v-card-title>
 
                     <v-card-text>
-                        <template v-for="(user, index) in users">
+                        <template v-for="(user, index) in showUsers">
                             <v-list-item
                                 :key="`first-${user.userNum}`"
                             >
                                 <v-list-item-avatar>
-                                    <v-img src="https://cdn.vuetifyjs.com/images/lists/4.jpg"></v-img>
+                                    <v-img :src="user.photo"></v-img>
                                 </v-list-item-avatar>
 
                                 <v-list-item-content>
@@ -50,6 +50,7 @@ export default {
     data() {
         return {
             users: [],
+            showUsers: [],
         }
     },
 
@@ -61,6 +62,10 @@ export default {
                 }
             });
             this.users = res.data.users;
+            for (var user of this.users) {
+                user.photo = this.$store.getters.getUserPhotobyUserNum(user.userNum).downloadURL;
+                this.showUsers.push(user);
+            }
         },
     },
 }
