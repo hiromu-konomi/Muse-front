@@ -128,6 +128,7 @@ export default {
             this.request.chatText = this.inputMessage;
 
             await axios.post("http://localhost:8080/addMessage", this.request);
+            await this.refresh();
         },
     }
 }
