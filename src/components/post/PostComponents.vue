@@ -14,7 +14,7 @@
         </v-list-item-content>
         <v-list-item class="likeButton">
           <good-button :postId= "postId" :countNum= "countNum" :likeStatus= "likeStatus" ></good-button>
-        <v-icon @click="deleteConfilm" class="deleteButton">mdi-delete</v-icon>
+        <v-icon v-if="this.userNum === this.$store.state.userNum" @click="deleteConfilm" class="deleteButton">mdi-delete</v-icon>
         <!-- 削除確認ダイアログを追加 -->
         <v-dialog v-model="deleteDialog" persistent max-width="290">
           <v-card>
