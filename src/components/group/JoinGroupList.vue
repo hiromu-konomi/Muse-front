@@ -23,7 +23,7 @@
                     </v-btn>
                 </v-list-item-action>
 
-                <v-list-item-action class="deleteButton">
+                <v-list-item-action>
                         <v-btn @click="deleteConfilm(group.groupId)" class="pink accent-2" icon>
                             <v-icon color="white">mdi-close</v-icon>
                         </v-btn>
@@ -94,10 +94,10 @@ export default {
         },
 
         //グループを削除する
-        async deleteGroup(groupId){
+        async deleteGroup(){
             await axios.get('http://localhost:8080/deleteJoinGroups', {
                 params: {
-                    groupId: groupId,
+                    groupId: this.selectGroupId,
                     userNum: this.userNum,
                 }
             })
