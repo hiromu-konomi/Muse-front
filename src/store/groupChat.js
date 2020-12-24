@@ -1,42 +1,41 @@
-import axios from 'axios'
+import axios from "axios";
 
 const groupChat = {
-    state: {
-        chatDatas: [],
-    },
-    getters: {
-        showChats: (state, getters) => {
-            let showChats = [];
+  state: {
+    chatDatas: [],
+  },
+  getters: {
+    showChats: (state, getters) => {
+      let showChats = [];
 
-            for (var chat of state.chatDatas) {
-                chat.photo = getters.getUserPhotobyUserNum(
-                    chat.userNum
-                ).downloadURL;
-                console.log("chat.photo = " + chat.photo)
-                showChats.push(chat)
-            }
+      for (var chat of state.chatDatas) {
+        chat.photo = getters.getUserPhotobyUserNum(chat.userNum).downloadURL;
+        console.log("chat.photo = " + chat.photo);
+        showChats.push(chat);
+      }
 
-            return showChats;
-        }
+      return showChats;
     },
-    mutations: {
-        setChatDatas(state, resData) {
-            state.chatDatas = resData.groupChats;
-        }
+  },
+  mutations: {
+    setChatDatas(state, resData) {
+      state.chatDatas = resData.groupChats;
     },
-    actions: {
-        async setChatDatas({commit}, groupId) {
-            await axios.get("http://localhost:8080/showChats", {
-                params: {
-                    groupId: groupId
-                }
-            })
-            .then((response) => {
-                commit("setChatDatas", response.data);
-            })
-            .catch((reason) => console.log(reason));
-        }
+  },
+  actions: {
+    async setChatDatas({ rootState, commit }, groupId) {
+      await axios
+        .get(rootState.baseUrl + "/showChats", {
+          params: {
+            groupId: groupId,
+          },
+        })
+        .then((response) => {
+          commit("setChatDatas", response.data);
+        })
+        .catch((reason) => console.log(reason));
     },
-}
+  },
+};
 
-export default groupChat
+export default groupChat;
