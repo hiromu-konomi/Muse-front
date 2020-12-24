@@ -56,11 +56,11 @@ const groupDetail = {
                 .catch((reason) => console.log(reason));
         },
 
-        async setJoinStatus({ commit }, userNum) {
+        async setJoinStatus({ commit }, {userNum, groupId}) {
             await axios.get("http://localhost:8080/setJoinStatus", {
                     params: {
                         userNum: userNum,
-                        groupId: this.state.groupData.groupId
+                        groupId: groupId
                     }
                 })
                 .then((response) => {
