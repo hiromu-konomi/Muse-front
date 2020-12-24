@@ -22,7 +22,7 @@
 
             <v-card-text v-if="users.length">
                 <v-form>
-                        <div v-for="(user, index) in users" :key="index">
+                        <div v-for="(user, index) in showUsers" :key="index">
                             <v-checkbox
                                 v-if="!(user.joinStatus === 1 || user.joinStatus === 2)"
                                 :value="user.userNum"
@@ -31,7 +31,7 @@
                             >
                                 <template v-slot:label>
                                     <v-avatar>
-                                        <v-img src="https://cdn.vuetifyjs.com/images/lists/4.jpg"></v-img>
+                                        <v-img :src="user.photo"></v-img>
                                     </v-avatar>
                                     <span class="invName">{{ user.userName }}</span>
                                     <v-spacer></v-spacer>
@@ -45,7 +45,7 @@
                             >
                                 <template v-slot:label>
                                     <v-avatar>
-                                        <v-img src="https://cdn.vuetifyjs.com/images/lists/4.jpg"></v-img>
+                                        <v-img :src="user.photo"></v-img>
                                     </v-avatar>
                                     <span class="invName">{{ user.userName }}</span>
                                     <v-spacer></v-spacer>
@@ -105,6 +105,7 @@ export default {
 
             // フォローしているユーザーリスト
             users: [],
+            showUsers: [],
 
             // リクエスト用のオブジェクト
             request: {
@@ -127,6 +128,10 @@ export default {
                 }
             });
             this.users = res.data.followUsers;
+            for (var user of this.users) {
+                user.photo = this.$store.getters.getUserPhotobyUserNum(user.userNum).downloadURL;
+                this.showUsers.push(user);
+            }
         },
 
         async invite() {
@@ -136,6 +141,7 @@ export default {
             this.request.receiverUsers = this.selectUsers;
             this.request.groupId = this.$store.state.gDetail.groupData.groupId;
             await axios.post('http://localhost:8080/inviteGroup', this.request);
+            this.refresh();
             this.dialog = false;
         },
     }
