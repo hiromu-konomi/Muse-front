@@ -3,16 +3,11 @@ import VueRouter from "vue-router";
 import Main from "../views/Main.vue";
 import Signup from "../views/Signup.vue";
 import Signin from "../views/Signin.vue";
-import Admin from "../views/Admin.vue";
 import Home from "../components/main/Home.vue";
 import Notification from "../components/main/Notification.vue";
-import Ranking from "../components/main/Ranking.vue";
 import Group from "../components/main/Group.vue";
 import UserPage from "../components/main/UserPage.vue";
 import Explore from "../components/main/Explore.vue";
-import Support from "../components/main/Support.vue";
-import Inquiry from "../components/admin/Inquiry.vue";
-import Report from "../components/admin/Report.vue";
 import Postform from "../views/PostForm.vue";
 import Searchsong from "../views/SearchSong";
 import RegisterUserDetail from "../views/RegisterUserDetail";
@@ -69,11 +64,6 @@ const routes = [
         ],
       },
       {
-        path: "/ranking",
-        name: "ranking",
-        component: Ranking,
-      },
-      {
         path: "/group",
         name: "group",
         component: Group,
@@ -126,28 +116,6 @@ const routes = [
             component: GroupEx,
           },
         ]
-      },
-      {
-        path: "/support",
-        name: "support",
-        component: Support,
-      },
-    ],
-  },
-  {
-    path: "/admin",
-    name: "Admin",
-    component: Admin,
-    children: [
-      {
-        path: "inquiry",
-        name: "Inquiry",
-        component: Inquiry,
-      },
-      {
-        path: "report",
-        name: "Report",
-        component: Report,
       },
     ],
   },
