@@ -18,9 +18,6 @@
           <v-list-item-title>{{ item.title }}</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
-      <!-- <router-link :to="{ name: 'userpage', params: { user_id: userNum } }"
-        >UserPage</router-link
-      > -->
     </v-list>
 
     <v-layout row wrap justify-center>
@@ -35,13 +32,18 @@
             <span class="font-weight-bold">+Add Group</span>
           </v-btn>
         </v-row>
+        <v-row class="LogoutBtn" v-if="$store.getters.uid">
+          <v-btn color="red accent-2" block type="submit">
+            <span text @click="logoutBtn" class="font-weight-bold">Logout</span>
+          </v-btn>
+        </v-row>
       </v-flex>
     </v-layout>
   </v-navigation-drawer>
 </template>
 
 <script>
-
+import { mapActions } from "vuex";
 export default {
   data() {
     return {
@@ -65,8 +67,17 @@ export default {
   computed: {
     userNum() {
       return this.$store.getters.uid;
-
     },
+  },
+  methods: {
+    logoutBtn() {
+      this.logout();
+      this.deleteLoginUser();
+      if (this.$store.state.login_user === null) {
+        this.$router.push({ name: "Signin" }, () => {});
+      }
+    },
+    ...mapActions(["logout", "deleteLoginUser"]),
   },
 };
 </script>
@@ -74,5 +85,8 @@ export default {
 <style scoped>
 .sideBtn {
   margin-top: 20px;
+}
+.LogoutBtn {
+  margin-top: 50px;
 }
 </style>
