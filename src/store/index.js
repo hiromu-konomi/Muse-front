@@ -17,6 +17,8 @@ const store = new Vuex.Store({
   state: {
     login_user: null,
     userNum: null,
+    baseUrl:
+      "http://ec2-13-113-207-31.ap-northeast-1.compute.amazonaws.com:8080/",
   },
   mutations: {
     setLoginUser(state, user) {
