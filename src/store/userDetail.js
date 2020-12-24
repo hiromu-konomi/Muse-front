@@ -14,7 +14,6 @@ const userDetail = {
   mutations: {
     getUserDetail(state, userInformation) {
       state.userInformation = userInformation;
-      console.log("userInfo=" + state.userInformation.profile);
     },
     updateUserDetail(state, { userNum, user }) {
       user.userNum = userNum;
