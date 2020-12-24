@@ -23,7 +23,7 @@
                 @click:append="show = !show"
               ></v-text-field>
               <div class="text-">
-                <v-btn @click="Login">ログイン</v-btn>
+                <v-btn color="teal lighten-3" @click="Login">ログイン</v-btn>
               </div>
             </v-form>
           </v-card-text>
