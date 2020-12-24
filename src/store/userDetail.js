@@ -31,9 +31,9 @@ const userDetail = {
   },
 
   actions: {
-    async findByUserId({ commit }, userNum) {
+    async findByUserId({ rootState, commit }, userNum) {
       await axios
-        .get("http://localhost:8080/users", {
+        .get(rootState.baseUrl + "/users", {
           params: {
             userNum: userNum,
           },
@@ -44,9 +44,9 @@ const userDetail = {
         .catch((reason) => console.log(reason));
     },
 
-    async addUserDetail({ commit }, user) {
+    async addUserDetail({ rootState, commit }, user) {
       await axios
-        .post("http://localhost:8080/userDetail", user)
+        .post(rootState.baseUrl + "/userDetail", user)
         .then(commit("getUserDetail", user))
         .catch((reason) => console.log(reason));
     },
