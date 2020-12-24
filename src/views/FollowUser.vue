@@ -14,6 +14,9 @@
             </RecommendUser>
           </v-card-text>
         </v-card>
+        <div class="text">
+          <v-btn color="teal lighten-3" @click="Home">Home</v-btn>
+        </div>
       </v-flex>
     </v-layout>
   </v-container>
@@ -47,10 +50,17 @@ export default {
   },
 
   methods: {
+    Home() {
+      this.$router.push("/home");
+    },
     ...mapActions(["getUserInfo", "showUserPhoto"]),
   },
 };
 </script>
 
+
 <style scoped>
+.text {
+  margin-top: 30px;
+}
 </style>
