@@ -19,12 +19,12 @@ const showDetail = {
     },
   },
   actions: {
-    async getUserInfo({ getters, commit }, userNum) {
+    async getUserInfo({ rootState, getters, commit }, userNum) {
       console.log("userNum=" + userNum);
       console.log(getters.uid);
       if (getters.uid) {
         await axios
-          .get("http://localhost:8080/userInfo", {
+          .get(rootState.baseUrl + "/userInfo", {
             params: {
               userNum: userNum,
             },
