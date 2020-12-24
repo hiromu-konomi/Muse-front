@@ -18,9 +18,9 @@
                                 <v-icon type="button" @click="get_token_to_search_music">mdi-magnify</v-icon>
                             </template>
                         </v-text-field>
-                        <v-card v-if="musics.length == 0" color="#FFCCFF">
+                        <v-card v-if="musics.length == 0" color="#FFF0F5">
                             <v-card-text>
-                                <h1 class="white--text">再生できない曲もあります</h1>
+                                <h1 class="black--text">再生できない曲もあります</h1>
                             </v-card-text>
                         </v-card>
                         <div class="search">
