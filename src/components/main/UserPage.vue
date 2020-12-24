@@ -53,12 +53,12 @@
       <v-tab-item v-for="tab in tabs" :key="tab.title">
         <div v-if="tab.title === '投稿'">
           <div v-for="(info, index) in infos" :key="index">
-            <MyPostsComponents :info="info" />
+            <MyPostsComponents :info="info" @deleteInfo="deleteInfo" />
           </div>
         </div>
         <div v-if="tab.title === 'いいね'">
           <div v-for="(info, index) in likeposts" :key="index">
-            <LikePostComponents :info="info" />
+            <LikePostComponents :info="info" @deleteInfo="deleteInfo" />
           </div>
         </div>
         <div v-if="tab.title === 'お気に入り'">
@@ -120,8 +120,6 @@ export default {
 
       myUser.photo = myphoto.downloadURL;
       this.userInfo = myUser;
-      console.log("myUrl=", myUser.photo);
-      console.log(this.userInfo.profile);
     } else {
       let user = this.$store.getters.getUserbyUserNum(
         this.$route.params.user_id
@@ -150,7 +148,7 @@ export default {
       let check_user = this.userInfo;
 
       function checkAlreadyFollows(arry, id) {
-        return arry.some(function(value) {
+        return arry.some(function (value) {
           return id === value.userNum;
         });
       }
@@ -160,10 +158,12 @@ export default {
         check_user.follow_status = false;
       }
 
-      this.$store.state.fUser.myfollows_users.forEach((user) => {
-        if (user.userNum === check_user.userNum) {
-          check_user.followed_status = true;
-          Object.assign(check_user, check_user);
+      this.$store.state.fUser.myfollowers_users.forEach((user) => {
+        if (user !== null) {
+          if (user.userNum === check_user.userNum) {
+            check_user.followed_status = true;
+            Object.assign(check_user, check_user);
+          }
         }
       });
 
@@ -184,6 +184,12 @@ export default {
     },
   },
   methods: {
+    deleteInfo() {
+      this.reflesh();
+      this.getLikePosts();
+      this.getCheckSongs();
+      this.myChengeFollowStatus();
+    },
     async followUser(user) {
       await this.follow(user);
     },
