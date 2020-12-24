@@ -70,6 +70,8 @@ const store = new Vuex.Store({
         "uDetail.userPhoto",
         "sUser.usersData",
         "uDetail.userInformation",
+        "fUser.myfollowers_users",
+        "fUser.myfollows_users;",
       ],
 
       // ストレージの種類を指定する。デフォルトではローカルストレージ
