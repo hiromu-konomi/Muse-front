@@ -29,7 +29,12 @@
             <!-- </v-container> -->
             <v-spacer></v-spacer>
             <hr class="hr" />
-            <v-form label-width="120px" class="jenre" :model="genre" ref="form">
+            <v-form
+              label-width="120px"
+              class="jenre"
+              :model="genre"
+              ref="genreform"
+            >
               <v-row>
                 <v-col>
                   <v-toolbar-title class="genre"> ジャンル </v-toolbar-title>
@@ -113,7 +118,7 @@ export default {
         { label: "ロック/メタル", value: "ロック/メタル" },
       ],
 
-      genres: (v) => !!v || "ジャンルを選択してください",
+      genres: (value) => !!value || "ジャンルを選択してください",
       //バリデーションチェック
       required: (value) => !!value || "入力してください.",
       //レビューフォームを255文字制限にする
@@ -135,7 +140,7 @@ export default {
 
   methods: {
     async onSubmit() {
-      if (this.$refs.form.validate()) {
+      if (this.$refs.form.validate() & this.$refs.genreform.validate()) {
         this.form.userNum = this.$store.state.userNum;
         await this.postFormInfo(this.form);
         await this.getPostId(this.$store.state.userNum);
