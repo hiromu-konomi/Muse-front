@@ -5,7 +5,6 @@ import Signup from "../views/Signup.vue";
 import Signin from "../views/Signin.vue";
 import Home from "../components/main/Home.vue";
 import Notification from "../components/main/Notification.vue";
-import Ranking from "../components/main/Ranking.vue";
 import Group from "../components/main/Group.vue";
 import UserPage from "../components/main/UserPage.vue";
 import Explore from "../components/main/Explore.vue";
@@ -63,11 +62,6 @@ const routes = [
             component: GroupInviteNotification,
           },
         ],
-      },
-      {
-        path: "/ranking",
-        name: "ranking",
-        component: Ranking,
       },
       {
         path: "/group",
