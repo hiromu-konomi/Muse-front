@@ -29,7 +29,6 @@
                             <v-icon color="white">mdi-close</v-icon>
                         </v-btn>
                     </v-list-item-action>
-                    
                 </v-list-item>
                 <v-divider :key="`second-${index}`"></v-divider>
 
