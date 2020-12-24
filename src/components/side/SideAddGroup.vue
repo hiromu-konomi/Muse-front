@@ -32,7 +32,7 @@
                         </template>
                     </v-text-field>
                     
-                    <div v-for="(user, index) in users" :key="index">
+                    <div v-for="(user, index) in showUsers" :key="index">
                         <v-checkbox
                             :value="user.userNum"
                             v-model="selectUsers"
@@ -40,7 +40,7 @@
                         >
                             <template v-slot:label>
                                 <v-avatar>
-                                    <v-img src="https://cdn.vuetifyjs.com/images/lists/4.jpg"></v-img>
+                                    <v-img :src="user.photo"></v-img>
                                 </v-avatar>
                                 <span class="invName">{{ user.userName }}</span>
                             </template>
@@ -75,6 +75,7 @@ export default {
             },
             searchWord: "",
             users: [],
+            showUsers: [],
             userNum: undefined,
             selectUsers: [],
             request: {
@@ -110,6 +111,10 @@ export default {
                 }
             });
             this.users = (await res).data;
+            for (var user of this.users) {
+                user.photo = this.$store.getters.getUserPhotobyUserNum(user.userNum).downloadURL;
+                this.showUsers.push(user);
+            }
         },
         ...mapActions(["setGroupData"]),
     },
