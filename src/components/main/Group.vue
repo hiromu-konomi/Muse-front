@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-card color="#66CDAA" dark tile>
+        <v-card color="#ADD8E6" dark tile>
             <v-card-text>
                 <v-layout wrap justify-center>
                     <h1 class="white--text">Group</h1>
