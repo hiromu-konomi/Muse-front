@@ -1,5 +1,4 @@
 <template>
-  <!-- <div :class="{ linkable }" @click="onClick"> -->
   <router-link
     :to="{
       name: 'userpage',
@@ -21,21 +20,6 @@
         </v-list-item-content>
       </v-list-item>
     </v-list>
-    <!-- <v-row class="userInfo">
-        <v-avatar size="62">
-          <v-img
-            :src="'http://gahag.net/img/201602/25s/gahag-0059907781-1.jpg'"
-          ></v-img>
-        </v-avatar>
-        <div class="user">
-          {{ user.userName }}
-
-          {{ user.depId }}
-        </div>
-      </v-row>
-      <div class="profile">
-        {{ user.profile }}
-      </div> -->
   </router-link>
   <!-- </div> -->
 </template>
@@ -44,18 +28,6 @@
 export default {
   props: {
     user: { type: Object },
-    // linkable: { type: Boolean, default: false },
-  },
-
-  methods: {
-    onClick() {
-      // if (this.linkable) {
-      //   this.$router.push({
-      //     name: "userpage",
-      //     params: { user_id: user.userNum },
-      //   });
-      // }
-    },
   },
 };
 </script>
