@@ -91,23 +91,14 @@ export default {
   methods: {
     onSubmit() {
       if (this.$refs.form.validate()) {
-        console.log(this.email + "@" + this.domain);
         firebase
           .auth()
           .createUserWithEmailAndPassword(
             this.email + "@" + this.domain,
             this.password
           )
-          .then((res) => {
-            console.log(res.user);
-            firebase.auth().languageCode = "ja";
-
-            res.user.sendEmailVerification({
-              url: "http://" + window.location.host + "/signin",
-            });
-          })
           .then(() => {
-            alert("認証メールを送信しました");
+            this.$router.push("/signin");
           })
           .catch(() => alert("このメールアドレスは既に登録されています"));
       }

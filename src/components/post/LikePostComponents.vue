@@ -117,7 +117,7 @@ export default {
     },
     async deleteItem() {
       this.postId = Number(this.postId);
-      await axios.get("http://localhost:8080/deleteInfo", {
+      await axios.get(this.$store.state.baseUrl + "/deleteInfo", {
         params: {
           postId: this.postId,
           userNum: this.$store.state.userNum,

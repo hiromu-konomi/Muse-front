@@ -32,7 +32,7 @@ export default {
   methods: {
     async reflesh() {
       const rev = await axios.get(
-        "http://localhost:8080/getMusicInfoAndReview",
+        this.$store.state.baseUrl + "/getMusicInfoAndReview",
         {
           params: {
             userNum: this.$store.getters.uid,

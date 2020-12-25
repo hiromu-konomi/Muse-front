@@ -1,12 +1,15 @@
 <template>
   <div>
     <!-- fontawsomeのCDN -->
-    <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+    <link
+      href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
+      rel="stylesheet"
+    />
     <i
       class="far fa-heart"
       @click="clickHeart"
-      :class="{ 'heart-red' : isActive }"
-      >
+      :class="{ 'heart-red': isActive }"
+    >
       <span>{{ goodArticleCount }}</span>
     </i>
   </div>
@@ -15,63 +18,63 @@
 <script>
 import axios from "axios";
 export default {
- props: ['postId', 'countNum', 'likeStatus'],
+  props: ["postId", "countNum", "likeStatus"],
 
-  data () {
+  data() {
     return {
       goodArticleCount: 0,
-      isActive: false
-    }
+      isActive: false,
+    };
   },
-  async created(){
+  async created() {
     this.postId = String(this.postId);
     this.isActive = this.likeStatus;
     this.goodArticleCount = this.countNum;
   },
   methods: {
-      async clickHeart () {
-        if (this.isActive) {
-        this.goodArticleCount = this.goodArticleCount - 1
-        this.isActive = false
-        await axios.get("http://localhost:8080/notLike",{
-            params: {
-                postId: this.postId,
-                userNum: this.$store.state.userNum,
-            }
-        })
+    async clickHeart() {
+      if (this.isActive) {
+        this.goodArticleCount = this.goodArticleCount - 1;
+        this.isActive = false;
+        await axios.get(this.$store.state.baseUrl + "/notLike", {
+          params: {
+            postId: this.postId,
+            userNum: this.$store.state.userNum,
+          },
+        });
       } else {
-        this.goodArticleCount = this.goodArticleCount + 1
-        this.isActive = true
+        this.goodArticleCount = this.goodArticleCount + 1;
+        this.isActive = true;
         this.postId = Number(this.postId);
-        await axios.get("http://localhost:8080/like",{
-            params: {
-                postId: this.postId,
-                userNum: this.$store.state.userNum,
-            }
-        })
-            // this.goodArticleCount = rev.data
-            // console.log(this.goodArticleCount);
+        await axios.get(this.$store.state.baseUrl + "/like", {
+          params: {
+            postId: this.postId,
+            userNum: this.$store.state.userNum,
+          },
+        });
+        // this.goodArticleCount = rev.data
+        // console.log(this.goodArticleCount);
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style>
-  .fa-heart {
-    font-size: 20px;
-    margin-left: 35px;
-    color: #5F5B5B;
-    position: absolute;
-    top: 0px;
-    left: 50px;
-  }
+.fa-heart {
+  font-size: 20px;
+  margin-left: 35px;
+  color: #5f5b5b;
+  position: absolute;
+  top: 0px;
+  left: 50px;
+}
 
-   /* .count {
+/* .count {
     color: #5F5B5B;
   } */
 
-  .heart-red {
-    color: red;
-  }
+.heart-red {
+  color: red;
+}
 </style>

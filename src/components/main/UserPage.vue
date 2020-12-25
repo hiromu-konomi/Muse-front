@@ -199,7 +199,7 @@ export default {
     },
     async reflesh() {
       await axios
-        .get("http://localhost:8080/getMyPosts", {
+        .get(this.$store.state.baseUrl + "/getMyPosts", {
           params: {
             userNum: this.$route.params.user_id,
           },
@@ -222,7 +222,7 @@ export default {
     },
     async getLikePosts() {
       await axios
-        .get("http://localhost:8080/getLikePosts", {
+        .get(this.$store.state.baseUrl + "/getLikePosts", {
           params: {
             userNum: this.$route.params.user_id,
           },
@@ -243,7 +243,7 @@ export default {
     },
     async getCheckSongs() {
       await axios
-        .get("http://localhost:8080/getCheckSongs", {
+        .get(this.$store.state.baseUrl + "/getCheckSongs", {
           params: {
             userNum: this.$route.params.user_id,
           },

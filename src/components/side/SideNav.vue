@@ -73,7 +73,7 @@ export default {
     logoutBtn() {
       this.logout();
       this.deleteLoginUser();
-      console.log("ログインユーザー＝", this.$store.state.login_user);
+
       if (this.$store.state.login_user === null) {
         this.$router.push({ name: "Signin" }, () => {});
       }

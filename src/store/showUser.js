@@ -4,13 +4,9 @@ const showDetail = {
   state: {
     usersData: [],
   },
-  getters: {
-    // getUserbyUserNum: (state) => (id) =>
-    //   state.usersDate.find((user) => user.userNum === id),
-  },
+  getters: {},
   mutations: {
     getUserInfo(state, users) {
-      console.log(users);
       for (let u of users) {
         if (u.hireDate !== null) {
           state.usersData.push(u);
@@ -20,8 +16,6 @@ const showDetail = {
   },
   actions: {
     async getUserInfo({ rootState, getters, commit }, userNum) {
-      console.log("userNum=" + userNum);
-      console.log(getters.uid);
       if (getters.uid) {
         await axios
           .get(rootState.baseUrl + "/userInfo", {

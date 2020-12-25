@@ -9,16 +9,13 @@ import groupDetail from "./groupDetail.js";
 import createPersistedState from "vuex-persistedstate";
 import groupChat from "./groupChat.js";
 
-// import userLogin from "./userLogin.js";
-
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
   state: {
     login_user: null,
     userNum: null,
-    baseUrl:
-      "http://ec2-13-113-207-31.ap-northeast-1.compute.amazonaws.com:8080/",
+    baseUrl: "http://54.168.171.108:8080",
   },
   mutations: {
     setLoginUser(state, user) {

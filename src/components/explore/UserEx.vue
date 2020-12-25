@@ -1,10 +1,6 @@
 <template>
   <div>
-    <v-text-field
-      class="search"
-      v-model="search_user"
-      type="text"
-    >
+    <v-text-field class="search" v-model="search_user" type="text">
       <template v-slot:append>
         <v-icon type="button" @click="search">mdi-magnify</v-icon>
       </template>
@@ -14,9 +10,7 @@
         <template v-for="(user, index) in exploreUserResult">
           <v-list-item
             :key="user.userId"
-            :to="{ name: 'userpage',
-            params: { user_id: user.userNum }
-            }"
+            :to="{ name: 'userpage', params: { user_id: user.userNum } }"
           >
             <v-list-item-avatar>
               <v-img :src="user.photo"></v-img>
@@ -32,33 +26,33 @@
         </template>
       </v-list>
       <v-list v-else>
-            <h1 style="color:#AAAAAA;">検索結果はありません</h1>
+        <h1 style="color: #aaaaaa">検索結果はありません</h1>
       </v-list>
     </div>
   </div>
 </template>
 
 <script>
-import axios from 'axios';
+import axios from "axios";
 
 export default {
   data() {
     return {
-      search_user: '',
+      search_user: "",
       exploreUserResult: [],
-      count: '',
-    }
+      count: "",
+    };
   },
   methods: {
     async search() {
-      const res = await axios.get('http://localhost:8080/searchUsers', {
+      const res = await axios.get(this.$store.state.baseUrl + "/searchUsers", {
         params: {
-          searchUser: this.search_user
-        }
-      })
+          searchUser: this.search_user,
+        },
+      });
       let user = res.data;
       let userData = [];
-      for(let data of user){
+      for (let data of user) {
         let userPhoto = this.$store.getters.getUserPhotobyUserNum(data.userNum);
         data.photo = userPhoto.downloadURL;
         userData.push(data);
@@ -66,10 +60,9 @@ export default {
       this.exploreUserResult = userData;
       this.count = 1;
     },
-    }
-  }
+  },
+};
 </script>
 
 <style scoped>
-
 </style>

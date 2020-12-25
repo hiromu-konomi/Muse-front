@@ -92,14 +92,7 @@ export default {
       imageData: "",
     };
   },
-  async created() {
-    // console.log("ユーザー詳細画面でのuserID =" + this.$store.state.userId);
-    // await this.findByUserId("111");
-    // console.log(this.$store.state.uDetail.userInformation);
-    // if (this.$store.state.uDetail.userInformation !== null) {
-    //   this.$router.push("/home");
-    // }
-  },
+
   methods: {
     onImagePicked(file) {
       if (file != undefined && file !== null) {
@@ -121,10 +114,6 @@ export default {
 
       await this.addUserPhoto(this.userPhoto);
       await this.addUserDetail(this.form);
-
-      //   userNum: this.$store.state.userNum,
-      //   user: this.form,
-      // });]
 
       console.log(
         "ユーザーID" + this.$store.state.uDetail.userInformation.userNum
