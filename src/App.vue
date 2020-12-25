@@ -18,7 +18,6 @@ export default {
 
         await this.showUserPhoto();
       } else {
-        this.deleteLoginUser();
         this.$router.push({ name: "Signin" }, () => {});
       }
     });
