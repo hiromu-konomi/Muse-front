@@ -22,9 +22,9 @@
                 outlined
                 @click:append="show = !show"
               ></v-text-field>
-              <v-card-actions class="loginBtn">
-                <v-btn @click="Login">ログイン</v-btn>
-              </v-card-actions>
+              <div class="text">
+                <v-btn color="teal lighten-3" @click="Login">ログイン</v-btn>
+              </div>
             </v-form>
           </v-card-text>
         </v-card>
@@ -39,6 +39,8 @@
 
 <script>
 import firebase from "firebase";
+import { mapActions } from "vuex";
+
 export default {
   data() {
     return {
@@ -55,13 +57,39 @@ export default {
     },
   },
   methods: {
-    Login() {
-      firebase
+    async Login() {
+      await firebase
         .auth()
         .signInWithEmailAndPassword(this.email, this.password)
-        .then(() => this.$router.push("/"))
-        .catch((e) => (this.error = e.message));
+        .then(() => {
+          firebase.auth().onAuthStateChanged(async (user) => {
+            if (user) {
+              await this.setLoginUser(user);
+
+              await this.setUserId(user.uid);
+
+              await this.findByUserId(user.uid);
+
+              await this.getUserInfo(user.uid);
+
+              if (this.$store.state.uDetail.userInformation === "") {
+                this.$router.push("/userDetail");
+              } else {
+                this.$router.push("/home");
+              }
+            }
+          });
+        })
+        .catch(() => alert("メールアドレスまたはパスワードが違います"));
     },
+
+    ...mapActions([
+      "setLoginUser",
+      "setUserId",
+      "deleteLoginUser",
+      "findByUserId",
+      "getUserInfo",
+    ]),
   },
 };
 </script>

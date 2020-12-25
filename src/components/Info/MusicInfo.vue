@@ -1,14 +1,18 @@
  <template>
   <div class="clearfix" :class="{ linkable }" @click="onclick">
-    <div class="image">
-      <img :src="music.searched_picture" />
-    </div>
-    <div class="details">
-      <ul>
-        <li> {{ music.searched_artist_name }}</li>
-        <li> {{ music.searched_song }} </li>
-      </ul>
-    </div>
+  <v-card>
+    <table>
+      <tr>
+        <th rowspan="2">
+          <img :src="music.image" />
+        </th>
+            <td class="artistName"><h4>{{ music.artistName }}</h4></td>
+      </tr>
+      <tr>
+        <td class="musicName">{{ music.musicName }}</td>
+      </tr>
+    </table>
+  </v-card>
   </div>
 </template>
 
@@ -20,8 +24,8 @@ export default {
   name: "music-info",
 
   props: {
-    linkable: { type: Boolean, default: false }, //defaulは値がしてされなかった場合の既定値。(そのほかには、required(プロパティが必要かどうか)やvalidator(カスタムの検証関数)がある)
     music: { type: Object },
+    linkable: { type: Boolean, default: false }, //defaulは値がしてされなかった場合の既定値。(そのほかには、required(プロパティが必要かどうか)やvalidator(カスタムの検証関数)がある)
   },
 
   methods: {
@@ -41,6 +45,13 @@ export default {
 .linkable:hover {
   cursor: pointer;
   background-color: #ff9;
+}
+
+.artistName{
+  text-align: left;
+}
+.musicName{
+  text-align: left;
 }
 
 ul li {

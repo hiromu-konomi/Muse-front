@@ -14,7 +14,8 @@
               <v-file-input
                 accept="image/*"
                 label="プロフィール画像をアップロードしてください"
-                v-model="form.img"
+                v-model="userPhoto"
+                type="file"
                 @change="onImagePicked"
               >
               </v-file-input>
@@ -27,17 +28,17 @@
               >
               </v-text-field>
               <v-text-field
-                v-model="form.date"
+                v-model="form.hireDate"
                 single-line
                 label="入社日
               "
               >
                 <template v-slot:append-outer>
-                  <date-picker v-model="form.date"></date-picker>
+                  <date-picker v-model="form.hireDate" />
                 </template>
               </v-text-field>
               <v-select
-                v-model="form.occupation"
+                v-model="form.depName"
                 label="部署名"
                 item-text="occupationName"
                 item-value="id"
@@ -52,7 +53,7 @@
                 type="text"
               ></v-textarea>
               <div class="text-center">
-                <v-btn @click="onSubmit">登録</v-btn>
+                <v-btn @click="onSubmit" color="teal lighten-3">登録</v-btn>
               </div>
             </v-form>
           </v-card-text>
@@ -63,7 +64,9 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 import DatePicker from "../components/DatePicker.vue";
+
 export default {
   components: {
     DatePicker,
@@ -71,20 +74,25 @@ export default {
   data() {
     return {
       occupations: [
-        { occupationName: "Webエンジニア", id: 1 },
-        { occupationName: "クラウドエンジニア", id: 2 },
-        { occupationName: "機械学習エンジニア", id: 3 },
+        { occupationName: "Webエンジニア", id: "Webエンジニア" },
+        { occupationName: "クラウドエンジニア", id: "クラウドエンジニア" },
+        { occupationName: "機械学習エンジニア", id: "機械学習エンジニア" },
       ],
       form: {
-        img: [],
         userName: "",
-        date: null,
-        occupation: null,
+        hireDate: null,
+        depName: null,
         profile: "",
+        userNum: "",
+        photo: "",
       },
+      userPhoto: [],
       uploadImageUrl: "",
+      userNum: "",
+      imageData: "",
     };
   },
+
   methods: {
     onImagePicked(file) {
       if (file != undefined && file !== null) {
@@ -100,6 +108,28 @@ export default {
         this.uploadImageUrl = "";
       }
     },
+
+    async onSubmit() {
+      this.form.userNum = this.$store.state.userNum;
+
+      await this.addUserPhoto(this.userPhoto);
+      await this.addUserDetail(this.form);
+
+      console.log(
+        "ユーザーID" + this.$store.state.uDetail.userInformation.userNum
+      );
+      await this.getUserInfo(this.$store.state.uDetail.userInformation.userNum);
+
+      this.$router.push({ name: "recommendUser" });
+      this.form = {};
+    },
+    ...mapActions([
+      "addUserDetail",
+      "findByUserId",
+      "addUserPhoto",
+      "getUserInfo",
+      "updateUserDetail",
+    ]),
   },
 };
 </script>
