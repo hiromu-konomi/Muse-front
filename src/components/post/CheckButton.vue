@@ -34,23 +34,23 @@ export default {
   methods: {
     async clickCheck() {
       if (this.isGreen) {
-        this.checkCount = this.checkCount - 1
-        this.isGreen = false
-        await axios.get("http://localhost:8080/notCheck",{
-            params: {
-                postId: this.postId,
-                userNum: this.$store.state.userNum,
-            }
-        })
+        this.checkCount = this.checkCount - 1;
+        this.isGreen = false;
+        await axios.get(this.$store.state.baseUrl + "/notCheck", {
+          params: {
+            postId: this.postId,
+            userNum: this.$store.state.userNum,
+          },
+        });
       } else {
-        this.checkCount = this.checkCount + 1
-        this.isGreen = true
-        await axios.get("http://localhost:8080/check",{
-            params: {
-                postId: this.postId,
-                userNum: this.$store.state.userNum,
-            }
-        })
+        this.checkCount = this.checkCount + 1;
+        this.isGreen = true;
+        await axios.get(this.$store.state.baseUrl + "/check", {
+          params: {
+            postId: this.postId,
+            userNum: this.$store.state.userNum,
+          },
+        });
       }
     },
   },
@@ -58,17 +58,17 @@ export default {
 </script>
 
 <style>
-  .fa-check-square {
-    font-size: 20px;
-    margin-left: 35px;
-    color: #5F5B5B;
-    position: absolute;
-    top: 90px;
-    left: -150px;
-    text-align: left;
-  }
+.fa-check-square {
+  font-size: 20px;
+  margin-left: 35px;
+  color: #5f5b5b;
+  position: absolute;
+  top: 90px;
+  left: -150px;
+  text-align: left;
+}
 
-   /* .count {
+/* .count {
     color: #5F5B5B;
   } */
 
