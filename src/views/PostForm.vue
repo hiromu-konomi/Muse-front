@@ -87,7 +87,6 @@
 <script>
 import MusicInfo from "../components/Info/MusicInfo";
 import { mapGetters, mapActions } from "vuex";
-// import axios from 'axios'
 
 export default {
   name: "post-form",
