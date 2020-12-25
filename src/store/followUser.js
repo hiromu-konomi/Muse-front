@@ -84,8 +84,6 @@ const followUser = {
       }
     },
     async myFollows({ rootState, commit }, userNum) {
-      // const user = firebase.auth().currentUser;
-
       await axios
         .get(rootState.baseUrl + "/followingId", {
           params: {
@@ -107,7 +105,6 @@ const followUser = {
     async myChengeFollowStatus({ rootState, commit }) {
       firebase.auth().onAuthStateChanged(async (user) => {
         if (user) {
-          console.log("user=" + user);
           await axios
             .get(rootState.baseUrl + "/followingId", {
               params: {
@@ -129,7 +126,6 @@ const followUser = {
     },
 
     async myFollowers({ rootState, commit }, userNum) {
-      console.log("userNUm", userNum);
       await axios
         .get(rootState.baseUrl + "/followerId", {
           params: {
